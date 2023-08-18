@@ -8,94 +8,67 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="users")
+@Table(name="user")
 public class User {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int uid;
+	private int id;
 	@Column
-	private String email;
+	private int roll_id;
+	@Column
+	private String login_id;
 	@Column
 	private String password;
-	@Column
-	private String fname;
-	@Column
-	private String lname;
-	
 	
 	public User() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-
-	public User(int uid, String email, String password, String fname, String lname) {
+	public User(int id, int roll_id, String login_id, String password) {
 		super();
-		this.uid = uid;
-		this.email = email;
+		this.id = id;
+		this.roll_id = roll_id;
+		this.login_id = login_id;
 		this.password = password;
-		this.fname = fname;
-		this.lname = lname;
-	}
-	
-
-
-	public int getUid() {
-		return uid;
 	}
 
-
-	public void setUid(int uid) {
-		this.uid = uid;
+	public int getId() {
+		return id;
 	}
 
-
-	public String getEmail() {
-		return email;
+	public void setId(int id) {
+		this.id = id;
 	}
 
-
-	public void setEmail(String email) {
-		this.email = email;
+	public int getRoll_id() {
+		return roll_id;
 	}
 
+	public void setRoll_id(int roll_id) {
+		this.roll_id = roll_id;
+	}
+
+	public String getLogin_id() {
+		return login_id;
+	}
+
+	public void setLogin_id(String login_id) {
+		this.login_id = login_id;
+	}
 
 	public String getPassword() {
 		return password;
 	}
 
-
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
-
-	public String getFname() {
-		return fname;
-	}
-
-
-	public void setFname(String fname) {
-		this.fname = fname;
-	}
-
-
-	public String getLname() {
-		return lname;
-	}
-
-
-	public void setLname(String lname) {
-		this.lname = lname;
-	}
-
-
-	@Override
-	public String toString() {
-		return "User [uid=" + uid + ", email=" + email + ", password=" + password + ", fname=" + fname + ", lname="
-				+ lname + "]";
-	}
+	
+	
+	
+	
 	
 	
 	

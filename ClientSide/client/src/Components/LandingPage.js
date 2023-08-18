@@ -46,12 +46,9 @@ export default function LandingPage(props) {
         </div>
       </div> */}
       <datalist id="s">
-        <option value="Maharstra">Maharastra</option>
-        <option value="Uttar Pradesh">Uttar Pradesh</option>
-      </datalist>
-      <datalist id="c">
         <option value="Mumbai">Mumbai</option>
-        <option value="Lucknow">Lucknow</option>
+        <option value="Pune">Pune</option>
+        <option></option>
       </datalist>
     </div>
   )

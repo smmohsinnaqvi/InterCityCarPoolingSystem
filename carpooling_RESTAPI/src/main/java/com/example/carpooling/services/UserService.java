@@ -18,5 +18,10 @@ public class UserService {
 	{
 		return uro.findAll();
 	}
+	
+	public List<User> logincheck(String loginid, String password)
+	{
+		return uro.logincheck(loginid,password);
+	}
 
 }
