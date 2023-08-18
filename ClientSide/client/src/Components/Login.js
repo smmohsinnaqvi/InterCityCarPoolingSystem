@@ -30,7 +30,7 @@ let Login=()=>{
 
 
     const[user,dispatch]=useReducer(reducer,initialState);
-    const[msg,setMsg]=useState("");
+    const[msg,setMsg]=useState(true);
     let navigate=useNavigate();
     let submitForm=(e)=>
     {
@@ -41,8 +41,8 @@ let Login=()=>{
             body:JSON.stringify({email:user.email, pwd:user.pwd})
         };
         fetch("http://localhost:8080/logincheck",reqOptions)
-        .then(res=>res.text())
-        .then(data=>{if(data.length>2) navigate("/Main") ; else setMsg("WRONG EMAIL OR PASSWORD") })
+        .then(res=>res.json())
+        .then(data=>{if(data!=='[]') {setMsg(true); console.log(data); navigate("/Main") ;} else setMsg(false) })
     }
 
 
@@ -55,7 +55,7 @@ let Login=()=>{
             <input className="form-control" type='password' name="pwd" onChange={(e)=>{dispatch({type:'update',fld:'pwd',value:e.target.value})}}></input>
             <button type="submit" className="" onClick={(e)=>{submitForm(e)}}>SUBMIT</button>
         </form>
-        <div className="bg-danger" style={{display:msg.length>0?'block':'none'}}>{msg}
+        <div className="bg-danger" style={{display:msg===false?'block':'none'}}>{msg}
             <button type="button" onClick={(e)=>{navigate("/Reg")}}>SIGN UP</button>
         </div>
     </div>)
