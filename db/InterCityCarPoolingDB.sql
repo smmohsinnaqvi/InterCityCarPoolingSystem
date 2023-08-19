@@ -33,8 +33,8 @@ CREATE TABLE `booking` (
   PRIMARY KEY (`id`),
   KEY `user_id_fk3_idx` (`passenger_id`),
   KEY `ride_id_fk_idx` (`ride_id`),
-  CONSTRAINT `ride_id_fk` FOREIGN KEY (`ride_id`) REFERENCES `ride` (`id`),
-  CONSTRAINT `user_id_fk3` FOREIGN KEY (`passenger_id`) REFERENCES `user` (`id`)
+  CONSTRAINT `ride_id_fk` FOREIGN KEY (`ride_id`) REFERENCES `rides` (`id`),
+  CONSTRAINT `user_id_fk3` FOREIGN KEY (`passenger_id`) REFERENCES `login` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -48,75 +48,91 @@ LOCK TABLES `booking` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `carowner_passenger`
+-- Table structure for table `car_company`
 --
 
-DROP TABLE IF EXISTS `carowner_passenger`;
+DROP TABLE IF EXISTS `car_company`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `carowner_passenger` (
+CREATE TABLE `car_company` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `password` varchar(50) NOT NULL,
-  `fname` varchar(45) NOT NULL,
-  `lname` varchar(45) NOT NULL,
-  `gender` varchar(45) NOT NULL,
-  `dob` date NOT NULL,
-  `aadhar` varchar(45) NOT NULL,
-  `phone_no` varchar(45) NOT NULL,
-  `email` varchar(45) DEFAULT NULL,
-  `secondary_email` varchar(45) DEFAULT NULL,
-  `CarOwner_passengercol` varchar(45) DEFAULT NULL,
-  `user_id` int NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `user_id_fk1_idx` (`user_id`),
-  CONSTRAINT `user_id_fk1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+  `company_name` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `carowner_passenger`
+-- Dumping data for table `car_company`
 --
 
-LOCK TABLES `carowner_passenger` WRITE;
-/*!40000 ALTER TABLE `carowner_passenger` DISABLE KEYS */;
-/*!40000 ALTER TABLE `carowner_passenger` ENABLE KEYS */;
+LOCK TABLES `car_company` WRITE;
+/*!40000 ALTER TABLE `car_company` DISABLE KEYS */;
+/*!40000 ALTER TABLE `car_company` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `city`
+-- Table structure for table `car_models`
 --
 
-DROP TABLE IF EXISTS `city`;
+DROP TABLE IF EXISTS `car_models`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `city` (
+CREATE TABLE `car_models` (
+  `id` int NOT NULL,
+  `model_name` varchar(100) NOT NULL,
+  `fuel_type` varchar(100) NOT NULL,
+  `model_type` varchar(100) NOT NULL,
+  `Company_id` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `Company_id_fk_idx` (`Company_id`),
+  CONSTRAINT `Company_id_fk` FOREIGN KEY (`Company_id`) REFERENCES `car_company` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `car_models`
+--
+
+LOCK TABLES `car_models` WRITE;
+/*!40000 ALTER TABLE `car_models` DISABLE KEYS */;
+/*!40000 ALTER TABLE `car_models` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `cities`
+--
+
+DROP TABLE IF EXISTS `cities`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `cities` (
   `id` int NOT NULL AUTO_INCREMENT,
   `city` varchar(45) NOT NULL,
   `sid` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `sid_fk_idx` (`sid`),
-  CONSTRAINT `sid_fk` FOREIGN KEY (`sid`) REFERENCES `state` (`id`)
+  CONSTRAINT `sid_fk` FOREIGN KEY (`sid`) REFERENCES `states` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `city`
+-- Dumping data for table `cities`
 --
 
-LOCK TABLES `city` WRITE;
-/*!40000 ALTER TABLE `city` DISABLE KEYS */;
-INSERT INTO `city` VALUES (1,'Ahmednagar',1),(2,'Pune',1),(3,'Nagpur',1),(4,'Mumbai',1),(5,'lacknau',2),(6,'Kanpur',2),(7,'Indore',3),(8,'Bhopal',3),(9,'Jabalpur',3);
-/*!40000 ALTER TABLE `city` ENABLE KEYS */;
+LOCK TABLES `cities` WRITE;
+/*!40000 ALTER TABLE `cities` DISABLE KEYS */;
+INSERT INTO `cities` VALUES (1,'Ahmednagar',1),(2,'Pune',1),(3,'Nagpur',1),(4,'Mumbai',1),(5,'lacknau',2),(6,'Kanpur',2),(7,'Indore',3),(8,'Bhopal',3),(9,'Jabalpur',3);
+/*!40000 ALTER TABLE `cities` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `co_passenger`
+-- Table structure for table `co_passengers`
 --
 
-DROP TABLE IF EXISTS `co_passenger`;
+DROP TABLE IF EXISTS `co_passengers`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `co_passenger` (
+CREATE TABLE `co_passengers` (
   `id` int NOT NULL AUTO_INCREMENT,
   `passenger_id` int NOT NULL,
   `aadhar_no` varchar(45) DEFAULT NULL,
@@ -127,17 +143,46 @@ CREATE TABLE `co_passenger` (
   `gender` varchar(45) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id_fk_idx` (`passenger_id`),
-  CONSTRAINT `user_id_fk` FOREIGN KEY (`passenger_id`) REFERENCES `user` (`id`)
+  CONSTRAINT `user_id_fk` FOREIGN KEY (`passenger_id`) REFERENCES `login` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `co_passenger`
+-- Dumping data for table `co_passengers`
 --
 
-LOCK TABLES `co_passenger` WRITE;
-/*!40000 ALTER TABLE `co_passenger` DISABLE KEYS */;
-/*!40000 ALTER TABLE `co_passenger` ENABLE KEYS */;
+LOCK TABLES `co_passengers` WRITE;
+/*!40000 ALTER TABLE `co_passengers` DISABLE KEYS */;
+/*!40000 ALTER TABLE `co_passengers` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `login`
+--
+
+DROP TABLE IF EXISTS `login`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `login` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `roll_id` int NOT NULL,
+  `login_id` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `status` bit(1) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `roll_fk_idx` (`roll_id`),
+  CONSTRAINT `rollidfk` FOREIGN KEY (`roll_id`) REFERENCES `role` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `login`
+--
+
+LOCK TABLES `login` WRITE;
+/*!40000 ALTER TABLE `login` DISABLE KEYS */;
+INSERT INTO `login` VALUES (1,1,'nikhil','nikhil',_binary '');
+/*!40000 ALTER TABLE `login` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -150,17 +195,16 @@ DROP TABLE IF EXISTS `payment`;
 CREATE TABLE `payment` (
   `id` int NOT NULL AUTO_INCREMENT,
   `booking_id` int NOT NULL,
-  `carowner_id` int NOT NULL,
   `passenger_id` int NOT NULL,
   `amount` int NOT NULL,
   `Date_time` datetime NOT NULL,
   `payment_method` varchar(45) NOT NULL,
   `status` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `user_id_fk5_idx` (`carowner_id`),
   KEY `user_id_fk6_idx` (`passenger_id`),
-  CONSTRAINT `user_id_fk5` FOREIGN KEY (`carowner_id`) REFERENCES `user` (`id`),
-  CONSTRAINT `user_id_fk6` FOREIGN KEY (`passenger_id`) REFERENCES `user` (`id`)
+  KEY `booking_id_fk_idx` (`booking_id`),
+  CONSTRAINT `booking_id_fk` FOREIGN KEY (`booking_id`) REFERENCES `booking` (`id`),
+  CONSTRAINT `user_id_fk6` FOREIGN KEY (`passenger_id`) REFERENCES `login` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -174,13 +218,13 @@ LOCK TABLES `payment` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `ride`
+-- Table structure for table `rides`
 --
 
-DROP TABLE IF EXISTS `ride`;
+DROP TABLE IF EXISTS `rides`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `ride` (
+CREATE TABLE `rides` (
   `id` int NOT NULL AUTO_INCREMENT,
   `carowner_id` int NOT NULL,
   `start_location` int NOT NULL,
@@ -196,20 +240,20 @@ CREATE TABLE `ride` (
   KEY `tocityfk_idx` (`End_location`),
   KEY `vehicle_id_fk_idx` (`vehicle_id`),
   KEY `user_id_fk4_idx` (`carowner_id`),
-  CONSTRAINT `dcityfk` FOREIGN KEY (`start_location`) REFERENCES `city` (`id`),
-  CONSTRAINT `tocityfk` FOREIGN KEY (`End_location`) REFERENCES `city` (`id`),
-  CONSTRAINT `user_id_fk4` FOREIGN KEY (`carowner_id`) REFERENCES `user` (`id`),
-  CONSTRAINT `vehicle_id_fk` FOREIGN KEY (`vehicle_id`) REFERENCES `vehicle` (`id`)
+  CONSTRAINT `dcityfk` FOREIGN KEY (`start_location`) REFERENCES `cities` (`id`),
+  CONSTRAINT `tocityfk` FOREIGN KEY (`End_location`) REFERENCES `cities` (`id`),
+  CONSTRAINT `user_id_fk4` FOREIGN KEY (`carowner_id`) REFERENCES `login` (`id`),
+  CONSTRAINT `vehicle_id_fk` FOREIGN KEY (`vehicle_id`) REFERENCES `vehicles` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `ride`
+-- Dumping data for table `rides`
 --
 
-LOCK TABLES `ride` WRITE;
-/*!40000 ALTER TABLE `ride` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ride` ENABLE KEYS */;
+LOCK TABLES `rides` WRITE;
+/*!40000 ALTER TABLE `rides` DISABLE KEYS */;
+/*!40000 ALTER TABLE `rides` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -221,7 +265,7 @@ DROP TABLE IF EXISTS `role`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `role` (
   `id` int NOT NULL DEFAULT '1000',
-  `role` varchar(45) NOT NULL,
+  `role` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -232,17 +276,18 @@ CREATE TABLE `role` (
 
 LOCK TABLES `role` WRITE;
 /*!40000 ALTER TABLE `role` DISABLE KEYS */;
+INSERT INTO `role` VALUES (1,'admin'),(2,'car_owner');
 /*!40000 ALTER TABLE `role` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `state`
+-- Table structure for table `states`
 --
 
-DROP TABLE IF EXISTS `state`;
+DROP TABLE IF EXISTS `states`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `state` (
+CREATE TABLE `states` (
   `id` int NOT NULL AUTO_INCREMENT,
   `state` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
@@ -250,70 +295,79 @@ CREATE TABLE `state` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `state`
+-- Dumping data for table `states`
 --
 
-LOCK TABLES `state` WRITE;
-/*!40000 ALTER TABLE `state` DISABLE KEYS */;
-INSERT INTO `state` VALUES (1,'Maharashtra'),(2,'UttarPradesh'),(3,'MadhyaPradesh');
-/*!40000 ALTER TABLE `state` ENABLE KEYS */;
+LOCK TABLES `states` WRITE;
+/*!40000 ALTER TABLE `states` DISABLE KEYS */;
+INSERT INTO `states` VALUES (1,'Maharashtra'),(2,'UttarPradesh'),(3,'MadhyaPradesh');
+/*!40000 ALTER TABLE `states` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `user`
+-- Table structure for table `users`
 --
 
-DROP TABLE IF EXISTS `user`;
+DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `user` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `roll_id` int NOT NULL,
-  `login_id` varchar(100) NOT NULL,
+CREATE TABLE `users` (
+  `id` int NOT NULL,
   `password` varchar(100) NOT NULL,
+  `fname` varchar(100) NOT NULL,
+  `lname` varchar(100) NOT NULL,
+  `gender` varchar(45) NOT NULL,
+  `dob` date NOT NULL,
+  `aadhar` varchar(45) NOT NULL,
+  `licence` varchar(45) DEFAULT NULL,
+  `phone_no` varchar(45) NOT NULL,
+  `primary_email` varchar(100) NOT NULL,
+  `secondary_email` varchar(100) DEFAULT NULL,
+  `user_id` int NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `roll_fk_idx` (`roll_id`),
-  CONSTRAINT `rollidfk` FOREIGN KEY (`roll_id`) REFERENCES `role` (`id`)
+  KEY `user_id_fk7_idx` (`user_id`),
+  CONSTRAINT `user_id_fk7` FOREIGN KEY (`user_id`) REFERENCES `login` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `user`
+-- Dumping data for table `users`
 --
 
-LOCK TABLES `user` WRITE;
-/*!40000 ALTER TABLE `user` DISABLE KEYS */;
-/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `vehicle`
+-- Table structure for table `vehicles`
 --
 
-DROP TABLE IF EXISTS `vehicle`;
+DROP TABLE IF EXISTS `vehicles`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `vehicle` (
+CREATE TABLE `vehicles` (
   `id` int NOT NULL,
   `carowner_id` int NOT NULL,
-  `model` varchar(200) NOT NULL,
+  `model_id` int NOT NULL,
   `year` int NOT NULL,
   `color` varchar(45) NOT NULL,
-  `Licence` varchar(45) NOT NULL,
   `rc_book` varchar(200) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id_fk2_idx` (`carowner_id`),
-  CONSTRAINT `user_id_fk2` FOREIGN KEY (`carowner_id`) REFERENCES `user` (`id`)
+  KEY `model_id_fk_idx` (`model_id`),
+  CONSTRAINT `model_id_fk` FOREIGN KEY (`model_id`) REFERENCES `car_models` (`id`),
+  CONSTRAINT `user_id_fk2` FOREIGN KEY (`carowner_id`) REFERENCES `login` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `vehicle`
+-- Dumping data for table `vehicles`
 --
 
-LOCK TABLES `vehicle` WRITE;
-/*!40000 ALTER TABLE `vehicle` DISABLE KEYS */;
-/*!40000 ALTER TABLE `vehicle` ENABLE KEYS */;
+LOCK TABLES `vehicles` WRITE;
+/*!40000 ALTER TABLE `vehicles` DISABLE KEYS */;
+/*!40000 ALTER TABLE `vehicles` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -325,4 +379,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-08-18 16:38:34
+-- Dump completed on 2023-08-19 21:38:10
