@@ -32,6 +32,8 @@ public class User {
 	@ManyToOne
 	@JoinColumn(name="roll_id")
 	Role role;
+	
+	
 
 	public User() {
 		super();

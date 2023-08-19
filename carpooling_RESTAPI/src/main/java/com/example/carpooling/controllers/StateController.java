@@ -7,20 +7,19 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.carpooling.models.Role;
-import com.example.carpooling.services.RoleService;
+import com.example.carpooling.models.State;
+import com.example.carpooling.services.StateService;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
-public class RoleController 
+public class StateController 
 {
-
 	@Autowired
-	RoleService rservice;
+	StateService sservice;
 	
-	@GetMapping("/getallroles")
-	public List<Role> getAllRoles()
+	@GetMapping("/getStates")
+	public List<State> getAllStates()
 	{
-		return rservice.getRoles();
+		return sservice.getStates();
 	}
 }

@@ -47,8 +47,8 @@ public class CarOwner_Passenger
 	@Column
 	private String secondary_email;
 	
-	@Column 
-	private String CarOwner_passengercol;
+		
+	
 	
 	
 	
