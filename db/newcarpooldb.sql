@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS `carpoolproject`.`vehicle` (
   `rc_book` VARCHAR(200) NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `user_id_fk_idx` (`cid` ASC) VISIBLE,
-  CONSTRAINT `user_id_fk`
+  CONSTRAINT `user_id_fk8`
     FOREIGN KEY (`cid`)
     REFERENCES `carpoolproject`.`user` (`id`)
     ON DELETE CASCADE
