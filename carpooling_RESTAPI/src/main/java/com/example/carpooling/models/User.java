@@ -1,106 +1,91 @@
 package com.example.carpooling.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="users")
+@Table(name="user")
 public class User {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int uid;
+	private int id;
+//	@Column
+//	private int roll_id;
 	@Column
-	private String email;
+	private String login_id;
 	@Column
 	private String password;
-	@Column
-	private String fname;
-	@Column
-	private String lname;
 	
+	boolean status;
 	
+	@JsonIgnoreProperties("user")
+	@ManyToOne
+	@JoinColumn(name="roll_id")
+	Role role;
+
 	public User() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-
-	public User(int uid, String email, String password, String fname, String lname) {
+	public User(String login_id, String password, boolean status, Role role) {
 		super();
-		this.uid = uid;
-		this.email = email;
+		this.login_id = login_id;
 		this.password = password;
-		this.fname = fname;
-		this.lname = lname;
-	}
-	
-
-
-	public int getUid() {
-		return uid;
+		this.status = status;
+		this.role = role;
 	}
 
-
-	public void setUid(int uid) {
-		this.uid = uid;
+	public int getId() {
+		return id;
 	}
 
-
-	public String getEmail() {
-		return email;
+	public void setId(int id) {
+		this.id = id;
 	}
 
-
-	public void setEmail(String email) {
-		this.email = email;
+	public String getLogin_id() {
+		return login_id;
 	}
 
+	public void setLogin_id(String login_id) {
+		this.login_id = login_id;
+	}
 
 	public String getPassword() {
 		return password;
 	}
 
-
 	public void setPassword(String password) {
 		this.password = password;
 	}
 
-
-	public String getFname() {
-		return fname;
+	public boolean isStatus() {
+		return status;
 	}
 
-
-	public void setFname(String fname) {
-		this.fname = fname;
+	public void setStatus(boolean status) {
+		this.status = status;
 	}
 
-
-	public String getLname() {
-		return lname;
+	public Role getRole() {
+		return role;
 	}
 
-
-	public void setLname(String lname) {
-		this.lname = lname;
+	public void setRole(Role role) {
+		this.role = role;
 	}
 
-
-	@Override
-	public String toString() {
-		return "User [uid=" + uid + ", email=" + email + ", password=" + password + ", fname=" + fname + ", lname="
-				+ lname + "]";
-	}
 	
 	
-	
-	
-	
-	
-
 }
