@@ -1,31 +1,29 @@
 package com.example.carpooling.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.carpooling.models.Login;
-import com.example.carpooling.models.User;
+import com.example.carpooling.models.LoginCheck;
 import com.example.carpooling.services.LoginService;
-import com.example.carpooling.services.UserService;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-public class UserController 
-{
-	@Autowired
-	UserService uservice;
+public class LoginController {
 	
 	@Autowired
 	LoginService lservice;
 	
-	@GetMapping("/getUser")
-	public User getUser(@RequestParam("login_id") int login_id)
+	@PostMapping("/chkLogin")
+	public Login chkLogin(@RequestBody LoginCheck lcheck)
 	{
-		Login l=lservice.getById(login_id);
-		return uservice.getUser(l);
+		return lservice.getLogin(lcheck.getLogin_id(), lcheck.getPassword());
 	}
-	
 }

@@ -14,10 +14,7 @@ public class RoleService
 	@Autowired
 	RoleRepository rrepo;
 	
-	public List<Role> getRoles()
-	{
-		return rrepo.findAll();
-	}
+	
 	
 	
 }

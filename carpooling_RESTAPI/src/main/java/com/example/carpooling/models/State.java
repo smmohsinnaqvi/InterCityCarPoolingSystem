@@ -14,14 +14,14 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "state")
+@Table(name = "states")
 public class State 
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column
+	@Column(length=45)
 	private String state;
 	
 	@JsonIgnoreProperties("states")

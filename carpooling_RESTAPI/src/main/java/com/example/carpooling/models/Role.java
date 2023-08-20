@@ -22,35 +22,11 @@ public class Role
 {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	int id;
 	
 	@Column
 	String role;
-	
-	@JsonIgnoreProperties("role")
-	@OneToMany(mappedBy = "role",cascade = CascadeType.ALL )
-	Set<User> user;
-
-	
-	public Role() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	public Role(int id, String role, Set<User> user) 
-	{
-		super();
-		this.id = id;
-		this.role = role;
-		this.user = user;
-	}
-
-	public Role(String role, Set<User> user) {
-		super();
-		this.role = role;
-		this.user = user;
-	}
 
 	public int getId() {
 		return id;
@@ -67,18 +43,6 @@ public class Role
 	public void setRole(String role) {
 		this.role = role;
 	}
-
-	public Set<User> getUser() {
-		return user;
-	}
-
-	public void setUser(Set<User> user) {
-		for(User u:user)
-			u.setRole(this);
-		this.user=user;
-	}
 	
-	
-	
-	
+		
 }
