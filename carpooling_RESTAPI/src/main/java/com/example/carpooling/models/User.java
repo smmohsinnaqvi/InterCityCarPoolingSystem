@@ -52,6 +52,31 @@ public class User
 	@JoinColumn(name="user_id")
 	Login user_id;
 
+	
+	public User() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+
+	public User(String fname, String lname, String gender, Date dob, String aadhar, String licence, String phone_no,
+			String primary_email, String secondary_email, Login user_id) {
+		super();
+		this.fname = fname;
+		this.lname = lname;
+		this.gender = gender;
+		this.dob = dob;
+		this.aadhar = aadhar;
+		this.licence = licence;
+		this.phone_no = phone_no;
+		this.primary_email = primary_email;
+		this.secondary_email = secondary_email;
+		this.user_id = user_id;
+	}
+
+
+
 	public int getId() {
 		return id;
 	}

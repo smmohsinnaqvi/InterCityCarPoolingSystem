@@ -50,6 +50,18 @@ public class Login {
 		this.roll_id = roll_id;
 		this.status = status;
 	}
+	
+	
+
+
+
+	public Login(int id, String password, Role roll_id, boolean status) {
+		super();
+		this.id = id;
+		this.password = password;
+		this.roll_id = roll_id;
+		this.status = status;
+	}
 
 
 

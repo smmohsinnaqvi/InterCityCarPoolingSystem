@@ -34,4 +34,9 @@ public class LoginService {
 	{
 		return lrepo.findById(login_id).get();
 	}
+	
+	public Login save(Login l)
+	{
+		return lrepo.save(l);
+	}
 }

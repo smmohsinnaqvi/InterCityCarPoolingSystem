@@ -17,4 +17,9 @@ public class UserService {
 	{
 		return urepo.getUser(l);
 	}
+	
+	public User saveUser(User u)
+	{
+		return urepo.save(u);
+	}
 }

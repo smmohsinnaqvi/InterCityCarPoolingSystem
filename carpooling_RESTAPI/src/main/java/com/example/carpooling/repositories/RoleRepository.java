@@ -8,5 +8,5 @@ import com.example.carpooling.models.Role;
 @Repository
 public interface RoleRepository extends JpaRepository<Role, Integer> 
 {
-
+	
 }

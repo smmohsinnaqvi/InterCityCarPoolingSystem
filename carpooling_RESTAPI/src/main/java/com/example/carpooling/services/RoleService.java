@@ -15,6 +15,9 @@ public class RoleService
 	RoleRepository rrepo;
 	
 	
-	
+	public Role getRole(int id)
+	{
+		return rrepo.findById(id).get();
+	}
 	
 }
