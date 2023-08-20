@@ -40,7 +40,8 @@
 }
 
 .RegUser {
-  width: 50%;
+  display: flex;
+
 }
 
 .navigation {
