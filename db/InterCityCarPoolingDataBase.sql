@@ -34,7 +34,7 @@ CREATE TABLE `booking` (
   KEY `user_id_fk3_idx` (`passenger_id`),
   KEY `ride_id_fk_idx` (`ride_id`),
   CONSTRAINT `ride_id_fk` FOREIGN KEY (`ride_id`) REFERENCES `rides` (`id`),
-  CONSTRAINT `user_id_fk3` FOREIGN KEY (`passenger_id`) REFERENCES `login` (`id`)
+  CONSTRAINT `user_id_fk3` FOREIGN KEY (`passenger_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -143,7 +143,7 @@ CREATE TABLE `co_passengers` (
   `gender` varchar(45) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id_fk_idx` (`passenger_id`),
-  CONSTRAINT `user_id_fk` FOREIGN KEY (`passenger_id`) REFERENCES `login` (`id`)
+  CONSTRAINT `user_id_fk` FOREIGN KEY (`passenger_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -204,7 +204,7 @@ CREATE TABLE `payment` (
   KEY `user_id_fk6_idx` (`passenger_id`),
   KEY `booking_id_fk_idx` (`booking_id`),
   CONSTRAINT `booking_id_fk` FOREIGN KEY (`booking_id`) REFERENCES `booking` (`id`),
-  CONSTRAINT `user_id_fk6` FOREIGN KEY (`passenger_id`) REFERENCES `login` (`id`)
+  CONSTRAINT `user_id_fk6` FOREIGN KEY (`passenger_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -357,7 +357,7 @@ CREATE TABLE `vehicles` (
   KEY `user_id_fk2_idx` (`carowner_id`),
   KEY `model_id_fk_idx` (`model_id`),
   CONSTRAINT `model_id_fk` FOREIGN KEY (`model_id`) REFERENCES `car_models` (`id`),
-  CONSTRAINT `user_id_fk2` FOREIGN KEY (`carowner_id`) REFERENCES `login` (`id`)
+  CONSTRAINT `user_id_fk2` FOREIGN KEY (`carowner_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -379,4 +379,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-08-19 21:38:10
+-- Dump completed on 2023-08-21  9:21:00
