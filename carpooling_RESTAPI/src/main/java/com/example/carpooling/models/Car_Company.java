@@ -1,10 +1,14 @@
 package com.example.carpooling.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -17,6 +21,10 @@ public class Car_Company
 	
 	@Column(length=100)
 	String company_name;
+	
+	@JsonIgnoreProperties("carcompany")
+	@OneToMany(mappedBy = "carcomany",cascade = CascadeType.ALL)
+	Set<Car_Model> carmodels;
 
 	public int getId() {
 		return id;
