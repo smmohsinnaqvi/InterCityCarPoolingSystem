@@ -1,22 +1,25 @@
 package com.example.carpooling.services;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.carpooling.models.Login;
 import com.example.carpooling.models.User;
 import com.example.carpooling.repositories.UserRepository;
 
 @Service
 public class UserService {
-	
-	@Autowired
-	UserRepository uro;
-	
-	public List<User> getUsers()
-	{
-		return uro.findAll();
-	}
 
+	@Autowired
+	UserRepository urepo;
+	
+	public User getUser(Login l)
+	{
+		return urepo.getUser(l);
+	}
+	
+	public User saveUser(User u)
+	{
+		return urepo.save(u);
+	}
 }
