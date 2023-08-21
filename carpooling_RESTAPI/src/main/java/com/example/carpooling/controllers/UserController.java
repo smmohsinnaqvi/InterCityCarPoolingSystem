@@ -39,7 +39,7 @@ public class UserController
 	@PostMapping("/regUser")
 	public User regUser(@RequestBody UserReg ur)
 	{
-		Role r=rservice.getRole(2);//2 means decided at 2nd id for user role
+		Role r=rservice.getRole(ur.getSelect());//2 means decided at 2nd id for user role
 		Login l=new Login(ur.getPrimary_email(),ur.getPassword(),r,false);
 
 		Login saved=lservice.save(l);

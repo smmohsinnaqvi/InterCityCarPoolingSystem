@@ -1,5 +1,7 @@
 package com.example.carpooling.models;
 
+import java.util.Set;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
@@ -23,24 +25,64 @@ public class Car_Company
 	String company_name;
 	
 	@JsonIgnoreProperties("carcompany")
-	@OneToMany(mappedBy = "carcomany",cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "carcompany",cascade = CascadeType.ALL)
 	Set<Car_Model> carmodels;
+	
+	
+
+	public Car_Company() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+
+	public Car_Company(String company_name, Set<Car_Model> carmodels) {
+		super();
+		this.company_name = company_name;
+		this.carmodels = carmodels;
+	}
+
+
 
 	public int getId() {
 		return id;
 	}
 
+
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
+
 
 	public String getCompany_name() {
 		return company_name;
 	}
 
+
+
 	public void setCompany_name(String company_name) {
 		this.company_name = company_name;
 	}
+
+
+
+	public Set<Car_Model> getCarmodels() {
+		return carmodels;
+	}
+
+
+
+	public void setCarmodels(Set<Car_Model> carmodels) 
+	{
+		for(Car_Model cm:carmodels)
+			cm.setCarcompany(this);
+		this.carmodels = carmodels;
+	}
+
+	
 	
 	
 	
