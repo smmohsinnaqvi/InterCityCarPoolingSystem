@@ -21,7 +21,7 @@ public class LoginController {
 	@Autowired
 	LoginService lservice;
 	
-	@PostMapping("/chkLogin")
+	@PostMapping("/checkLogin")
 	public Login chkLogin(@RequestBody LoginCheck lcheck)
 	{
 		return lservice.getLogin(lcheck.getLogin_id(), lcheck.getPassword());

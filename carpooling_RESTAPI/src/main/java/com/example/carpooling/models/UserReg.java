@@ -4,16 +4,12 @@ import java.sql.Date;
 
 public class UserReg 
 {
-	int id;
+	//int id;
 	String password,fname,lname,gender;
 	Date dob;
 	String aadhar,licence,phone_no,primary_email,secondary_email;
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
+	
+	
 	public String getPassword() {
 		return password;
 	}
