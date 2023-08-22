@@ -11,7 +11,7 @@ const initialState = {
     phone: 0,
     email: "",
     semail: "",
-    pwd: "",
+    password: "",
     aadhar_no: null,
     licence: null,
     role: 0
@@ -37,7 +37,7 @@ let RegUser = () => {
         const reqOptions = {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
-            body: JSON.stringify({ fname: user.fname, lname: user.lname, dob: user.dob, gender: user.gender, phone_no: user.phone, primary_email: user.email, secondary_email: user.semail, password: user.password, aadhar: user.aadhar_no, licence: user.licence, select: user.role })
+            body: JSON.stringify({ fname: user.fname, lname: user.lname, dob: user.dob, gender: user.gender, phone_no: user.phone, primary_email: user.email, secondary_email: user.semail, password: user.password, aadhar: user.aadhar_no, licence: user.licence, role: user.role })
         };
 
         fetch("http://localhost:8080/regUser", reqOptions)
@@ -81,12 +81,6 @@ let RegUser = () => {
                         <Input type="date" name="dob" className="" onChange={(e) => { dispatch({ type: 'update', fld: 'dob', value: e.target.value }) }}></Input>
                     </Form.Item>
 
-                    {/* <Form.Item label="Gender : " name="gender" labelCol={{span:24}}>
-                <Radio.Group value={user.gender} onChange={(e) => { console.log(user.gender); dispatch({ type: 'update', fld: 'gender', value: e.target.value }) }}>
-                <Radio value="M">Male</Radio>
-                <Radio value="F">Female</Radio>
-                </Radio.Group>
-            </Form.Item> */}
                     <label for="gender">Gender : </label>
                     <input type="radio" id="gender" style={{ width: 'fit-content', marginInline: '15px' }} className="" name="gender" value="M" onChange={(e) => { dispatch({ type: 'update', fld: 'gender', value: e.target.value }) }}></input><span>Male</span>
                     <input type="radio" id="gender" style={{ width: 'fit-content', marginInline: '15px' }} name="gender" className="" value="F" onChange={(e) => { dispatch({ type: 'update', fld: 'gender', value: e.target.value }) }}></input><span>Female</span> <br />
@@ -113,13 +107,13 @@ let RegUser = () => {
                         <Input type="email" name="semail" className="" onChange={(e) => { dispatch({ type: 'update', fld: 'semail', value: e.target.value }) }}></Input>
                     </Form.Item>
                     <Form.Item label="Password" labelCol={{ span: 24 }}>
-                        <Input type="password" name="password" className="" onChange={(e) => { dispatch({ type: 'update', fld: 'password', value: e.target.value }) }}></Input>
+                        <Input type="password" name="pwd" className="" onChange={(e) => { dispatch({ type: 'update', fld: 'pwd', value: e.target.value }) }}></Input>
                     </Form.Item>
                     <button type="button" className="btn btn-warning" style={{margin:'10px'}} onClick={()=>{setDivision(0)}}>Previous</button>
 
                     <div class="d-grid gap-2 col-6 mx-auto">
                         <button type="button" className="btn btn-primary" onClick={(e) => { register(e) }}>REGISTER</button>
-                        <div className="message" style={{display:msg===null?'none':'block'}}>{msg}</div>
+                        <div className="message" style={{display:msg!==null?'block':'none'}}></div>
                     </div>
                 </div>
 
@@ -134,25 +128,3 @@ let RegUser = () => {
 }
 
 export default RegUser;
-{/* Enter State : <select className="form-select"onChange={(e)=>{dispatch({type:'update', fld:'State', value:e.target.value})}} >
-{
-    states.map((state)=>{
-        return <option>{state}</option>
-    })
-}
-</select>
-
-                Enter City : <select className="form-select"onChange={(e)=>{dispatch({type:'update', fld:'City', value:e.target.value})}} >
-                {
-                    cities[user.State].map((city)=>{
-                        return <option>{city}</option>
-                    })
-                }
-            </select> */}
-{/* <select name="state" className="form-control" onChange={(e)=>{dispatch({type:'update', fld:'state', value:e.target.value})}}>
-    <option name="state" value="Maharastra">Maharastra</option>
-    <option name="state" value="Uttar Pradesh">Uttar Pradesh</option>
-</select>
-<select name="city" className="form-control" datalist="cities" onChange={(e)=>{dispatch({type:'update',fld:'city',value:e.target.value})}}>
-    <option></option>
-</select> */}

@@ -6,16 +6,18 @@ import GetEmps from "./Components/GetEmps";
 import Login from "./Components/Login";
 import RegUser from "./Components/RegUser";
 import LandingPage from "./Components/LandingPage";
+import CarOwnerLandingPage from "./Components/CarOwnerLandingPage";
+import C_AddVehicle from "./Components/C_AddVehicle";
 function App() {
   return (
     <div className="App">
       <div className="navigation" style={{ position: "relative" }}>
-        <div className="navigation_item">
+        {/* <div className="navigation_item">
           <Link to="/RegForm">Register Employee</Link>
-        </div>
-        <div className="navigation_item">
+        </div> */}
+        {/* <div className="navigation_item">
           <Link to="/GetEmps">Employees</Link>
-        </div>
+        </div> */}
         <div
           className="navigation_item"
           style={{ position: "absolute", right: "0" }}
@@ -30,6 +32,8 @@ function App() {
           <Route path="/GetEmps" element={<GetEmps />}></Route>
           <Route path="/" element={<Login />}></Route>
           <Route path="/Main" element={<LandingPage />}></Route>
+          <Route path="/CMain" element={<CarOwnerLandingPage />}></Route>
+
         </Routes>
       </header>
     </div>
