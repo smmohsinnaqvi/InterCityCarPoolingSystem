@@ -4,15 +4,19 @@ import java.sql.Date;
 
 public class UserReg 
 {
-	int id;
+	//int id;
+	int select;
 	String password,fname,lname,gender;
 	Date dob;
 	String aadhar,licence,phone_no,primary_email,secondary_email;
-	public int getId() {
-		return id;
+	
+	
+	
+	public int getSelect() {
+		return select;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setSelect(int select) {
+		this.select = select;
 	}
 	public String getPassword() {
 		return password;

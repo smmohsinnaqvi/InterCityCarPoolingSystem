@@ -31,10 +31,10 @@ CREATE TABLE `booking` (
   `total_price` int NOT NULL,
   `status` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `user_id_fk3_idx` (`passenger_id`),
   KEY `ride_id_fk_idx` (`ride_id`),
+  KEY `user_id_fk1_idx` (`passenger_id`),
   CONSTRAINT `ride_id_fk` FOREIGN KEY (`ride_id`) REFERENCES `rides` (`id`),
-  CONSTRAINT `user_id_fk3` FOREIGN KEY (`passenger_id`) REFERENCES `login` (`id`)
+  CONSTRAINT `user_id_fk1` FOREIGN KEY (`passenger_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -78,7 +78,7 @@ DROP TABLE IF EXISTS `car_models`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `car_models` (
-  `id` int NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `model_name` varchar(100) NOT NULL,
   `fuel_type` varchar(100) NOT NULL,
   `model_type` varchar(100) NOT NULL,
@@ -107,7 +107,7 @@ DROP TABLE IF EXISTS `cities`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cities` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `city` varchar(255) DEFAULT NULL,
+  `city` varchar(45) NOT NULL,
   `sid` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `sid_fk_idx` (`sid`),
@@ -135,15 +135,15 @@ DROP TABLE IF EXISTS `co_passengers`;
 CREATE TABLE `co_passengers` (
   `id` int NOT NULL AUTO_INCREMENT,
   `passenger_id` int NOT NULL,
-  `aadhar_no` varchar(45) DEFAULT NULL,
+  `aadhar_no` varchar(45) NOT NULL,
   `phone_no` varchar(45) DEFAULT NULL,
   `email` varchar(45) DEFAULT NULL,
   `fname` varchar(45) NOT NULL,
   `lname` varchar(45) NOT NULL,
   `gender` varchar(45) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `user_id_fk_idx` (`passenger_id`),
-  CONSTRAINT `user_id_fk` FOREIGN KEY (`passenger_id`) REFERENCES `login` (`id`)
+  KEY `user_id_fk2_idx` (`passenger_id`),
+  CONSTRAINT `user_id_fk2` FOREIGN KEY (`passenger_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -166,13 +166,14 @@ DROP TABLE IF EXISTS `login`;
 CREATE TABLE `login` (
   `id` int NOT NULL AUTO_INCREMENT,
   `roll_id` int NOT NULL,
-  `login_id` varchar(255) DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL,
+  `login_id` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `status` bit(1) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `roll_fk_idx` (`roll_id`),
-  CONSTRAINT `rollidfk` FOREIGN KEY (`roll_id`) REFERENCES `role` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  UNIQUE KEY `login_id_UNIQUE` (`login_id`),
+  KEY `role_id_fk_idx` (`roll_id`),
+  CONSTRAINT `role_id_fk` FOREIGN KEY (`roll_id`) REFERENCES `role` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -181,8 +182,38 @@ CREATE TABLE `login` (
 
 LOCK TABLES `login` WRITE;
 /*!40000 ALTER TABLE `login` DISABLE KEYS */;
-INSERT INTO `login` VALUES (1,1,'nikhil','nikhil',_binary '\0'),(2,2,NULL,NULL,_binary '\0'),(3,2,NULL,NULL,_binary '\0'),(4,2,NULL,NULL,_binary '\0');
+INSERT INTO `login` VALUES (1,1,'nikhil','nikhil',_binary '');
 /*!40000 ALTER TABLE `login` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `passengers_review`
+--
+
+DROP TABLE IF EXISTS `passengers_review`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `passengers_review` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `passenger_id` int NOT NULL,
+  `ride_id` int NOT NULL,
+  `rating` decimal(3,2) DEFAULT NULL,
+  `comments` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `ride_id_fk2_idx` (`ride_id`),
+  KEY `user_id_fk3_idx` (`passenger_id`),
+  CONSTRAINT `ride_id_fk2` FOREIGN KEY (`ride_id`) REFERENCES `rides` (`id`),
+  CONSTRAINT `user_id_fk3` FOREIGN KEY (`passenger_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `passengers_review`
+--
+
+LOCK TABLES `passengers_review` WRITE;
+/*!40000 ALTER TABLE `passengers_review` DISABLE KEYS */;
+/*!40000 ALTER TABLE `passengers_review` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -201,10 +232,10 @@ CREATE TABLE `payment` (
   `payment_method` varchar(45) NOT NULL,
   `status` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `user_id_fk6_idx` (`passenger_id`),
   KEY `booking_id_fk_idx` (`booking_id`),
+  KEY `user_id_fk4_idx` (`passenger_id`),
   CONSTRAINT `booking_id_fk` FOREIGN KEY (`booking_id`) REFERENCES `booking` (`id`),
-  CONSTRAINT `user_id_fk6` FOREIGN KEY (`passenger_id`) REFERENCES `login` (`id`)
+  CONSTRAINT `user_id_fk4` FOREIGN KEY (`passenger_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -238,11 +269,11 @@ CREATE TABLE `rides` (
   PRIMARY KEY (`id`),
   KEY `dcityfk_idx` (`start_location`),
   KEY `tocityfk_idx` (`End_location`),
+  KEY `user_id_fk5_idx` (`carowner_id`),
   KEY `vehicle_id_fk_idx` (`vehicle_id`),
-  KEY `user_id_fk4_idx` (`carowner_id`),
   CONSTRAINT `dcityfk` FOREIGN KEY (`start_location`) REFERENCES `cities` (`id`),
   CONSTRAINT `tocityfk` FOREIGN KEY (`End_location`) REFERENCES `cities` (`id`),
-  CONSTRAINT `user_id_fk4` FOREIGN KEY (`carowner_id`) REFERENCES `login` (`id`),
+  CONSTRAINT `user_id_fk5` FOREIGN KEY (`carowner_id`) REFERENCES `users` (`id`),
   CONSTRAINT `vehicle_id_fk` FOREIGN KEY (`vehicle_id`) REFERENCES `vehicles` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -264,10 +295,10 @@ DROP TABLE IF EXISTS `role`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `role` (
-  `id` int NOT NULL DEFAULT '1000',
+  `id` int NOT NULL AUTO_INCREMENT,
   `role` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -276,7 +307,7 @@ CREATE TABLE `role` (
 
 LOCK TABLES `role` WRITE;
 /*!40000 ALTER TABLE `role` DISABLE KEYS */;
-INSERT INTO `role` VALUES (1,'admin'),(2,'car_owner');
+INSERT INTO `role` VALUES (1,'admin'),(2,'car_owner'),(3,'passenger');
 /*!40000 ALTER TABLE `role` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -327,7 +358,7 @@ CREATE TABLE `users` (
   PRIMARY KEY (`id`),
   KEY `user_id_fk7_idx` (`user_id`),
   CONSTRAINT `user_id_fk7` FOREIGN KEY (`user_id`) REFERENCES `login` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -336,7 +367,6 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'nikhil','amar','madhekar','male','1998-03-13','608022180141','64532','8806131273','amar@gmail.com','nikhil@gmail.com',1);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -348,17 +378,17 @@ DROP TABLE IF EXISTS `vehicles`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `vehicles` (
-  `id` int NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `carowner_id` int NOT NULL,
   `model_id` int NOT NULL,
   `year` int NOT NULL,
   `color` varchar(45) NOT NULL,
   `rc_book` varchar(200) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `user_id_fk2_idx` (`carowner_id`),
+  KEY `user_id_fk6_idx` (`carowner_id`),
   KEY `model_id_fk_idx` (`model_id`),
   CONSTRAINT `model_id_fk` FOREIGN KEY (`model_id`) REFERENCES `car_models` (`id`),
-  CONSTRAINT `user_id_fk2` FOREIGN KEY (`carowner_id`) REFERENCES `login` (`id`)
+  CONSTRAINT `user_id_fk6` FOREIGN KEY (`carowner_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -380,4 +410,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-08-20 19:37:07
+-- Dump completed on 2023-08-22 11:29:34
