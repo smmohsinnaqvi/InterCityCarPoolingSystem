@@ -11,7 +11,7 @@ const initialState = {
     phone: 0,
     email: "",
     semail: "",
-    password: "",
+    pwd: "",
     aadhar_no: null,
     licence: null,
     role: 0
@@ -37,7 +37,7 @@ let RegUser = () => {
         const reqOptions = {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
-            body: JSON.stringify({ fname: user.fname, lname: user.lname, dob: user.dob, gender: user.gender, phone_no: user.phone, primary_email: user.email, secondary_email: user.semail, password: user.password, aadhar: user.aadhar_no, licence: user.licence, role: user.role })
+            body: JSON.stringify({ fname: user.fname, lname: user.lname, dob: user.dob, gender: user.gender, phone_no: user.phone, primary_email: user.email, secondary_email: user.semail, password: user.password, aadhar: user.aadhar_no, licence: user.licence, select: user.role })
         };
 
         fetch("http://localhost:8080/regUser", reqOptions)
@@ -113,13 +113,13 @@ let RegUser = () => {
                         <Input type="email" name="semail" className="" onChange={(e) => { dispatch({ type: 'update', fld: 'semail', value: e.target.value }) }}></Input>
                     </Form.Item>
                     <Form.Item label="Password" labelCol={{ span: 24 }}>
-                        <Input type="password" name="pwd" className="" onChange={(e) => { dispatch({ type: 'update', fld: 'pwd', value: e.target.value }) }}></Input>
+                        <Input type="password" name="password" className="" onChange={(e) => { dispatch({ type: 'update', fld: 'password', value: e.target.value }) }}></Input>
                     </Form.Item>
                     <button type="button" className="btn btn-warning" style={{margin:'10px'}} onClick={()=>{setDivision(0)}}>Previous</button>
 
                     <div class="d-grid gap-2 col-6 mx-auto">
                         <button type="button" className="btn btn-primary" onClick={(e) => { register(e) }}>REGISTER</button>
-                        <div className="message" style={{display:msg!==null?'block':'none'}}></div>
+                        <div className="message" style={{display:msg===null?'none':'block'}}>{msg}</div>
                     </div>
                 </div>
 
