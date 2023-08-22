@@ -38,7 +38,7 @@ public class CityService
 		return c;
 	}
 	
-	public List<City> getCities(int stateid)
+	public List<City> getCities(State stateid)
 	{
 		return crepo.getCityFromState(stateid);
 	}

@@ -12,7 +12,7 @@ import com.example.carpooling.models.State;
 @Repository
 public interface CityRepository extends JpaRepository<City, Integer> 
 {
-	@Query("select c from City c where e.sid=:sid")
-	public List<City> getCityFromState(int sid);
+	@Query("select c from City c where c.states=:sid")
+	public List<City> getCityFromState(State sid);
 	
 }

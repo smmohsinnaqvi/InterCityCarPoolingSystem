@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.carpooling.models.City;
+import com.example.carpooling.models.State;
 import com.example.carpooling.services.CityService;
 
 
@@ -38,7 +39,7 @@ public class CityController
 	}
 	
 	@GetMapping("/getcitiesfromstate")
-	public List<City> getCities(@RequestParam("sid")int stateid)
+	public List<City> getCities(@RequestParam("sid")State stateid)
 	{
 		return cservice.getCities(stateid);
 	}
