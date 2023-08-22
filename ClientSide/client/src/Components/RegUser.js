@@ -3,6 +3,7 @@ import Input from "antd/es/input/Input";
 import { useReducer, useState } from "react";
 import Banner_Img from '../Assests/Banner_Logo.svg';
 import "./modules.css";
+import { useNavigate } from "react-router-dom";
 const initialState = {
     fname: "",
     lname: "",
@@ -21,6 +22,8 @@ const reducer = (state, action) => {
     switch (action.type) {
         case 'update':
             return { ...state, [action.fld]: action.value };
+        case 'clear':
+            return initialState;
     }
 }
 
@@ -28,12 +31,16 @@ const reducer = (state, action) => {
 let RegUser = () => {
 
     const [user, dispatch] = useReducer(reducer, initialState);
+
     const [division, setDivision] = useState(0);
-    const[msg,setMsg]=useState(null);
+
+    const [msg, setMsg] = useState(null);
+
+    let navigate = useNavigate();
+
     let register = (e) => {
 
         e.preventDefault();
-
         const reqOptions = {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
@@ -42,11 +49,14 @@ let RegUser = () => {
 
         fetch("http://localhost:8080/regUser", reqOptions)
             .then(res => res.text())
-            .then((data)=>{if(data.length>2) setMsg("Register Successfully");
-                            else setMsg("Registration Failed")})
-                            //.then(data=>setMsg(data))
-                            
-                            
+            .then((data) => {
+                if (data.length > 2) { setMsg("Register Successfully"); }
+                else setMsg("Registration Failed")
+            })
+        //.then(data=>setMsg(data))
+        dispatch({ type: 'clear' });
+        navigate("/Reg");
+
     }
 
     return (<div className="RegUser">
@@ -77,7 +87,7 @@ let RegUser = () => {
                         <Input type="number" name="phone" className="" onChange={(e) => { dispatch({ type: 'update', fld: 'phone', value: e.target.value }) }}></Input>
                     </Form.Item>
 
-                    <Form.Item style={{width:'50%'}} label="Date Of Birth" labelCol={{ span: 24 }}>
+                    <Form.Item style={{ width: '50%' }} label="Date Of Birth" labelCol={{ span: 24 }}>
                         <Input type="date" name="dob" className="" onChange={(e) => { dispatch({ type: 'update', fld: 'dob', value: e.target.value }) }}></Input>
                     </Form.Item>
 
@@ -85,7 +95,7 @@ let RegUser = () => {
                     <input type="radio" id="gender" style={{ width: 'fit-content', marginInline: '15px' }} className="" name="gender" value="M" onChange={(e) => { dispatch({ type: 'update', fld: 'gender', value: e.target.value }) }}></input><span>Male</span>
                     <input type="radio" id="gender" style={{ width: 'fit-content', marginInline: '15px' }} name="gender" className="" value="F" onChange={(e) => { dispatch({ type: 'update', fld: 'gender', value: e.target.value }) }}></input><span>Female</span> <br />
 
-                    <button type="button" className="btn btn-warning" onClick={()=>{setDivision(1)}}>Next</button>
+                    <button type="button" className="btn btn-warning" onClick={() => { setDivision(1) }}>Next</button>
                 </div>
                 }
 
@@ -96,7 +106,7 @@ let RegUser = () => {
                     </Form.Item>
 
                     <Form.Item label="Licence Number" labelCol={{ span: 24 }} style={{ display: user.role === "2" ? 'block' : 'none' }}>
-                        <Input type="number" placeholder="Licence Number" name="licence" className=""></Input>
+                        <Input type="number" placeholder="Licence Number" name="licence" className="" onChange={(e) => { dispatch({ type: 'update', fld: 'licence', value: e.target.value }) }}></Input>
                     </Form.Item>
 
                     <Form.Item label="Primary E-Mail" labelCol={{ span: 24 }}>
@@ -109,11 +119,11 @@ let RegUser = () => {
                     <Form.Item label="Password" labelCol={{ span: 24 }}>
                         <Input type="password" name="pwd" className="" onChange={(e) => { dispatch({ type: 'update', fld: 'pwd', value: e.target.value }) }}></Input>
                     </Form.Item>
-                    <button type="button" className="btn btn-warning" style={{margin:'10px'}} onClick={()=>{setDivision(0)}}>Previous</button>
+                    <button type="button" className="btn btn-warning" style={{ margin: '10px' }} onClick={() => { setDivision(0) }}>Previous</button>
 
                     <div class="d-grid gap-2 col-6 mx-auto">
-                        <button type="button" className="btn btn-primary" onClick={(e) => { register(e) }}>REGISTER</button>
-                        <div className="message" style={{display:msg!==null?'block':'none'}}>{msg}</div>
+                        <button type="button" className="btn btn-primary" onClick={(e) => {register(e)}}>REGISTER</button>
+                        <div className="message" style={{ display: msg !== null ? 'block' : 'none' }}>{msg}</div>
                     </div>
                 </div>
 
