@@ -143,14 +143,14 @@ export default function CarOwnerLandingPage() {
                     <form className="">
                         <Form.Item label="Start City" labelCol={{ span: 24 }} style={{}}>
                             <Select name="s_city" className="" onChange={(e) => { dispatchr({ type: 'update', fld: 's_city', value: e }) }}>
-                                <Select.Option value='0'>--Select City --</Select.Option>
-                                {
-                                    cities.map((v) => {
-                                        return (
-                                            <Select.Option key={v.id} value={v.id}>{v.city}</Select.Option>
-                                        )
-                                    })
-                                }
+                            <Select.Option value='0'>--Select City --</Select.Option>
+                            {
+                                cities.map((v) => {
+                                    return (
+                                        <Select.Option key={v.id} value={v.id}>{v.city}</Select.Option>
+                                    )
+                                })
+                            }
                                 {/* <option value="1">Mumbai</option>
                                 <option value="2">Pune</option> */}
                             </Select>

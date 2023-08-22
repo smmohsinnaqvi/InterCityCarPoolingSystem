@@ -1,31 +1,26 @@
-import { Card, Carousel, Col, Row } from "antd";
+import { Card, Carousel, Col, Row, Select } from "antd";
 import Image1 from "../Assests/1.jpg";
 import Image2 from "../Assests/4.jpg";
 import Image3 from "../Assests/3.jpg";
 import "./modules.css";
 import { useEffect, useReducer, useState } from "react";
 
-const initialState={
-
-startCity:null,
-endCity:null
-
+const initialState = {
+  startCity: null,
+  endCity: null,
 };
 
-const reducer=(state,action)=>{
-  switch(action.type)
-  {
-    case 'update':
-      return { ...state,[action.fld]:action.value};
-    case 'reset':
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "update":
+      return { ...state, [action.fld]: action.value };
+    case "reset":
       return initialState;
   }
-}
-
+};
 
 export default function LandingPage(props) {
-
-  const[travel,dispatch]=useReducer(reducer,initialState);
+  const [travel, dispatch] = useReducer(reducer, initialState);
 
   const [cities, setCities] = useState([]);
   useEffect(() => {
@@ -56,24 +51,52 @@ export default function LandingPage(props) {
         <form className="mb-3 frm">
           <div className="row">
             <div className="col">
-              <input
+              <Select
                 name="startCity"
                 type="text"
                 className="form-control si"
-                placeholder="From City"
-                list="ct"
-                onChange={(e)=>{dispatch({ type : 'update', fld: 'startCity', value:e.target.value})}}
-              />
+                defaultValue="0"
+                onChange={(e) => {
+                  dispatch({
+                    type: "update",
+                    fld: "startCity",
+                    value: e,
+                  });
+                }}
+              >
+                <Select.Option value="0">--Source City --</Select.Option>
+                {cities.map((v) => {
+                  return (
+                    <Select.Option key={v.id} value={v.id}>
+                      {v.city}
+                    </Select.Option>
+                  );
+                })}
+              </Select>
             </div>
             <div class="col">
-              <input
+              <Select
                 name="endCity"
                 type="text"
                 className="form-control si"
-                placeholder="To City"
-                list="ct"
-                onChange={(e)=>{dispatch({ type : 'update', fld: 'endCity', value:e.target.value})}}
-              />
+                defaultValue="0"
+                onChange={(e) => {
+                  dispatch({
+                    type: "update",
+                    fld: "endCity",
+                    value: e,
+                  });
+                }}
+              >
+                <Select.Option value="0">--Destination City --</Select.Option>
+                {cities.map((v) => {
+                  return (
+                    <Select.Option key={v.id} value={v.id}>
+                      {v.city}
+                    </Select.Option>
+                  );
+                })}
+              </Select>
             </div>
           </div>
           <button type="button" className="btn btn-secondary">
@@ -83,42 +106,25 @@ export default function LandingPage(props) {
 
         <div className="rides">
           <p>{JSON.stringify(travel)}</p>
-        <Row gutter={16}>
-    <Col span={8}>
-      <Card title="Card title" bordered={false}>
-        Card content
-      </Card>
-    </Col>
-    <Col span={8}>
-      <Card title="Card title" bordered={false}>
-        Card content
-      </Card>
-    </Col>
-    <Col span={8}>
-      <Card title="Card title" bordered={false}>
-        Card content
-      </Card>
-    </Col>
-  </Row>
-
+          <Row gutter={16}>
+            <Col span={8}>
+              <Card title="Card title" bordered={false}>
+                Card content
+              </Card>
+            </Col>
+            <Col span={8}>
+              <Card title="Card title" bordered={false}>
+                Card content
+              </Card>
+            </Col>
+            <Col span={8}>
+              <Card title="Card title" bordered={false}>
+                Card content
+              </Card>
+            </Col>
+          </Row>
         </div>
-
-
-
-
-
-
-
-      <datalist id="ct">
-        {
-          cities.map((item)=>{
-            return <option key={item.id} value={item.id}>{item.city}</option>
-          })
-        }
-      </datalist>
-
-
-      </div >
+      </div>
     </>
   );
 }
@@ -126,32 +132,3 @@ LandingPage.defaultProps = {
   name: "New User",
 };
 
-{/* <div className="row row-cols-1 row-cols-md-2 g-4">
-<div class="col">
-<div className="card">
-<img src="..." className="card-img-top" alt="..." />
-<div className="card-body">
-  <h5 className="card-title">Card title</h5>
-  <p className="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-</div>
-</div>
-</div>
-<div class="col">
-<div class="card">
-<img src="..." class="card-img-top" alt="..." />
-<div class="card-body">
-  <h5 class="card-title">Card title</h5>
-  <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-</div>
-</div>
-</div>
-<div class="col">
-<div class="card">
-<img src="..." class="card-img-top" alt="..." />
-<div class="card-body">
-  <h5 class="card-title">Card title</h5>
-  <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
-</div>
-</div>
-</div>
-</div> */}
