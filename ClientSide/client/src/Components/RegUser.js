@@ -11,7 +11,7 @@ const initialState = {
     phone: 0,
     email: "",
     semail: "",
-    password: "",
+    pwd: "",
     aadhar_no: null,
     licence: null,
     role: 0
@@ -37,7 +37,7 @@ let RegUser = () => {
         const reqOptions = {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
-            body: JSON.stringify({ fname: user.fname, lname: user.lname, dob: user.dob, gender: user.gender, phone_no: user.phone, primary_email: user.email, secondary_email: user.semail, password: user.password, aadhar: user.aadhar_no, licence: user.licence, role: user.role })
+            body: JSON.stringify({ fname: user.fname, lname: user.lname, dob: user.dob, gender: user.gender, phone_no: user.phone, primary_email: user.email, secondary_email: user.semail, password: user.pwd, aadhar: user.aadhar_no, licence: user.licence, select: user.role })
         };
 
         fetch("http://localhost:8080/regUser", reqOptions)
@@ -96,7 +96,7 @@ let RegUser = () => {
                     </Form.Item>
 
                     <Form.Item label="Licence Number" labelCol={{ span: 24 }} style={{ display: user.role === "2" ? 'block' : 'none' }}>
-                        <Input type="number" placeholder="Licence Number" name="licence" className="" required></Input>
+                        <Input type="number" placeholder="Licence Number" name="licence" className=""></Input>
                     </Form.Item>
 
                     <Form.Item label="Primary E-Mail" labelCol={{ span: 24 }}>
@@ -113,7 +113,7 @@ let RegUser = () => {
 
                     <div class="d-grid gap-2 col-6 mx-auto">
                         <button type="button" className="btn btn-primary" onClick={(e) => { register(e) }}>REGISTER</button>
-                        <div className="message" style={{display:msg!==null?'block':'none'}}></div>
+                        <div className="message" style={{display:msg!==null?'block':'none'}}>{msg}</div>
                     </div>
                 </div>
 
