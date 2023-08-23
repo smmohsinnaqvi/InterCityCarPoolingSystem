@@ -5,6 +5,7 @@ import Image3 from "../Assests/3.jpg";
 import "./modules.css";
 import { useEffect, useReducer, useState } from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const initialState = {
   startCity: null,
@@ -29,8 +30,12 @@ export default function LandingPage(props) {
       .then((res) => res.json())
       .then((cities) => setCities(cities));
   }, []);
+
+  const mystate=useSelector((state)=>state.logged);
   return (
     <>
+      <div style={{display:mystate.loggedIn?"block":"none"}}>
+
       <div className="navigation" style={{ position: "relative" }}>
           <div className="navigation_item">
             <Link to="/">About</Link>
@@ -46,6 +51,7 @@ export default function LandingPage(props) {
           </div>
         </div>
       <div>
+       </div>
         <Carousel autoplay>
           <div className="car_Image">
             <img src={Image1} alt="1" />

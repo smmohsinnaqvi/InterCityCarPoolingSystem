@@ -5,6 +5,7 @@ import Image3 from "../Assests/3.jpg";
 import dayjs from 'dayjs';
 import { useEffect, useReducer, useState } from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const initialStateVehicle = {
 
@@ -55,22 +56,27 @@ export default function CarOwnerLandingPage() {
             .then((res) => res.json())
             .then((cities) => setCities(cities));
     }, []);
+    const mystate = useSelector((state) => state.logged);
+
     return (
         <>
-            <div className="navigation" style={{ position: "relative" }}>
-          <div className="navigation_item">
-            <Link to="/">About</Link>
-          </div>
-          <div className="navigation_item">
-            <Link to="/">Contact</Link>
-          </div>
-          <div
-            className="navigation_item"
-            style={{ position: "absolute", right: "0" }}
-          >
-            <Link to="/">Logout</Link>
-          </div>
-        </div>
+            <div style={{display:mystate.loggedIn?"block":"none"}}>
+
+                <div className="navigation" style={{ position: "relative" }}>
+                    <div className="navigation_item">
+                        <Link to="/">About</Link>
+                    </div>
+                    <div className="navigation_item">
+                        <Link to="/">Contact</Link>
+                    </div>
+                    <div
+                        className="navigation_item"
+                        style={{ position: "absolute", right: "0" }}
+                    >
+                        <Link to="/">Logout</Link>
+                    </div>
+                </div>
+            </div>
             <div>
                 <Carousel autoplay>
                     <div className="car_Image">
@@ -116,7 +122,7 @@ export default function CarOwnerLandingPage() {
                         <Form.Item label="Car Model" labelCol={{ span: 24 }} style={{}}>
                             <Select name="car_mod" defaultValue="0" className="" onChange={(e) => { dispatchv({ type: 'update', fld: 'car_mod', value: e }) }}>
                                 <option value='0'>--Select Car Model --</option>
-                                
+
                                 <option value="1">Fortuner</option>
                                 <option value="2">Innova</option>
                                 <option value="3">Scorpio</option>
@@ -147,14 +153,14 @@ export default function CarOwnerLandingPage() {
                     <form className="">
                         <Form.Item label="Start City" labelCol={{ span: 24 }} style={{}}>
                             <Select name="s_city" className="" onChange={(e) => { dispatchr({ type: 'update', fld: 's_city', value: e }) }}>
-                            <Select.Option value='0'>--Select City --</Select.Option>
-                            {
-                                cities.map((v) => {
-                                    return (
-                                        <Select.Option key={v.id} value={v.id}>{v.city}</Select.Option>
-                                    )
-                                })
-                            }
+                                <Select.Option value='0'>--Select City --</Select.Option>
+                                {
+                                    cities.map((v) => {
+                                        return (
+                                            <Select.Option key={v.id} value={v.id}>{v.city}</Select.Option>
+                                        )
+                                    })
+                                }
                             </Select>
                         </Form.Item>
                         <Form.Item label="End City" labelCol={{ span: 24 }} style={{}}>
@@ -167,7 +173,7 @@ export default function CarOwnerLandingPage() {
                                         )
                                     })
                                 }
-                               
+
                             </Select>
                         </Form.Item>
                         <Form.Item style={{ width: '50%' }} label="Date Of Journey" labelCol={{ span: 24 }}>
