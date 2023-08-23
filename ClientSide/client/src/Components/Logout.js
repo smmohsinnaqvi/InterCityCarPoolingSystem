@@ -5,9 +5,9 @@ import { useNavigate } from "react-router-dom";
 export default function Logout  () {
     const navigate = useNavigate();
     let dispatch = useDispatch();
-    localStorage.clear();
-    dispatch(logout());
-    navigate("/");
+    localStorage.clear()
+    dispatch(logout())
+    navigate("/")
 
 }
 

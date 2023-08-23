@@ -1,8 +1,5 @@
-import logo from "./logo.svg";
 import "./App.css";
-import RegForm from "./Components/RegForm";
 import { Link, Route, Routes } from "react-router-dom";
-import GetEmps from "./Components/GetEmps";
 import Login from "./Components/Login";
 import RegUser from "./Components/RegUser";
 import LandingPage from "./Components/LandingPage";
