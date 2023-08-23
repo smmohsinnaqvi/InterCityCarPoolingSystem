@@ -6,19 +6,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.carpooling.models.Role;
-import com.example.carpooling.services.RoleService;
+import com.example.carpooling.models.Car_Model;
+import com.example.carpooling.services.Car_ModelService;
 
 @RestController
-public class RoleController 
+public class Car_ModelController 
 {
 
 	@Autowired
-	RoleService rservice;
+	Car_ModelService cmodelservice;
 	
-	@GetMapping("/getallroles")
-	public List<Role> getAllRoles()
+	@GetMapping("/getAllCarModels")
+	public List<Car_Model> getAllCarModels()
 	{
-		return rservice.getRoles();
+		return cmodelservice.getAllCarModels();
 	}
 }
