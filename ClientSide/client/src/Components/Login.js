@@ -3,7 +3,8 @@ import { useReducer, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Banner_Logo from "../Assests/Banner_Logo.svg";
 import "./modules.css";
-
+import { useDispatch } from "react-redux";
+import  {login} from './slice'
 const initialState = {
   email: "",
   pwd: "",
@@ -33,9 +34,11 @@ let Login = () => {
   const [msg, setMsg] = useState("");
   let navigate = useNavigate();
 
-  let submitForm = (e) => {
+  const reducerAction=useDispatch();
+
+  const submitForm = (e) => {
     e.preventDefault();
-    let reqOptions = {
+    const reqOptions = {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({ login_id: user.email, password: user.pwd }),
@@ -57,6 +60,7 @@ let Login = () => {
           setMsg("WRONG EMAIL OR PASSWORD");
         }
         else {
+          reducerAction(login());
           if (obj.status === false) {
             alert("Not Approved By Administrator");
             navigate("/");

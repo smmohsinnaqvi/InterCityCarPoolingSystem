@@ -4,6 +4,7 @@ import Image2 from "../Assests/4.jpg";
 import Image3 from "../Assests/3.jpg";
 import "./modules.css";
 import { useEffect, useReducer, useState } from "react";
+import { Link } from "react-router-dom";
 
 const initialState = {
   startCity: null,
@@ -30,6 +31,20 @@ export default function LandingPage(props) {
   }, []);
   return (
     <>
+      <div className="navigation" style={{ position: "relative" }}>
+          <div className="navigation_item">
+            <Link to="/">About</Link>
+          </div>
+          <div className="navigation_item">
+            <Link to="/">Contact</Link>
+          </div>
+          <div
+            className="navigation_item"
+            style={{ position: "absolute", right: "0" }}
+          >
+            <Link to="/logout">Logout</Link>
+          </div>
+        </div>
       <div>
         <Carousel autoplay>
           <div className="car_Image">
