@@ -61,6 +61,7 @@ let Login = () => {
         }
         else {
           reducerAction(login());
+          localStorage.setItem("loggedUser",JSON.stringify(obj));
           if (obj.status === false) {
             alert("Not Approved By Administrator");
             navigate("/");

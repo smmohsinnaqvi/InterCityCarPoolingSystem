@@ -4,6 +4,7 @@ import { useReducer, useState } from "react";
 import Banner_Img from "../Assests/Banner_Logo.svg";
 import "./modules.css";
 import { useNavigate } from "react-router-dom";
+import { Button } from "antd/es/radio";
 
 const initialState = {
   role: { value: 0, touched: false, valid: false, error: "" },
@@ -250,7 +251,7 @@ let RegUser = () => {
                   className=""
                   required
                   onChange={(e) => handleChange("role", e)}
-                  //onBlur={(e) => onFocusout("role", e)}
+                //onBlur={(e) => onFocusout("role", e)}
                 >
                   <Select.Option value="0">--Select Type --</Select.Option>
                   <Select.Option value="2">Car Owner</Select.Option>
@@ -499,7 +500,7 @@ let RegUser = () => {
               </button>
 
               <div class="d-grid gap-2 col-6 mx-auto">
-                <button
+                <Button
                   type="button"
                   //   className="btn btn-primary"
                   disabled={!user.formvalid}
@@ -508,13 +509,13 @@ let RegUser = () => {
                   }}
                 >
                   REGISTER
-                </button>
+                </Button>
                 <div
                   className="message"
-                  style={{ display: msg !== null ? "block" : "none" }}
+                   style={{ display: msg !== null ? "block" : "none" }}
                 >
-                  <b style={{color:'green'}}>{msg}</b>
-                    <button onClick={navigate("/")}>SIGN IN </button>
+                  <b style={{ color: 'green' }}>{msg}</b>
+                  <Button type="button" onClick={()=>{navigate("/")}}>SIGN IN</Button>
                 </div>
               </div>
             </div>
