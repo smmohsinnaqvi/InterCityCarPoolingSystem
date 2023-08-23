@@ -9,8 +9,8 @@ import { useSelector } from "react-redux";
 
 const initialStateVehicle = {
 
-    car_com: null,
-    car_mod: null,
+    car_com: 0,
+    car_mod: 0,
     rc: null,
     color: null
 }
@@ -29,7 +29,7 @@ const initialStateRide = {
     doj: null,
     d_time: null,
     r_time: null,
-    seats: null
+    seats: null,
 }
 
 const reducerR = (state, action) => {
@@ -45,7 +45,7 @@ export default function CarOwnerLandingPage() {
     const [ride, dispatchr] = useReducer(reducerR, initialStateRide);
 
     const [fm, setFm] = useState(0);
-    const [carcom, setCarcom] = useState([]);
+    const [carcom, setCarcom] = useState([{id:0,type:null}]);
     const [cities, setCities] = useState([]);
 
     useEffect(() => {
@@ -57,6 +57,7 @@ export default function CarOwnerLandingPage() {
             .then((cities) => setCities(cities));
     }, []);
     const mystate = useSelector((state) => state.logged);
+
 
     return (
         <>
@@ -109,11 +110,11 @@ export default function CarOwnerLandingPage() {
                     <form className="">
                         <Form.Item label="Car Company" labelCol={{ span: 24 }} style={{}}>
                             <Select name="car_com" defaultValue="0" className="" onChange={(e) => { dispatchv({ type: 'update', fld: 'car_com', value: e }) }}>
-                                <option value='0'>--Select Car Company --</option>
+                                <Select.Option value='0'>--Select Car Company --</Select.Option>
                                 {
                                     carcom.map((v) => {
                                         return (
-                                            <option key={v.id} value={v.id}>{v.company_name}</option>
+                                            <Select.Option key={v.id} value={v.id}>{v.company_name}</Select.Option>
                                         )
                                     })
                                 }
@@ -122,12 +123,20 @@ export default function CarOwnerLandingPage() {
                         <Form.Item label="Car Model" labelCol={{ span: 24 }} style={{}}>
                             <Select name="car_mod" defaultValue="0" className="" onChange={(e) => { dispatchv({ type: 'update', fld: 'car_mod', value: e }) }}>
                                 <option value='0'>--Select Car Model --</option>
-
-                                <option value="1">Fortuner</option>
+                                {
+                                    carcom[vehicle.car_com].carmodels.map((v)=>
+                                    {
+                                        console.log(v);
+                                        return(
+                                            <Select.Option key={v.id} value={v.id}>{v.model_name}</Select.Option>
+                                        )
+                                    })
+                                }
+                                {/* <option value="1">Fortuner</option>
                                 <option value="2">Innova</option>
                                 <option value="3">Scorpio</option>
                                 <option value="4">Wagon-R</option>
-                                <option value="5">Safari</option>
+                                <option value="5">Safari</option> */}
                             </Select>
                         </Form.Item>
                         <Form.Item label="Registration Certificate (RC)" labelCol={{ span: 24 }}>
