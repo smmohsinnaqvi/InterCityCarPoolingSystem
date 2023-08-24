@@ -1,5 +1,7 @@
 package com.example.carpooling.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.carpooling.models.Login;
-import com.example.carpooling.models.Passenger;
 import com.example.carpooling.models.Role;
 import com.example.carpooling.models.User;
 import com.example.carpooling.models.UserReg;
@@ -37,11 +38,10 @@ public class UserController
 		return uservice.getUser(l);
 	}
 	
-	
 	@PostMapping("/regUser")
 	public User regUser(@RequestBody UserReg ur)
 	{
-		Role r=rservice.getRole(2);//2 means decided at 2nd id for user role
+		Role r=rservice.getRole(ur.getSelect());//2 means decided at 2nd id for user role
 		Login l=new Login(ur.getPrimary_email(),ur.getPassword(),r,false);
 
 		Login saved=lservice.save(l);
@@ -50,5 +50,10 @@ public class UserController
 		return uservice.saveUser(u);
 	}
 	
+	@GetMapping("/getAllUser")
+	public List<User> getAllUsers()
+	{
+		return uservice.getUsers();
+	}
 	
 }

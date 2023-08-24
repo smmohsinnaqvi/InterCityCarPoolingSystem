@@ -29,16 +29,15 @@ public class VehicleController
 	public Vehicle save(@RequestBody AddVehicle addv)
 	{
 		Car_Model cm= cmservice.getCarModel(addv.getCarmodelid());
-		User u= userviService.getUser(addv.getUserid());
+		User u= userviService.getUserId(addv.getUserid());
 		int id=addv.getId();
 		
 		int year=addv.getYear();
 		String color=addv.getColor();
 		String rc_book=addv.getRc_book();
 		
-		Vehicle v=new Vehicle(id, year, color, rc_book, cm, u);
+		Vehicle v=new Vehicle(year, color, rc_book, cm, u);
 		return vservice.saveVehicle(v);
 		//return vservice.saveVehicle(v);
-		
 	}
 }

@@ -42,8 +42,8 @@ public class PassengerController {
 	@PostMapping("/insertPassenger")
 	public Passenger savePassenger(@RequestBody ExtraPassenger ep ) {
 		
-		System.out.println(ep);
-		User u=uservice.getUser(ep.getUser_id());
+		//System.out.println(ep);
+		User u=uservice.getUserId(ep.getUser_id());
 		Passenger passenger=new Passenger(ep.getAadhar_no(),ep.getPhone_no(),ep.getEmail(),ep.getFname(),ep.getLname(),ep.getGender(),u);
 		return pservice.savePassenger(passenger);
 		

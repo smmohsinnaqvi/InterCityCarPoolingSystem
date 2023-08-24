@@ -1,9 +1,9 @@
 package com.example.carpooling.models;
 
 import java.sql.Date;
-import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,7 +11,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -20,7 +19,7 @@ import jakarta.persistence.Table;
 public class User 
 {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	int id;
 	@Column(length=100)
 	String password;
@@ -50,39 +49,20 @@ public class User
 	@Column(length=100)
 	String secondary_email;
 	
+	@JsonIgnoreProperties("users")
 	@OneToOne
 	@JoinColumn(name="user_id")
 	Login user_id;
+	
+	
 
-
+	
 	public User() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
 	
 	
-	
-
-//	public User(String fname, String lname, String gender, Date dob, String aadhar, String licence, String phone_no,
-//			String primary_email, String secondary_email, Login user_id) {
-//		super();
-//		this.fname = fname;
-//		this.lname = lname;
-//		this.gender = gender;
-//		this.dob = dob;
-//		this.aadhar = aadhar;
-//		this.licence = licence;
-//		this.phone_no = phone_no;
-//		this.primary_email = primary_email;
-//		this.secondary_email = secondary_email;
-//		this.user_id = user_id;
-//	}
-	
-	
-
-
-	public int getId() {
-		return id;
-	}
 
 	public User(String password, String fname, String lname, String gender, Date dob, String aadhar, String licence,
 		String phone_no, String primary_email, String secondary_email, Login user_id) {
@@ -100,7 +80,11 @@ public class User
 	this.user_id = user_id;
 }
 
-
+	
+	
+	public int getId() {
+		return id;
+	}
 
 	public void setId(int id) {
 		this.id = id;
