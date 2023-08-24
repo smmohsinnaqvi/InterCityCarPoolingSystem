@@ -40,4 +40,9 @@ public class RideService
 	{
 		return rrepo.save(r);
 	}
+	
+	public Ride getRideId(int id)
+	{
+		return rrepo.findById(id).get();
+	}
 }

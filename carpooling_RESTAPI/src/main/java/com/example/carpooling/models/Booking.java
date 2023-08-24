@@ -1,18 +1,22 @@
 package com.example.carpooling.models;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
@@ -47,11 +51,36 @@ public class Booking
 	@ManyToOne
 	@JoinColumn(name = "passenger_id")
 	User users;
+	
+	@ManyToMany(cascade = {CascadeType.MERGE,CascadeType.PERSIST})
+	@JoinTable(name = "payments_bookings",
+				joinColumns = @JoinColumn(name="booking_id") ,
+				inverseJoinColumns = @JoinColumn(name="payment_id")	
+			)
+	Set<Payment> payments;
 
 	public Booking() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+
+	public Booking(LocalDateTime time, int no_of_seats, int total_price, String status, Ride rides,
+			Set<Payment> payments) {
+		super();
+		this.time = time;
+		this.no_of_seats = no_of_seats;
+		this.total_price = total_price;
+		this.status = status;
+		this.rides = rides;
+		this.payments = payments;
+	}
+	
+	public Booking(int id) {
+		super();
+		this.id = id;
+	}
+
 
 	public Booking(int id, LocalDateTime time, int no_of_seats, int total_price, String status, Ride rides,
 			User users) {
@@ -77,6 +106,7 @@ public class Booking
 		this.users = users;
 	}
 
+	
 	public int getId() {
 		return id;
 	}

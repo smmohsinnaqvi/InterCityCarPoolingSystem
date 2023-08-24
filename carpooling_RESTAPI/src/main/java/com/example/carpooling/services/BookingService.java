@@ -2,6 +2,7 @@ package com.example.carpooling.services;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,5 +39,12 @@ public class BookingService
 	public Booking getBookingId(int bid)
 	{
 		return brepo.findById(bid).get();
+	}
+	
+	
+		
+	public Booking saveBooking(Booking b)
+	{
+		return brepo.save(b);
 	}
 }

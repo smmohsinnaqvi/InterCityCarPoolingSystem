@@ -1,6 +1,7 @@
 package com.example.carpooling.models;
 
 import java.sql.Date;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -53,9 +54,6 @@ public class User
 	@OneToOne
 	@JoinColumn(name="user_id")
 	Login user_id;
-	
-	
-
 	
 	public User() {
 		super();
