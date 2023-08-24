@@ -6,6 +6,9 @@ import LandingPage from "./Components/LandingPage";
 import CarOwnerLandingPage from "./Components/CarOwnerLandingPage";
 import { useSelector } from "react-redux";
 import Logout from "./Components/Logout";
+import AddVehicle from "./Components/AddVehicle";
+import AddRide from "./Components/AddRide";
+import CarOwnerNav from "./Components/CarOwnerNav";
 function App() {
 
 //intitial state of logged
@@ -38,7 +41,12 @@ function App() {
           <Route path="/" element={<Login />}></Route>
           <Route path="/Main" element={<LandingPage />}></Route>
           <Route path="/CMain" element={<CarOwnerLandingPage />}></Route>
-          <Route path="/" element={<Logout />}></Route>
+          <Route path="/logout" element={<Logout />}></Route>
+          <Route path="/addVehicle" element={<AddVehicle />}></Route>
+          <Route path="/addRide" element={<AddRide/>}></Route>
+          <Route path="/carOwnerNav" element={<CarOwnerNav/>}></Route>
+
+
 
         </Routes>
       </header>

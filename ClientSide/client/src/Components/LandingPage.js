@@ -25,7 +25,20 @@ export default function LandingPage(props) {
   const [travel, dispatch] = useReducer(reducer, initialState);
 
   const [cities, setCities] = useState([]);
+
+  const[user,setUser]=useState();
   useEffect(() => {
+
+    const loginid=JSON.parse(localStorage.getItem("loggedUser")).id;
+
+        fetch("http://localhost:8080/getUser?login_id="+loginid)
+        .then(res=>res.json())
+        .then(obj=>{
+            localStorage.setItem("loggedCarOwner",JSON.stringify(obj))
+            setUser(obj);
+            console.log(user);
+        })
+
     fetch("http://localhost:8080/getCities")
       .then((res) => res.json())
       .then((cities) => setCities(cities));
@@ -68,7 +81,7 @@ export default function LandingPage(props) {
         </Carousel>
       </div>
       <div className="lp">
-        <h2>Welcome {props.name}</h2>
+        <h2>Welcome {user && user.fname}</h2>
         <form className="mb-3 frm">
           <div className="row">
             <div className="col">
