@@ -17,4 +17,9 @@ public class VehicleService
 	{
 		return vrepo.save(v);
 	}
+	
+	public Vehicle getVehicleId(int id)
+	{
+		return vrepo.findById(id).get();
+	}
 }

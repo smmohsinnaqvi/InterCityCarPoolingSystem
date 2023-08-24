@@ -36,7 +36,7 @@ public class VehicleController
 		String color=addv.getColor();
 		String rc_book=addv.getRc_book();
 		
-		Vehicle v=new Vehicle(id, year, color, rc_book, cm, u);
+		Vehicle v=new Vehicle(year, color, rc_book, cm, u);
 		return vservice.saveVehicle(v);
 		//return vservice.saveVehicle(v);
 	}
