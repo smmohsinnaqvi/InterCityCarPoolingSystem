@@ -26,23 +26,28 @@ export default function LandingPage(props) {
 
   const [cities, setCities] = useState([]);
 
+  const[rides,setRides]=useState([]);
+
   const[user,setUser]=useState();
   useEffect(() => {
 
     const loginid=JSON.parse(localStorage.getItem("loggedUser")).id;
-
-        fetch("http://localhost:8080/getUser?login_id="+loginid)
+        fetch(`http://localhost:8080/getUser?login_id=${loginid}`)
         .then(res=>res.json())
         .then(obj=>{
-            localStorage.setItem("loggedCarOwner",JSON.stringify(obj))
+            localStorage.setItem("loggedCarUser",JSON.stringify(obj))
             setUser(obj);
-            console.log(user);
-        })
+          });
 
     fetch("http://localhost:8080/getCities")
       .then((res) => res.json())
       .then((cities) => setCities(cities));
   }, []);
+
+    fetch(`http://localhost:8080/getRidesBetweenTwoCities?c1=${travel.startCity}&${travel.endCity}`)
+    .then((res) => res.json())
+    .then((rides)=>setRides(rides))
+
 
   const mystate=useSelector((state)=>state.logged);
   return (
@@ -138,24 +143,18 @@ export default function LandingPage(props) {
           </button>
         </form>
 
-        <div className="rides">
           <p>{JSON.stringify(travel)}</p>
+        <div className="rides">
           <Row gutter={16}>
-            <Col span={8}>
-              <Card title="Card title" bordered={false}>
+            {
+              rides.map((r)=>{
+                <Col span={8}>
+              <Card title={`${rides.}`} bordered={false}>
                 Card content
               </Card>
             </Col>
-            <Col span={8}>
-              <Card title="Card title" bordered={false}>
-                Card content
-              </Card>
-            </Col>
-            <Col span={8}>
-              <Card title="Card title" bordered={false}>
-                Card content
-              </Card>
-            </Col>
+              })
+            }
           </Row>
         </div>
       </div>

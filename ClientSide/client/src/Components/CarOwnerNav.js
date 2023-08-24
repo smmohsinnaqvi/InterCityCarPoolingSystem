@@ -7,6 +7,9 @@ export default function CarOwnerNav() {
   return (
     <div style={{ display: mystate.loggedIn ? "block" : "none" }}>
       <div className="navigation" style={{ position: "relative" }}>
+      <div className="navigation_item">
+          <Link to="/CMain">Home</Link>
+        </div>
         <div className="navigation_item">
           <Link to="/addVehicle">Add Vehicle</Link>
         </div>
