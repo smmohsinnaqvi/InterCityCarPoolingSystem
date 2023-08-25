@@ -4,7 +4,7 @@ import Image2 from "../Assests/4.jpg";
 import Image3 from "../Assests/3.jpg";
 import "./modules.css";
 import { useEffect, useReducer, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import dayjs from "dayjs";
 
@@ -30,6 +30,8 @@ export default function LandingPage(props) {
   const [rides, setRides] = useState([]);
 
   const [user, setUser] = useState();
+
+  const navigate=useNavigate();
   useEffect(() => {
 
     const loginid = JSON.parse(localStorage.getItem("loggedUser")).id;
@@ -53,9 +55,9 @@ export default function LandingPage(props) {
       .then((res) => res.json())
       .then((rides) => setRides(rides))
   }
-    useEffect(() => {
-    console.log(rides)
-    }, [rides]);
+    // useEffect(() => {
+    // console.log(rides)
+    // }, [rides]);
 
   const mystate = useSelector((state) => state.logged);
   return (
@@ -165,12 +167,13 @@ export default function LandingPage(props) {
                           {r.users.lname}
                         </h5>
                         <p>
-                          <b>Price : {r.price_per_seat}</b>
+                          <b>Price : {r.price_per_seat}</b><br/>
+                          <b>Seats :{r.available_seats}</b>
                         </p>
                         <p>Car :{r.vehicles.carmodels.carcompany.company_name} {r.vehicles.carmodels.model_name}</p>
                         <p><b>Time of depature: {r.time_and_date_of_departure} </b></p>
                         <p><b>Time of arrival: {r.time_of_arival} </b></p>
-                        <Button type="button" style={{backgroundColor:'gray'}}>Book</Button>
+                        <Button type="button" style={{backgroundColor:'gray'}} onClick={()=>{navigate("/carBook")}}>Book</Button>
                       </Card>
                     </Col>
                   );
