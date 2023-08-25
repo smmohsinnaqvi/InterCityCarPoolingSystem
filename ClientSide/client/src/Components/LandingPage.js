@@ -29,7 +29,6 @@ export default function LandingPage(props) {
 
   const [rides, setRides] = useState([]);
 
-  //use-loggedCarUser object
   const [user, setUser] = useState();
 
   const navigate=useNavigate();
@@ -154,7 +153,7 @@ export default function LandingPage(props) {
           </Button>
         </form>
 
-        {/* <p>{JSON.stringify(travel)}</p> */}
+        <p>{JSON.stringify(travel)}</p>
         <div className="rides">
           <Row gutter={16}>
             {

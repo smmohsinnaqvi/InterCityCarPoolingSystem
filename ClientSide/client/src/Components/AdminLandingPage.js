@@ -32,7 +32,7 @@ return(
        
 
         <div className="navigation_item">
-          <Link to="/approveUser">view report</Link>
+          <Link to="/viewRides">view rides</Link>
         </div> 
         <div className="App">
  
@@ -46,7 +46,7 @@ return(
 
 </div>
 </div>
-<div> <h3>Welcome Admin</h3></div> 
+<div> <h3>Welcome {data&&data.fname}</h3></div> 
 
       </div>
 
