@@ -130,7 +130,7 @@ export default function AddRide() {
                 <button type="button" onClick={(e)=>{addRide(e)}}>ADD RIDE</button>
                 {/* <button>ADD RIDE</button> */}
             </form>
-            {/* <p>{JSON.stringify(ride)}</p> */}
+            <p>{JSON.stringify(ride)}</p>
         </div>
     )
 }
