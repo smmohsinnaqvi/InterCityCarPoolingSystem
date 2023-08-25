@@ -1,60 +1,36 @@
+Suzuki-
 
-Abarth
-Acura
-Alfa Romeo
-Aston Martin
-Audi
-Bentley
-BMW
-Buick
-Cadillac
-Chevrolet
-Chrysler 
-Citroen
-Dacia
-Dodge
-Ferrari
-Fiat
-Ford
-GMC
-Honda
-Hummer
-Hyundai
-Infiniti
-Isuzu
-Jaguar
-Jeep
-Kia
-Lamborghini
-Lancia
-Land Rover
-Lexus
-Lincoln
-Lotus
-Maserati
-Mazda
-Mercedes-Benz
-Mercury
-Mini
-Mitsubishi
-Nissan
-Opel
-Peugeot
-Pontiac
-Porsche
-Ram
-Renault
-Saab
-Saturn
-Scion
-Seat
-Skoda
-Smart
-SsangYong
-Subaru
-Suzuki
-Tesla
-Toyota
-Volkswagen
-Volvo
-Wiesmann
+Maruti Suzuki Wagon-R
+Maruti Suzuki Invicito 
+Maruti Suzuki Alto 800
+Maruti Suzuki Alto K10
+Maruti Suzuki Celerio
+Maruti Suzuki Eeco
+
+
+Hyundai-
+
+Hyundai Verna
+Hyundai Venue
+Hyundai i20
+Hyundai Aura
+Hyundai grand i10 Nios
+
+
+Tata-
+
+Tata Safari
+Tata Nexon EV Prime
+Tata Altroz
+Tata Harrier
+Tata Tiago
+
+
+Mahindra
+
+Mahindra Thar
+Mahindra XUV700
+Mahindra Bolero
+Mahindra Scorpio N
+Mahindra XUV300
+
