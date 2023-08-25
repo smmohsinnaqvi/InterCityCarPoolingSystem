@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Banner_Logo from "../Assests/Banner_Logo.svg";
 import "./modules.css";
 import { useDispatch } from "react-redux";
-
+import  {login} from './slice'
 const initialState = {
   email: "",
   pwd: "",
@@ -33,10 +33,12 @@ let Login = () => {
   const [user, dispatch] = useReducer(reducer, initialState);
   const [msg, setMsg] = useState("");
   let navigate = useNavigate();
-  const reduxAction=useDispatch();
-  let submitForm = (e) => {
+
+  const reducerAction=useDispatch();
+
+  const submitForm = (e) => {
     e.preventDefault();
-    let reqOptions = {
+    const reqOptions = {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({ login_id: user.email, password: user.pwd }),
@@ -58,14 +60,15 @@ let Login = () => {
           setMsg("WRONG EMAIL OR PASSWORD");
         }
         else {
+          reducerAction(login());
+          localStorage.setItem("loggedUser",JSON.stringify(obj));
           if (obj.status === false) {
             alert("Not Approved By Administrator");
             navigate("/");
           }
-          else {  
+          else {
             if (obj.roll_id.id === 1) {
-              navigate("/CMain");
-              reduxAction(Login())
+              navigate("/CMain")
             }
             else if (obj.roll_id.id === 2) {
               navigate("/CMain");

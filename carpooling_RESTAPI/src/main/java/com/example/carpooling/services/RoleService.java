@@ -14,10 +14,10 @@ public class RoleService
 	@Autowired
 	RoleRepository rrepo;
 	
-	public List<Role> getRoles()
-	{
-		return rrepo.findAll();
-	}
 	
+	public Role getRole(int id)
+	{
+		return rrepo.findById(id).get();
+	}
 	
 }
