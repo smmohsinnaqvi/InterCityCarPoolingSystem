@@ -10,15 +10,6 @@ const initialState = {
   pwd: "",
 };
 
-// const reducer=(state,action)=>{
-//     switch(action.type)
-//     {
-//         case 'update' :
-//             return{...state,[action.fld]:action.value}
-//         case 'clear' :
-//             return initialState;
-//     }
-// }
 
 const reducer = (state, action) => {
   switch (action.type) {

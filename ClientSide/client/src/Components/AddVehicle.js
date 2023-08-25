@@ -131,7 +131,7 @@ export default function AddVehicle() {
                         <Select.Option value="gray">Gray</Select.Option>
                     </Select>
                 </Form.Item>
-                <p>{JSON.stringify(vehicle)}</p>
+                {/* <p>{JSON.stringify(vehicle)}</p> */}
                 <button type="button" onClick={(e) => { addVehicle(e) }}>ADD VEHICLE</button>
                 <div className="message" style={{ display: msg !== null ? "block" : "none" }}>
                     <b style={{ color: 'green' }}>{msg}</b>
