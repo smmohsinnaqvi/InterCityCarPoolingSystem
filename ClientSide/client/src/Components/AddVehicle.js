@@ -66,7 +66,7 @@ export default function AddVehicle() {
         const reqOptions = {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
-            body: JSON.stringify({ userid: carOwner.id, carmodelid: vehicle.car_mod, year: vehicle.year, color: vehicle.year, rc_book: vehicle.rc }),
+            body: JSON.stringify({ userid: carOwner.id, carmodelid: vehicle.car_mod, year: vehicle.year, color: vehicle.color, rc_book: vehicle.rc }),
         };
         fetch("http://localhost:8080/saveVehicle", reqOptions)
             .then((res) => res.text())
@@ -104,11 +104,6 @@ export default function AddVehicle() {
                                 )
                             })
                         }
-                        {/* <Select.Option value="1">Fortuner</Select.Option>
-                         <Select.Option value="2">Innova</Select.Option>
-                         <Select.Option value="3">Scorpio</Select.Option>
-                         <Select.Option value="4">Wagon-R</Select.Option>
-                         <Select.Option value="5">Safari</Select.Option> */}
                     </Select>
                 </Form.Item>
                 <Form.Item label="Registration Certificate (RC)" labelCol={{ span: 24 }}>

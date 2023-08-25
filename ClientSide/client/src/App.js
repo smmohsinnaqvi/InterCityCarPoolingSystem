@@ -9,6 +9,7 @@ import Logout from "./Components/Logout";
 import AddVehicle from "./Components/AddVehicle";
 import AddRide from "./Components/AddRide";
 import CarOwnerNav from "./Components/CarOwnerNav";
+import CarBooking from "./Components/CarBooking";
 function App() {
 
 //intitial state of logged
@@ -45,6 +46,8 @@ function App() {
           <Route path="/addVehicle" element={<AddVehicle />}></Route>
           <Route path="/addRide" element={<AddRide/>}></Route>
           <Route path="/carOwnerNav" element={<CarOwnerNav/>}></Route>
+          <Route path="/carBook" element={<CarBooking/>}></Route>
+          
 
 
 
