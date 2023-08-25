@@ -10,50 +10,47 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.carpooling.models.ExtraPassenger;
 import com.example.carpooling.models.Login;
+import com.example.carpooling.models.Passenger;
 import com.example.carpooling.models.Role;
 import com.example.carpooling.models.User;
 import com.example.carpooling.models.UserReg;
 import com.example.carpooling.services.LoginService;
+import com.example.carpooling.services.PassengerService;
 import com.example.carpooling.services.RoleService;
 import com.example.carpooling.services.UserService;
 
+
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-public class UserController 
-{
+public class PassengerController {
+	
+	@Autowired
+	PassengerService pservice;
+	
 	@Autowired
 	UserService uservice;
 	
-	@Autowired
-	LoginService lservice;
-	
-	@Autowired
-	RoleService rservice;
-	
-	@GetMapping("/getUser")
-	public User getUser(@RequestParam("login_id") int login_id)
+	@GetMapping("/getPassenger")
+	public List<Passenger> getAllPassenger()
 	{
-		Login l=lservice.getById(login_id);
-		return uservice.getUser(l);
+		return pservice.getPassenger();
 	}
 	
-	@GetMapping("/getAllUsers")
-	public List<User> getAllUsers()
-	{
-		return uservice.getUsers();
-	}
 	
-	@PostMapping("/regUser")
-	public User regUser(@RequestBody UserReg ur)
-	{
-		Role r=rservice.getRole(ur.getSelect());//2 means decided at 2nd id for user role
-		Login l=new Login(ur.getPrimary_email(),ur.getPassword(),r,false);
-
-		Login saved=lservice.save(l);
+	@PostMapping("/insertPassenger")
+	public Passenger savePassenger(@RequestBody ExtraPassenger ep ) {
 		
-		User u=new User(ur.getPassword(),ur.getFname(),ur.getLname(),ur.getGender(),ur.getDob(),ur.getAadhar(),ur.getLicence(),ur.getPhone_no(),ur.getPrimary_email(),ur.getSecondary_email(),saved);
-		return uservice.saveUser(u);
+		//System.out.println(ep);
+		User u=uservice.getUserId(ep.getUser_id());
+		Passenger passenger=new Passenger(ep.getAadhar_no(),ep.getPhone_no(),ep.getEmail(),ep.getFname(),ep.getLname(),ep.getGender(),u);
+		return pservice.savePassenger(passenger);
+		
+		
 	}
 	
+
+
 }
+

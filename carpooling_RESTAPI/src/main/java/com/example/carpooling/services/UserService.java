@@ -1,5 +1,7 @@
 package com.example.carpooling.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,5 +23,15 @@ public class UserService {
 	public User saveUser(User u)
 	{
 		return urepo.save(u);
+	}
+	
+	public List<User> getUsers()
+	{
+		return urepo.findAll();
+	}
+	
+	public User getUserId(int id)
+	{
+		return urepo.findById(id).get();
 	}
 }

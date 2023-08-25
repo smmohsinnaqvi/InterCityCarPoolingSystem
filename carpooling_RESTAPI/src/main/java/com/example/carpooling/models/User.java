@@ -1,8 +1,10 @@
 package com.example.carpooling.models;
 
 import java.sql.Date;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -18,7 +20,7 @@ import jakarta.persistence.Table;
 public class User 
 {
 	@Id
-	//@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	int id;
 	@Column(length=100)
 	String password;
@@ -48,10 +50,10 @@ public class User
 	@Column(length=100)
 	String secondary_email;
 	
+	@JsonIgnoreProperties("users")
 	@OneToOne
 	@JoinColumn(name="user_id")
 	Login user_id;
-
 	
 	public User() {
 		super();

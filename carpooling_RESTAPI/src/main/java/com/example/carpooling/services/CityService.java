@@ -42,4 +42,9 @@ public class CityService
 	{
 		return crepo.getCityFromState(stateid);
 	}
+	
+	public City getCityId(int id)
+	{
+		return crepo.findById(id).get();
+	}
 }
