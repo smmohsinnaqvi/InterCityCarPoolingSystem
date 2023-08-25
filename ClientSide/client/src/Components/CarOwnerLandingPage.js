@@ -19,7 +19,7 @@ export default function CarOwnerLandingPage() {
       .then((obj) => {
         localStorage.setItem("loggedCarOwner", JSON.stringify(obj));
         setCarOwner(obj);
-        console.log(carOwner);
+        //console.log(carOwner);
       });
 
   }, []);
