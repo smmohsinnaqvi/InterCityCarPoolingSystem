@@ -51,7 +51,11 @@ export default function AddRide() {
                 if (data.length > 2) {
                     setMsg("Ride Created Successfully");
                 } else setMsg("Failed to Create Ride");
-            });
+            })
+            .catch((e)=>
+            {
+                console.log(e);
+            })
 
 
     }

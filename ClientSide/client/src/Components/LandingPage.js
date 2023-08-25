@@ -1,4 +1,4 @@
-import { Card, Carousel, Col, Row, Select } from "antd";
+import { Button, Card, Carousel, Col, Row, Select } from "antd";
 import Image1 from "../Assests/1.jpg";
 import Image2 from "../Assests/4.jpg";
 import Image3 from "../Assests/3.jpg";
@@ -6,6 +6,7 @@ import "./modules.css";
 import { useEffect, useReducer, useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import dayjs from "dayjs";
 
 const initialState = {
   startCity: null,
@@ -26,35 +27,42 @@ export default function LandingPage(props) {
 
   const [cities, setCities] = useState([]);
 
-  const[rides,setRides]=useState([]);
+  const [rides, setRides] = useState([]);
 
-  const[user,setUser]=useState();
+  const [user, setUser] = useState();
   useEffect(() => {
 
-    const loginid=JSON.parse(localStorage.getItem("loggedUser")).id;
-        fetch(`http://localhost:8080/getUser?login_id=${loginid}`)
-        .then(res=>res.json())
-        .then(obj=>{
-            localStorage.setItem("loggedCarUser",JSON.stringify(obj))
-            setUser(obj);
-          });
+    const loginid = JSON.parse(localStorage.getItem("loggedUser")).id;
+    fetch(`http://localhost:8080/getUser?login_id=${loginid}`)
+      .then(res => res.json())
+      .then(obj => {
+        console.log(obj)
+        localStorage.setItem("loggedCarUser", JSON.stringify(obj))
+        setUser(obj);
+      });
 
     fetch("http://localhost:8080/getCities")
       .then((res) => res.json())
       .then((cities) => setCities(cities));
+
   }, []);
 
-    fetch(`http://localhost:8080/getRidesBetweenTwoCities?c1=${travel.startCity}&${travel.endCity}`)
-    .then((res) => res.json())
-    .then((rides)=>setRides(rides))
+  const showRide = (e) => {
+    e.preventDefault();
+    fetch(`http://localhost:8080/getRidesBetweenTwoCities?start_location=${travel.startCity}&end_location=${travel.endCity}`)
+      .then((res) => res.json())
+      .then((rides) => setRides(rides))
+  }
+    useEffect(() => {
+    console.log(rides)
+    }, [rides]);
 
-
-  const mystate=useSelector((state)=>state.logged);
+  const mystate = useSelector((state) => state.logged);
   return (
     <>
-      <div style={{display:mystate.loggedIn?"block":"none"}}>
+      <div style={{ display: mystate.loggedIn ? "block" : "none" }}>
 
-      <div className="navigation" style={{ position: "relative" }}>
+        <div className="navigation" style={{ position: "relative" }}>
           <div className="navigation_item">
             <Link to="/">About</Link>
           </div>
@@ -68,8 +76,8 @@ export default function LandingPage(props) {
             <Link to="/logout">Logout</Link>
           </div>
         </div>
-      <div>
-       </div>
+        <div>
+        </div>
         <Carousel autoplay>
           <div className="car_Image">
             <img src={Image1} alt="1" />
@@ -138,22 +146,35 @@ export default function LandingPage(props) {
               </Select>
             </div>
           </div>
-          <button type="button" className="btn btn-secondary">
+          <Button type="button" className="btn btn-secondary" onClick={(e) => { showRide(e) }}>
             Search Ride
-          </button>
+          </Button>
         </form>
 
-          <p>{JSON.stringify(travel)}</p>
+        <p>{JSON.stringify(travel)}</p>
         <div className="rides">
           <Row gutter={16}>
             {
-              rides.map((r)=>{
-                <Col span={8}>
-              <Card title={`${rides.}`} bordered={false}>
-                Card content
-              </Card>
-            </Col>
-              })
+                rides.map(r => {
+                  return (
+                    <Col span={8}>
+                      <Card title={`${r.start_location.city} - ${r.end_location.city}`} style={{ border: "2px solid black" }} bordered={false}>
+                        <h5>
+                          {r.users.fname}
+                          <span> </span>
+                          {r.users.lname}
+                        </h5>
+                        <p>
+                          <b>Price : {r.price_per_seat}</b>
+                        </p>
+                        <p>Car :{r.vehicles.carmodels.carcompany.company_name} {r.vehicles.carmodels.model_name}</p>
+                        <p><b>Time of depature: {r.time_and_date_of_departure} </b></p>
+                        <p><b>Time of arrival: {r.time_of_arival} </b></p>
+                        <Button type="button" style={{backgroundColor:'gray'}}>Book</Button>
+                      </Card>
+                    </Col>
+                  );
+                })
             }
           </Row>
         </div>

@@ -22,15 +22,42 @@ const reducerV = (state, action) => {
 const year_arr = [2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023];
 
 export default function AddVehicle() {
+
     const [vehicle, dispatchv] = useReducer(reducerV, initialStateVehicle);
     const [carcom, setCarcom] = useState([]);
+    const [carmod, setCarMod] = useState([]);
     const [msg, setMsg] = useState(null);
+    const [formData] = Form.useForm();
     useEffect(() => {
 
         fetch("http://localhost:8080/getAllCarCompany")
             .then((res) => res.json())
             .then((carcom) => setCarcom(carcom));
+
     }, []);
+
+    useEffect(() => {
+        if (vehicle.car_com !== 0) {
+            console.log(vehicle.car_com)
+            fetch(`http://localhost:8080/getcarmodelsfromcompanyid?comapnyid=${vehicle.car_com}`)
+                .then(res => res.json())
+                .then((carmod) => {
+                    setCarMod(carmod);
+                })
+                .catch((e) => {
+                    console.log(e);
+                })
+        }
+    }, [vehicle]);
+
+    
+    // const changeCarMod = () => {
+    //     fetch(`http://localhost:8080/getcarmodelsfromcompanyid?comapnyid=${vehicle.car_com}`)
+    //         .then(res => res.json())
+    //         .then((carmod) => {
+    //             setCarMod(carmod);
+    //         });
+    //     }
 
     const addVehicle = (e) => {
         e.preventDefault();
@@ -55,9 +82,9 @@ export default function AddVehicle() {
 
         <div className="addVehicle">
             <CarOwnerNav />
-            <form className="">
+            <Form form={formData} className="">
                 <Form.Item label="Car Company" labelCol={{ span: 24 }} style={{}}>
-                    <Select name="car_com" placeholder="--Select Car Company --" className="" onChange={(e) => { dispatchv({ type: 'update', fld: 'car_com', value: e }) }}>
+                    <Select name="car_com" placeholder="--Select Car Company --" className="" onChange={(e) => { dispatchv({ type: 'update', fld: 'car_com', value: e }); formData.resetFields(["carCompany"]) }}>
                         {
                             carcom.map((v) => {
                                 return (
@@ -67,22 +94,21 @@ export default function AddVehicle() {
                         }
                     </Select>
                 </Form.Item>
-                <Form.Item label="Car Model" labelCol={{ span: 24 }} style={{}}>
+                <Form.Item  name="carCompany" label="Car Model" labelCol={{ span: 24 }} style={{}}>
                     <Select name="car_mod" placeholder="--Select Car Model --" className="" onChange={(e) => { dispatchv({ type: 'update', fld: 'car_mod', value: e }) }}>
-                        {/* {
-                                    carcom[vehicle.car_com].carmodels.map((v)=>
-                                    {
-                                        console.log(v);
-                                        return(
-                                            <Select.Option key={v.id} value={v.id}>{v.model_name}</Select.Option>
-                                            )
-                                        })
-                                } */}
-                        <Select.Option value="1">Fortuner</Select.Option>
-                        <Select.Option value="2">Innova</Select.Option>
-                        <Select.Option value="3">Scorpio</Select.Option>
-                        <Select.Option value="4">Wagon-R</Select.Option>
-                        <Select.Option value="5">Safari</Select.Option>
+                        {
+                            carmod.map((v) => {
+                                console.log(v);
+                                return (
+                                    <Select.Option key={v.id} value={v.id}>{v.model_name}</Select.Option>
+                                )
+                            })
+                        }
+                        {/* <Select.Option value="1">Fortuner</Select.Option>
+                         <Select.Option value="2">Innova</Select.Option>
+                         <Select.Option value="3">Scorpio</Select.Option>
+                         <Select.Option value="4">Wagon-R</Select.Option>
+                         <Select.Option value="5">Safari</Select.Option> */}
                     </Select>
                 </Form.Item>
                 <Form.Item label="Registration Certificate (RC)" labelCol={{ span: 24 }}>
@@ -112,10 +138,10 @@ export default function AddVehicle() {
                 </Form.Item>
                 <p>{JSON.stringify(vehicle)}</p>
                 <button type="button" onClick={(e) => { addVehicle(e) }}>ADD VEHICLE</button>
-                <div className="message" style={{display:msg!==null?"block":"none"}}>
-                    <b style={{color:'green'}}>{msg}</b>
+                <div className="message" style={{ display: msg !== null ? "block" : "none" }}>
+                    <b style={{ color: 'green' }}>{msg}</b>
                 </div>
-            </form>
+            </Form>
         </div>
 
     )
