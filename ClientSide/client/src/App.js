@@ -10,7 +10,7 @@ import CarOwnerLandingPage from "./Components/CarOwnerLandingPage";
 import C_AddVehicle from "./Components/C_AddVehicle";
 import { useSelector } from "react-redux";
 import LogoutComp from "./Components/Logout";
-import AdminHome from "./Components/AdminLandingPage";
+import AdminLandingPage from "./Components/AdminLandingPage";
 function App() {
   const mystate=useSelector((state)=>state.logged)
   return (
@@ -40,7 +40,7 @@ function App() {
           <Route path="/Main" element={<LandingPage />}></Route>
           <Route path="/CMain" element={<CarOwnerLandingPage />}></Route>
           <Route path="/logout" element={<LogoutComp/>}></Route>
-          <Route path="/admin" element={<AdminHome/>}></Route>
+          <Route path="/admin" element={<AdminLandingPage/>}></Route>
 
         </Routes>
       </header>
