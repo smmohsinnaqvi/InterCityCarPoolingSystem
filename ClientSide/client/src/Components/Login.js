@@ -68,7 +68,7 @@ let Login = () => {
           }
           else {
             if (obj.roll_id.id === 1) {
-              navigate("/CMain")
+              navigate("/admin")
             }
             else if (obj.roll_id.id === 2) {
               navigate("/CMain");

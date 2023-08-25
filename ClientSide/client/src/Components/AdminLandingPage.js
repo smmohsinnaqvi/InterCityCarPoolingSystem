@@ -27,7 +27,7 @@ return(
 
       
         <div className="navigation_item">
-          <Link to="ViewUser">view user</Link>
+          <Link to="/ViewUser">view user</Link>
         </div> 
        
 
