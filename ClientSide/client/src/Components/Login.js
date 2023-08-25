@@ -3,7 +3,8 @@ import { useReducer, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Banner_Logo from "../Assests/Banner_Logo.svg";
 import "./modules.css";
-
+import { useDispatch } from "react-redux";
+import  {login} from './slice'
 const initialState = {
   email: "",
   pwd: "",
@@ -32,25 +33,57 @@ let Login = () => {
   const [user, dispatch] = useReducer(reducer, initialState);
   const [msg, setMsg] = useState("");
   let navigate = useNavigate();
-  
-  let submitForm = (e) => {
+
+  const reducerAction=useDispatch();
+
+  const submitForm = (e) => {
     e.preventDefault();
-    let reqOptions = {
+    const reqOptions = {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({ login_id: user.email, password: user.pwd }),
-    };
+    }
     fetch("http://localhost:8080/checkLogin", reqOptions)
-      .then((res) => res.text())
-      .then((data) => {
-        if (data.length > 2) navigate("/Main");
-        else setMsg("WRONG EMAIL OR PASSWORD");
+      .then((res) => {
+        if (res.ok) {
+          console.log(res.status);
+          return res.text();
+        }
+        else {
+          console.log(res.status);
+          throw new Error("Server Error");
+        }
+      })
+      .then((text) => text.length ? JSON.parse(text) : {})
+      .then(obj => {
+        if (Object.keys(obj).length === 0) {
+          setMsg("WRONG EMAIL OR PASSWORD");
+        }
+        else {
+          reducerAction(login());
+          localStorage.setItem("loggedUser",JSON.stringify(obj));
+          if (obj.status === false) {
+            alert("Not Approved By Administrator");
+            navigate("/");
+          }
+          else {
+            if (obj.roll_id.id === 1) {
+              navigate("/CMain")
+            }
+            else if (obj.roll_id.id === 2) {
+              navigate("/CMain");
+            }
+            else if (obj.roll_id.id === 3) {
+              navigate("/Main");
+            }
+          }
+        }
       })
       .catch((e) => {
         alert("Error Signing In");
-        navigate("/Main");
+        // navigate("/Main");
       });
-  };
+  }
 
   return (
     <div className="Login">

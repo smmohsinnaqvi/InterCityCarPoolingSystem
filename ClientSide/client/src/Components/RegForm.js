@@ -1,4 +1,3 @@
-import { Footer } from "antd/es/layout/layout";
 import { useReducer, useState } from "react";
 
 const initialState={
@@ -54,12 +53,7 @@ let RegForm=()=>
         <button type="submit" onClick={(e)=>{submitForm(e)}} className="form-field">SUBMIT</button>
         </form>
         <p className="bg-danger">{msg}</p>
-      
-
-        
-     
-    </div>
-    )
+    </div>)
 
 } 
 export default RegForm;
