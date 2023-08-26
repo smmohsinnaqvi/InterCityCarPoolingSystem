@@ -13,6 +13,7 @@ import CarBooking from "./Components/CarBooking";
 import AdminLandingPage from "./Components/AdminLandingPage";
 import ViewUser from "./Components/AdminFuncCompo/ViewUser";
 import StatusUpdate from "./Components/AdminFuncCompo/StatusUpdate";
+import ViewRides from "./Components/AdminFuncCompo/ViewRides";
 
 
 function App() {
@@ -55,6 +56,8 @@ function App() {
           <Route path="/admin" element={<AdminLandingPage/>}></Route>
           <Route path="ViewUser" element={<ViewUser/>}></Route>
           <Route path="StatusUpdate" element={<StatusUpdate/>}></Route>
+          <Route path="ViewRides" element={<ViewRides/>}></Route>
+
 
           
 

@@ -101,22 +101,8 @@ export default function ViewUser() {
 };
 
 
-{/* <tr key={user.id}>
-<td>{user.fname}</td>
-<td>{user.lname}</td>
-<td>{user.gender}</td>
-<td>{user.dob}</td>
-<td>{user.aadhar}</td>
-<td>{user.licence}</td>
-<td>{user.primary_email}</td>
-<td>{user.roll}</td>
-<td>{user.status}</td>
-<td> <button type="button">
-    Update Status
-</button>
-</td>
 
-</tr> */}
+
 
 
 
