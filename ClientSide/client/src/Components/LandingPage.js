@@ -70,6 +70,7 @@ export default function LandingPage(props) {
 
   //Adding Booking information into DB
   const addBook = (r) => {
+    console.log(JSON.stringify(r))
     let date = new Date().toJSON();
     let tot = seats * r.price_per_seat;
     const reqOptions = {
