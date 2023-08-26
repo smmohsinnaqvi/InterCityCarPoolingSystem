@@ -9,10 +9,10 @@ import Logout from "./Components/Logout";
 import AddVehicle from "./Components/AddVehicle";
 import AddRide from "./Components/AddRide";
 import CarOwnerNav from "./Components/CarOwnerNav";
-import CarBooking from "./Components/CarBooking";
 import AdminLandingPage from "./Components/AdminLandingPage";
 import ViewUser from "./Components/AdminFuncCompo/ViewUser";
 import StatusUpdate from "./Components/AdminFuncCompo/StatusUpdate";
+import About from "./Components/About";
 
 
 function App() {
@@ -28,7 +28,7 @@ function App() {
             <Link to="/Reg">Register</Link>
           </div>
           <div className="navigation_item">
-            <Link to="/">About</Link>
+            <Link to="/about">About</Link>
           </div>
           <div className="navigation_item">
             <Link to="/">Contact</Link>
@@ -51,10 +51,11 @@ function App() {
           <Route path="/addVehicle" element={<AddVehicle />}></Route>
           <Route path="/addRide" element={<AddRide/>}></Route>
           <Route path="/carOwnerNav" element={<CarOwnerNav/>}></Route>
-          <Route path="/carBook" element={<CarBooking/>}></Route>
           <Route path="/admin" element={<AdminLandingPage/>}></Route>
           <Route path="ViewUser" element={<ViewUser/>}></Route>
           <Route path="StatusUpdate" element={<StatusUpdate/>}></Route>
+          <Route path="/about" element={<About/>}></Route>
+
 
           
 
