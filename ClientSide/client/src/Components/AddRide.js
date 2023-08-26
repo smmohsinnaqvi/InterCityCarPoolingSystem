@@ -1,6 +1,5 @@
-import { Form, Input, Select, Space, TimePicker } from "antd";
+import { Form, Input, Select } from "antd";
 import { useEffect, useReducer, useState } from "react";
-import dayjs from 'dayjs';
 import CarOwnerNav from "./CarOwnerNav";
 
 const initialStateRide = {
@@ -43,10 +42,17 @@ export default function AddRide() {
         const reqOptions = {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
-            body: JSON.stringify({ carowner_id: carOwner.id, start_location: ride.s_city, end_location: ride.e_city, vehicle_id: ride.vehicle, time_and_date_of_departure: ride.d_time,time_of_arival:ride.r_time,price_per_seat:ride.price,Available_seats:ride.seats }),
+            body: JSON.stringify({ carowner_id: carOwner.id,
+                start_location: ride.s_city, end_location: ride.e_city,
+                 date_of_journey:ride.doj,
+                 vehicle_id: ride.vehicle,
+                 time_of_departure: ride.d_time,time_of_arival:ride.r_time,
+                 price_per_seat:ride.price,
+                 available_seats:ride.seats,
+                  status:"pending" }),
         };
         fetch("http://localhost:8080/addRide", reqOptions)
-            .then((res) => res.text())
+            .then((res) =>  res.text())
             .then((data) => {
                 if (data.length > 2) {
                     setMsg("Ride Created Successfully");
@@ -54,7 +60,7 @@ export default function AddRide() {
             })
             .catch((e)=>
             {
-                console.log(e);
+                setMsg("Failed to Create Ride")
             })
 
 
@@ -90,14 +96,17 @@ export default function AddRide() {
                     <Input type="date" name="doj" onChange={(e) => { dispatchr({ type: 'update', fld: 'doj', value: e.target.value }) }}></Input>
                 </Form.Item>
                 <Form.Item label="Time of Departure" labelCol={{ span: 24 }} style={{}}>
-                    <Space wrap>
+                    <input type="time" step="1" name="d_time" onChange={(e) => { dispatchr({ type: 'update', fld: 'd_time', value: e.target.value }) }}></input>
+                    {/* <Space wrap>
                         <TimePicker name="d_time" defaultValue={dayjs('12:08:23', 'HH:mm:ss')} size="large" onChange={(e) => { dispatchr({ type: 'update', fld: 'd_time', value: e }) }} />
-                    </Space>
+                    </Space> */}
                 </Form.Item>
                 <Form.Item label="Time of Reaching" labelCol={{ span: 24 }} style={{}}>
-                    <Space wrap>
+                <input type="time" step="1" name="r_time" onChange={(e) => { dispatchr({ type: 'update', fld: 'r_time', value: e.target.value }) }}></input>
+
+                    {/* <Space wrap>
                         <TimePicker name="r_time" defaultValue={dayjs('12:08:23', 'HH:mm:ss')} size="large" onChange={(e) => { dispatchr({ type: 'update', fld: 'r_time', value: e }) }} />
-                    </Space>
+                    </Space> */}
                 </Form.Item>
 
                 <Form.Item label="Select Car" labelCol={{ span: 24 }}>
@@ -128,9 +137,12 @@ export default function AddRide() {
                     </Select>
                 </Form.Item>
                 <button type="button" onClick={(e)=>{addRide(e)}}>ADD RIDE</button>
+                <div className="message" style={{display:msg!==null?"block":"none"}}>
+                        <p style={{color:'green'}}>{msg}</p>
+                </div>
                 {/* <button>ADD RIDE</button> */}
             </form>
-            <p>{JSON.stringify(ride)}</p>
+            {/* <p>{JSON.stringify(ride)}</p> */}
         </div>
     )
 }

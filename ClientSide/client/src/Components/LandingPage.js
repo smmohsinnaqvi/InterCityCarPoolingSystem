@@ -1,4 +1,4 @@
-import { Button, Card, Carousel, Col, Row, Select } from "antd";
+import { Button, Card, Carousel, Col, Form, Row, Select } from "antd";
 import Image1 from "../Assests/1.jpg";
 import Image2 from "../Assests/4.jpg";
 import Image3 from "../Assests/3.jpg";
@@ -6,7 +6,6 @@ import "./modules.css";
 import { useEffect, useReducer, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import dayjs from "dayjs";
 
 const initialState = {
   startCity: null,
@@ -25,13 +24,22 @@ const reducer = (state, action) => {
 export default function LandingPage(props) {
   const [travel, dispatch] = useReducer(reducer, initialState);
 
+  //Maintaining cities API
   const [cities, setCities] = useState([]);
 
+  //Maintaining rides API
   const [rides, setRides] = useState([]);
 
+  //use-loggedCarUser object
   const [user, setUser] = useState();
 
-  const navigate=useNavigate();
+
+  //No. of seats
+  const [seats, setSeats] = useState();
+
+  const [pflag, setPflag] = useState(null)
+  const [msg, setMsg] = useState(null)
+
   useEffect(() => {
 
     const loginid = JSON.parse(localStorage.getItem("loggedUser")).id;
@@ -55,9 +63,41 @@ export default function LandingPage(props) {
       .then((res) => res.json())
       .then((rides) => setRides(rides))
   }
-    // useEffect(() => {
-    // console.log(rides)
-    // }, [rides]);
+  // useEffect(() => {
+  // console.log(rides)
+  // }, [rides]);
+
+
+  //Adding Booking information into DB
+  const addBook = (r) => {
+    let date = new Date().toJSON();
+    let tot = seats * r.price_per_seat;
+    const reqOptions = {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        time: date,
+        no_of_seats: seats,
+        passenger_id: user.id,
+        ride_id: r.id,
+        total_price: tot,
+        status: "pending"
+      })
+    };
+    fetch("http://localhost:8080/addBooking",reqOptions)
+      .then(res => res.text())
+      .then((data) => { if (data.length > 2) { setMsg("Make Payment"); setPflag(1) } else setMsg("Booking Failed") })
+      .catch((e) => {
+        alert("Failed to Create Ride")
+      })
+  }
+
+  //Adding Payment
+  const addPayment=(e)=>{
+      e.preventDefault();
+      
+    //WRITE LOGIC HERE
+  }
 
   const mystate = useSelector((state) => state.logged);
   return (
@@ -66,7 +106,7 @@ export default function LandingPage(props) {
 
         <div className="navigation" style={{ position: "relative" }}>
           <div className="navigation_item">
-            <Link to="/">About</Link>
+            <Link to="/about">About</Link>
           </div>
           <div className="navigation_item">
             <Link to="/">Contact</Link>
@@ -153,31 +193,48 @@ export default function LandingPage(props) {
           </Button>
         </form>
 
-        <p>{JSON.stringify(travel)}</p>
+        {/* <p>{JSON.stringify(travel)}</p> */}
         <div className="rides">
           <Row gutter={16}>
             {
-                rides.map(r => {
-                  return (
-                    <Col span={8}>
-                      <Card title={`${r.start_location.city} - ${r.end_location.city}`} style={{ border: "2px solid black" }} bordered={false}>
-                        <h5>
-                          {r.users.fname}
-                          <span> </span>
-                          {r.users.lname}
-                        </h5>
-                        <p>
-                          <b>Price : {r.price_per_seat}</b><br/>
-                          <b>Seats :{r.available_seats}</b>
-                        </p>
-                        <p>Car :{r.vehicles.carmodels.carcompany.company_name} {r.vehicles.carmodels.model_name}</p>
-                        <p><b>Time of depature: {r.time_and_date_of_departure} </b></p>
-                        <p><b>Time of arrival: {r.time_of_arival} </b></p>
-                        <Button type="button" style={{backgroundColor:'gray'}} onClick={()=>{navigate("/carBook")}}>Book</Button>
-                      </Card>
-                    </Col>
-                  );
-                })
+              rides.map(r => {
+                return (
+                  <Col span={8} key={r.id}>
+                    <Card title={`${r.start_location.city} - ${r.end_location.city}`} style={{ border: "2px solid black" }} bordered={false}>
+                      <h5>
+                        {r.users.fname}
+                        <span> </span>
+                        {r.users.lname}
+                      </h5>
+                      <p>
+                        <b>Price : {r.price_per_seat}</b><br />
+                        <b>Seats :{r.available_seats}</b>
+                      </p>
+                      <p>Car :{r.vehicles.carmodels.carcompany.company_name} {r.vehicles.carmodels.model_name}</p>
+                      <p><b>Date: {r.date_of_journey} </b></p>
+                      <p><b>Time of depature: {r.time_of_departure} </b></p>
+                      <p><b>Time of arrival: {r.time_of_arival} </b></p>
+
+                      <Form className="">
+                        <Form.Item label="Number of Seats :" labelCol={{ span: 24 }} >
+                          <Select name="seats" onChange={(e) => { setSeats(e) }}>
+                            <Select.Option value="1">1</Select.Option>
+                            <Select.Option value="2">2</Select.Option>
+                            <Select.Option value="3">3</Select.Option>
+                            <Select.Option value="4">4</Select.Option>
+                          </Select>
+
+                          <Button type="button" style={{ backgroundColor: 'gray' }} onClick={() => { addBook(r) }}>Book</Button>
+                        </Form.Item>
+                        <div className="payment" style={{ display: pflag === 1 ? "block" : "none" }}>
+                          <p style={{color:'blue'}}>{msg}</p>
+                          <button type="button" onClick={(e)=>{addPayment(e)}} >PAY</button>
+                        </div>
+                      </Form>
+                    </Card>
+                  </Col>
+                );
+              })
             }
           </Row>
         </div>
