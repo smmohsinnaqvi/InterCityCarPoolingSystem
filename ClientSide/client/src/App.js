@@ -1,7 +1,6 @@
 import "./App.css";
 import { Link, Route, Routes } from "react-router-dom";
 import Login from "./Components/Login";
-import RegUser from "./Components/RegUser";
 import LandingPage from "./Components/LandingPage";
 import CarOwnerLandingPage from "./Components/CarOwnerLandingPage";
 import { useSelector } from "react-redux";
@@ -13,6 +12,7 @@ import AdminLandingPage from "./Components/AdminLandingPage";
 import ViewUser from "./Components/AdminFuncCompo/ViewUser";
 import StatusUpdate from "./Components/AdminFuncCompo/StatusUpdate";
 import About from "./Components/About";
+import ViewRides from "./Components/AdminFuncCompo/ViewRides";
 
 
 function App() {
@@ -43,7 +43,6 @@ function App() {
       </div>
       <header className="App-header">
         <Routes>
-          <Route path="/Reg" element={<RegUser />}></Route>
           <Route path="/" element={<Login />}></Route>
           <Route path="/Main" element={<LandingPage />}></Route>
           <Route path="/CMain" element={<CarOwnerLandingPage />}></Route>
@@ -52,8 +51,9 @@ function App() {
           <Route path="/addRide" element={<AddRide/>}></Route>
           <Route path="/carOwnerNav" element={<CarOwnerNav/>}></Route>
           <Route path="/admin" element={<AdminLandingPage/>}></Route>
-          <Route path="ViewUser" element={<ViewUser/>}></Route>
-          <Route path="StatusUpdate" element={<StatusUpdate/>}></Route>
+          <Route path="/ViewUser" element={<ViewUser/>}></Route>
+          <Route path="/StatusUpdate" element={<StatusUpdate/>}></Route>
+          <Route path="/viewRides" element={< ViewRides/>}></Route>
           <Route path="/about" element={<About/>}></Route>
 
 
