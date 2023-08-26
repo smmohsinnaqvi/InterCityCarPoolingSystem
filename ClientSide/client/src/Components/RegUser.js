@@ -514,7 +514,7 @@ let RegUser = () => {
                   className="message"
                    style={{ display: msg !== null ? "block" : "none" }}
                 >
-                  <b style={{ color: 'green' }}>{msg}</b>
+                  <b style={{ color:msg==="Register Successfully"?'green':'red' }}>{msg}</b>
                   <Button type="button" onClick={()=>{navigate("/")}}>SIGN IN</Button>
                 </div>
               </div>
