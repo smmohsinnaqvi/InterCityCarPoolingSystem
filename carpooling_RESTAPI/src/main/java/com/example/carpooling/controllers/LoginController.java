@@ -26,4 +26,10 @@ public class LoginController {
 	{
 		return lservice.getLogin(lcheck.getLogin_id(), lcheck.getPassword());
 	}
+	
+	@GetMapping("/updateStatus")
+	public int updateStatus(@RequestParam("status")boolean status,@RequestParam("id") int id)
+	{
+		return lservice.updateStatus(status, id);
+	}
 }

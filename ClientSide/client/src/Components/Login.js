@@ -10,6 +10,15 @@ const initialState = {
   pwd: "",
 };
 
+// const reducer=(state,action)=>{
+//     switch(action.type)
+//     {
+//         case 'update' :
+//             return{...state,[action.fld]:action.value}
+//         case 'clear' :
+//             return initialState;
+//     }
+// }
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -59,7 +68,7 @@ let Login = () => {
           }
           else {
             if (obj.roll_id.id === 1) {
-              navigate("/adminMain")
+              navigate("/admin")
             }
             else if (obj.roll_id.id === 2) {
               navigate("/CMain");

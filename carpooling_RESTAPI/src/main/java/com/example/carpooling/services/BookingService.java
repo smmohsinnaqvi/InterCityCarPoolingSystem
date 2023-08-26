@@ -47,4 +47,11 @@ public class BookingService
 	{
 		return brepo.save(b);
 	}
+	
+	public int getTotalPrice(int bid)
+	{
+		 return brepo.getTotalPrice(bid);
+	}
+	
+	
 }

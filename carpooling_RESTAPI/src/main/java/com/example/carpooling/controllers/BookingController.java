@@ -65,4 +65,12 @@ public class BookingController
 		Booking b=new Booking(time, no_of_seats, total_price, Status, r, u);
 		return bservice.saveBooking(b);
 	}
+	
+	@GetMapping("/getTotalPrice")
+	public int getTotalPrice(@RequestParam("bid") int bid)
+	{
+		return bservice.getTotalPrice(bid);
+	}
+	
+	
 }

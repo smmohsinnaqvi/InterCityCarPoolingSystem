@@ -1,6 +1,7 @@
 package com.example.carpooling.controllers;
 
 import java.sql.Date;
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -44,10 +45,11 @@ public class RideController
 	@PostMapping("/addRide")
 	public Ride save(@RequestBody AddRide addr)
 	{
-		LocalDateTime time_and_date_of_departure= addr.getTime_and_date_of_departure();
+		Time time_of_departure= addr.getTime_of_departure();
 		
-		LocalDateTime time_of_arrival=addr.getTime_of_arival();
+		Time time_of_arrival=addr.getTime_of_arival();
 		
+		Date date_of_journey=addr.getDate_of_journey();
 		int price_per_seat=addr.getPrice_per_seat();
 		
 		int available_seats=addr.getAvailable_seats();
@@ -59,7 +61,7 @@ public class RideController
 		City end_location=cservice.getCityId(addr.getEnd_location());
 		Vehicle v=vservice.getVehicleId(addr.getVehicle_id());
 		
-		Ride r=new Ride(time_and_date_of_departure, time_of_arrival, price_per_seat, available_seats, status, u, start_location, end_location, v);
+		Ride r=new Ride(date_of_journey,time_of_departure, time_of_arrival, price_per_seat, available_seats, status, u, start_location, end_location, v);
 		
 		return rservice.saveRide(r);	
 	}

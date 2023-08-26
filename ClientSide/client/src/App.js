@@ -12,6 +12,9 @@ import CarOwnerNav from "./Components/CarOwnerNav";
 import CarBooking from "./Components/CarBooking";
 import AdminLandingPage from "./Components/AdminLandingPage";
 import ViewUser from "./Components/AdminFuncCompo/ViewUser";
+import StatusUpdate from "./Components/AdminFuncCompo/StatusUpdate";
+
+
 function App() {
 
 //intitial state of logged
@@ -49,9 +52,10 @@ function App() {
           <Route path="/addRide" element={<AddRide/>}></Route>
           <Route path="/carOwnerNav" element={<CarOwnerNav/>}></Route>
           <Route path="/carBook" element={<CarBooking/>}></Route>
-          <Route path="/adminMain" element={<AdminLandingPage/>}></Route>
+          <Route path="/admin" element={<AdminLandingPage/>}></Route>
+          <Route path="ViewUser" element={<ViewUser/>}></Route>
+          <Route path="StatusUpdate" element={<StatusUpdate/>}></Route>
 
-          <Route path="/viewUser" element={<ViewUser/>}></Route>
           
 
 

@@ -39,4 +39,9 @@ public class LoginService {
 	{
 		return lrepo.save(l);
 	}
+	
+	public int updateStatus(Boolean status,int id)
+	{
+		return lrepo.updateStatus(status, id);
+	}
 }
