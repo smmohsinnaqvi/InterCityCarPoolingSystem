@@ -41,21 +41,37 @@ export default function ViewRides() {
               </tr>
           </thead>
           <tbody>
-            {/* {
-              rides.map((r)=>{
-                <tr key={r.}>
-
-                </tr>
-              })
-            } */}
+            {
+               rides.map((v) => {
+                            
+                return (
+               <tr key={v.id}>
+               {/* <td>{v.fname}</td>
+               <td>{v.lname}</td> */}
+               <td>{v.id}</td>
+               <td>{v.users.fname}</td>
+               <td>{v.users.lname}</td>
+               <td>{v.start_location.city}</td>
+               <td>{v.end_location.city}</td>
+               <td>{v.vehicles.carmodels.model_name}</td>
+               <td>{v.time_of_departure}</td>
+               <td>{v.time_of_arival}</td>
+               <td>{v.date_of_journey}</td>
+               <td>{v.status}</td>
               
-          </tbody>
-      </table>
-  </div>
-);
+              
+               
+            
+               </tr>
+                            )
+
+                        })
+                    }
+                </tbody>
+            </table>
+        </div>
+    );
 };
-
-
 
 
 
