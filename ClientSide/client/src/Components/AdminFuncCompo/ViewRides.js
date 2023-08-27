@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button, Card, Carousel, Col, Row, Select } from "antd";
 // import StatusUpdate from './StatusUpdate';
+import { useNavigate } from "react-router-dom";
 export default function ViewRides() {
     const [rides, setRides] = useState([]);
 
@@ -16,26 +17,67 @@ export default function ViewRides() {
                 })
     }, []);
 
+const navigate=useNavigate();
+const pendingRides=(a)=>
+{
+    if(rides.length>0)
+    {
+
+        fetch(`http://localhost:8080/getAllRidesByStatus?status=pending&id=${a}`)
+        .then(res => res.json())
+            .then((rides) => {
+                setRides(rides);
+            })
+            .catch((e) => {
+                console.log(e);
+            })
+        navigate("/ViewRides");
+
+    }
+}
+const activeRides=(a)=>
+    {
+        if(rides.length>0)
+        {
+
+            fetch(`http://localhost:8080/getAllRidesByStatus?status=active&id=${a}`)
+            .then(res => res.json())
+                .then((rides) => {
+                    setRides(rides);
+                })
+                .catch((e) => {
+                    console.log(e);
+                })
+            navigate("/ViewRides");
+
+        }
+    }
+
     useEffect(()=>{
       console.log(rides);
     },[rides])
 
     return (
       <div>
+        {/* <AdminNav/> */}
+         <button type="button" onClick={()=>{pendingRides()}}>Pending Rides</button>
+                                    
+                                    <button type="button" onClick={()=>{activeRides()}}>Active Rides</button>
+                           
       <h1>Rides Information</h1>
-      <table border="1" className="table-collapse">
+      <table border="1" className="table table-striped">
           <thead>
               <tr>
-                  <th>Ride Id</th>
-                  <th>First Name</th>
-                  <th>Last Name</th>
-                  <th>Start_Location</th>
-                  <th>End Location</th>
-                  <th>Company Name</th>
-                  <th>Model Name</th>
-                  <th>Time of depature</th>
-                  <th>Time of arrival</th>
-                  <th>status</th>
+                  <th className="text-center">Ride Id</th>
+                  <th className="text-center">First Name</th>
+                  <th className="text-center">Last Name</th>
+                  <th className="text-center">Start_Location</th>
+                  <th className="text-center">End Location</th>
+                  <th className="text-center">Company Name</th>
+                  <th className="text-center">Model Name</th>
+                  <th className="text-center">Time of depature</th>
+                  <th className="text-center">Time of arrival</th>
+                  <th className="text-center">status</th>
                 
 
               </tr>
@@ -48,16 +90,16 @@ export default function ViewRides() {
                <tr key={v.id}>
                {/* <td>{v.fname}</td>
                <td>{v.lname}</td> */}
-               <td>{v.id}</td>
-               <td>{v.users.fname}</td>
-               <td>{v.users.lname}</td>
-               <td>{v.start_location.city}</td>
-               <td>{v.end_location.city}</td>
-               <td>{v.vehicles.carmodels.model_name}</td>
-               <td>{v.time_of_departure}</td>
-               <td>{v.time_of_arival}</td>
-               <td>{v.date_of_journey}</td>
-               <td>{v.status}</td>
+               <td className="text-center">{v.id}</td>
+               <td className="text-center">{v.users.fname}</td>
+               <td className="text-center">{v.users.lname}</td>
+               <td className="text-center">{v.start_location.city}</td>
+               <td className="text-center">{v.end_location.city}</td>
+               <td className="text-center">{v.vehicles.carmodels.model_name}</td>
+               <td className="text-center">{v.time_of_departure}</td>
+               <td className="text-center">{v.time_of_arival}</td>
+               <td className="text-center">{v.date_of_journey}</td>
+               <td className="text-center">{v.status}</td>
               
               
                

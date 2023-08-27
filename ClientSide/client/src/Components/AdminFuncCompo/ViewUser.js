@@ -52,20 +52,21 @@ export default function ViewUser() {
 
         <div>
             <h1>User Information</h1>
-            <table border="1" className="table-collapse">
+            <table border="1" className="table table-striped">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Gender</th>
-                        <th>DOB</th>
-                        <th>aadhar</th>
-                        <th>licence</th>
-                        <th>Primary_email</th>
-                        <th>Secondary_Email</th>
-                        <th>status</th>
-                        <th>Approve</th>
+                        <th className="text-center">ID</th>
+                        <th className="text-center">First Name</th>
+                        <th className="text-center">Last Name</th>
+                        <th className="text-center">Gender</th>
+                        <th className="text-center">DOB</th>
+                        <th className="text-center">aadhar</th>
+                        <th className="text-center">licence</th>
+                        <th className="text-center">Primary_email</th>
+                        <th className="text-center">Secondary_Email</th>
+                        <th className="text-center">status</th>
+                        <th className="text-center">Approve</th>
+                        <th className="text-center">Disable</th>
 
                     </tr>
                 </thead>
@@ -76,18 +77,19 @@ export default function ViewUser() {
                             return (
 
                                 <tr key={v.id}>
-                                    <td>{v.fname}</td>
-                                    <td>{v.lname}</td>
-                                    <td>{v.gender}</td>
-                                    <td>{v.dob}</td>
-                                    <td>{v.aadhar}</td>
-                                    <td>{v.licence}</td>
-                                    <td>{v.primary_email}</td>
-                                    <td>{v.secondary_email}</td>
-                                    <td>{v.status}</td>
-                                    <td><button type="button" onClick={()=>{updateStatusTrue(v.user_id.id)}}>Allow Access</button></td>
+                                    <td className="text-center">{v.id}</td>
+                                    <td className="text-center">{v.fname}</td>
+                                    <td className="text-center">{v.lname}</td>
+                                    <td className="text-center">{v.gender}</td>
+                                    <td className="text-center">{v.dob}</td>
+                                    <td className="text-center">{v.aadhar}</td>
+                                    <td className="text-center">{v.licence}</td>
+                                    <td className="text-center">{v.primary_email}</td>
+                                    <td className="text-center">{v.secondary_email}</td>
+                                    <td className="text-center">{v.status}</td>
+                                    <td className="text-center"><button type="button" onClick={()=>{updateStatusTrue(v.user_id.id)}}>Allow Access</button></td>
                                     
-                                    <td><button type="button" onClick={()=>{updateStatusFalse(v.user_id.id)}}>Stop Access</button></td>
+                                    <td className="text-center" ><button type="button" onClick={()=>{updateStatusFalse(v.user_id.id)}}>Stop Access</button></td>
                                     
                                 </tr>
                             )

@@ -34,6 +34,18 @@ return(
         <div className="navigation_item">
           <Link to="/viewRides">view rides</Link>
         </div> 
+        <div className="navigation_item">
+          <Link to="/ViewAllBooking">view Booking</Link>
+        </div> 
+
+        <div className="navigation_item">
+          <Link to="/ViewPayment">view payments</Link>
+        </div> 
+
+        <div className="navigation_item">
+          <Link to="/PassengersReviews">view reviews</Link>
+        </div> 
+
         <div className="App">
  
     <div className="navigation" >
