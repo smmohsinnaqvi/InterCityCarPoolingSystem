@@ -6,7 +6,7 @@ export default function About() {
     const type = JSON.parse(localStorage.getItem("loggedUser")).roll_id.id;
     return (
         <>
-
+            
             {
                 type === 2 &&
                 <CarOwnerNav />
