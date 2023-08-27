@@ -94,18 +94,3 @@ export default function ViewPayment() {
 };
 
 
-{/*
-[
-  {
-    "id": 1,
-    "bookingId": 1,
-    "passengerId": 1,
-    "amount": 45984,
-    "dateTime": "2039-04-04T00:00:00",
-    "paymentMethod": "online",
-    "status": "success",
-    "booking": null,
-    "passenger": null
-  }
-] */}
-
