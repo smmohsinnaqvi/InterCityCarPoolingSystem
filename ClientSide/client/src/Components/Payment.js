@@ -46,11 +46,25 @@ export default function Payment() {
             .then((data) => {
                 if (data.length > 2) {
                     setMsg("Payment Successfull");
+
+                    fetch("http://localhost:8080/changeStatusAfterPayment?bid="+ book.id)
+                    .then(res=>res.text())
+                    .then((res)=>{
+                        if(res===1)
+                        console.log(true);
+                        else
+                        console.log(false);
+                    })
+                    .catch((e) => {
+                        setMsg("Failed to Pay")
+                    })
+
                 } else setMsg("Payment Failed");
             })
             .catch((e) => {
                 setMsg("Failed to Pay")
             })
+        
     }
     const getDummyArray = (length) => {
         const tempArray = [];
