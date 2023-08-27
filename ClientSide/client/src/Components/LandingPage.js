@@ -1,4 +1,4 @@
-import { Button, Card, Carousel, Col, Row, Select } from "antd";
+import { Button, Card, Carousel, Col, Form, Input, Row, Select } from "antd";
 import Image1 from "../Assests/1.jpg";
 import Image2 from "../Assests/4.jpg";
 import Image3 from "../Assests/3.jpg";
@@ -6,11 +6,13 @@ import "./modules.css";
 import { useEffect, useReducer, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import dayjs from "dayjs";
+import CarUserNav from "./CarUserNav";
+import Icon, { CloseCircleFilled } from '@ant-design/icons';
 
 const initialState = {
   startCity: null,
   endCity: null,
+  date: ""
 };
 
 const reducer = (state, action) => {
@@ -25,13 +27,23 @@ const reducer = (state, action) => {
 export default function LandingPage(props) {
   const [travel, dispatch] = useReducer(reducer, initialState);
 
+  //Maintaining cities API
   const [cities, setCities] = useState([]);
 
+  //Maintaining rides API
   const [rides, setRides] = useState([]);
 
+  //use-loggedCarUser object
   const [user, setUser] = useState();
 
-  const navigate=useNavigate();
+
+  //No. of seats
+  const [seats, setSeats] = useState();
+  //flag for no rides
+  const[search,setSearch]=useState(false);
+
+  const [msg, setMsg] = useState(null)
+  const[selectedValue,setSelectedValue]=useState("");
   useEffect(() => {
 
     const loginid = JSON.parse(localStorage.getItem("loggedUser")).id;
@@ -51,22 +63,64 @@ export default function LandingPage(props) {
 
   const showRide = (e) => {
     e.preventDefault();
-    fetch(`http://localhost:8080/getRidesBetweenTwoCities?start_location=${travel.startCity}&end_location=${travel.endCity}`)
+    //get rides from city 1 to city 2 and on date mentioned by user
+    // fetch(`http://localhost:8080/getRidesBetweenTwoCities?start_location=${travel.startCity}&end_location=${travel.endCity}`)
+    //   .then((res) => res.json())
+    //   .then((rides) => setRides(rides))
+    
+      fetch(`http://localhost:8080/getAllRidesFromOneCityToAnotherCityByDate?start_location=${travel.startCity}&end_location=${travel.endCity}&date_of_journey=${travel.date}`)
       .then((res) => res.json())
-      .then((rides) => setRides(rides))
+      .then((rides) => {
+                        setRides(rides);
+                        if(rides.length===0) 
+                        {
+                          setSearch(true);
+                        } 
+                        else
+                        setSearch(false);
+                      
+                      })
   }
-    // useEffect(() => {
-    // console.log(rides)
-    // }, [rides]);
+  // useEffect(() => {
+  // console.log(rides)
+  // }, [rides]);
+
+  let navigate = useNavigate();
+
+  //Adding Booking information into DB
+  const addBook = (r) => {
+    let date = new Date().toJSON();
+    let tot = seats * r.price_per_seat;
+    const reqOptions = {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        time: date,
+        no_of_seats: seats,
+        passenger_id: user.id,
+        ride_id: r.id,
+        total_price: tot,
+        status: "pending"
+      })
+    };
+    fetch("http://localhost:8080/addBooking", reqOptions)
+      .then(res => res.text())
+      //maintaining local storage and navigating to payment
+      .then((data) => { if (data.length > 2) { localStorage.setItem("book", data); navigate("/payment") } else setMsg("Booking Failed") })
+      .catch((e) => {
+        alert("Failed to Create Ride")
+      })
+  }
 
   const mystate = useSelector((state) => state.logged);
   return (
     <>
-      <div style={{ display: mystate.loggedIn ? "block" : "none" }}>
+      <CarUserNav/>
+      {/* <div style={{ display: mystate.loggedIn ? "block" : "none" }}>
 
         <div className="navigation" style={{ position: "relative" }}>
           <div className="navigation_item">
-            <Link to="/">About</Link>
+            <Link to="/about">About</Link>
           </div>
           <div className="navigation_item">
             <Link to="/">Contact</Link>
@@ -79,7 +133,8 @@ export default function LandingPage(props) {
           </div>
         </div>
         <div>
-        </div>
+      </div>
+        </div> */}
         <Carousel autoplay>
           <div className="car_Image">
             <img src={Image1} alt="1" />
@@ -94,9 +149,8 @@ export default function LandingPage(props) {
             <p className="car_caption">Save yourself from city hassles.</p>
           </div>
         </Carousel>
-      </div>
-      <div className="lp">
-        <h2>Welcome {user && user.fname}</h2>
+        <h2 style={{color:'#4682a9', margin:'5px'}}>Welcome {user && user.fname}</h2>
+      <div className="lp form-container">
         <form className="mb-3 frm">
           <div className="row">
             <div className="col">
@@ -111,12 +165,13 @@ export default function LandingPage(props) {
                     fld: "startCity",
                     value: e,
                   });
+                  setSelectedValue(e);
                 }}
               >
-                <Select.Option value="0">--Source City --</Select.Option>
+                <Select.Option value="0" >--Source City --</Select.Option>
                 {cities.map((v) => {
                   return (
-                    <Select.Option key={v.id} value={v.id}>
+                    <Select.Option key={v.id} value={v.id} disabled={selectedValue===v.id}>
                       {v.city}
                     </Select.Option>
                   );
@@ -135,12 +190,13 @@ export default function LandingPage(props) {
                     fld: "endCity",
                     value: e,
                   });
+                  setSelectedValue(e);
                 }}
               >
                 <Select.Option value="0">--Destination City --</Select.Option>
                 {cities.map((v) => {
                   return (
-                    <Select.Option key={v.id} value={v.id}>
+                    <Select.Option key={v.id} value={v.id} disabled={selectedValue===v.id}>
                       {v.city}
                     </Select.Option>
                   );
@@ -148,18 +204,46 @@ export default function LandingPage(props) {
               </Select>
             </div>
           </div>
+          <div className="row">
+            <Form.Item label="Date of Journey" labelCol={{ span: 24 }} >
+              <Input type="date" name="date" style={{ width: '30%' }} onChange={(e) => {
+                dispatch({
+                  type: "update",
+                  fld: "date",
+                  value: e.target.value,
+                });
+              }}></Input>
+            </Form.Item>
+          </div>
+
           <Button type="button" className="btn btn-secondary" onClick={(e) => { showRide(e) }}>
             Search Ride
           </Button>
         </form>
 
-        <p>{JSON.stringify(travel)}</p>
-        <div className="rides">
-          <Row gutter={16}>
-            {
+        {/* <p>{JSON.stringify(travel)}</p> */}
+        {
+        
+            search &&
+          <div className="message">
+            <div style={{textAlign:"center"}}>
+<CloseCircleFilled  style={{color:"#4682a9", fontSize:"large"}}/>
+</div>
+                <h4 style={{color:'#4682a9'}}>Ooops No Ride</h4>
+            </div>
+        }
+
+        {
+
+          rides.length > 0 &&
+
+          <div className="rides">
+            <Row gutter={16}>
+              {
+
                 rides.map(r => {
                   return (
-                    <Col span={8}>
+                    <Col span={8} key={r.id}>
                       <Card title={`${r.start_location.city} - ${r.end_location.city}`} style={{ border: "2px solid black" }} bordered={false}>
                         <h5>
                           {r.users.fname}
@@ -167,20 +251,38 @@ export default function LandingPage(props) {
                           {r.users.lname}
                         </h5>
                         <p>
-                          <b>Price : {r.price_per_seat}</b><br/>
+                          <b>Price : {r.price_per_seat}</b><br />
                           <b>Seats :{r.available_seats}</b>
                         </p>
                         <p>Car :{r.vehicles.carmodels.carcompany.company_name} {r.vehicles.carmodels.model_name}</p>
-                        <p><b>Time of depature: {r.time_and_date_of_departure} </b></p>
+                        <p><b>Date: {r.date_of_journey} </b></p>
+                        <p><b>Time of depature: {r.time_of_departure} </b></p>
                         <p><b>Time of arrival: {r.time_of_arival} </b></p>
-                        <Button type="button" style={{backgroundColor:'gray'}} onClick={()=>{navigate("/carBook")}}>Book</Button>
+
+                        <Form className="">
+                          <Form.Item label="Number of Seats :" labelCol={{ span: 24 }} >
+                            <Select name="seats" onChange={(e) => { setSeats(e) }}>
+                              <Select.Option value="1">1</Select.Option>
+                              <Select.Option value="2">2</Select.Option>
+                              <Select.Option value="3">3</Select.Option>
+                              <Select.Option value="4">4</Select.Option>
+                            </Select>
+
+                            <Button type="button" style={{ backgroundColor: 'gray' }} onClick={() => { addBook(r) }}>Book</Button>
+                          </Form.Item>
+                          {/* <div className="payment" style={{ display: pflag === 1 ? "block" : "none" }}>
+                          <p style={{color:'blue'}}>{msg}</p>
+                          <button type="button" onClick={()=>{addPayment(r)}} >PAY</button>
+                        </div> */}
+                        </Form>
                       </Card>
                     </Col>
                   );
                 })
-            }
-          </Row>
-        </div>
+              }
+            </Row>
+          </div>
+        }
       </div>
     </>
   );

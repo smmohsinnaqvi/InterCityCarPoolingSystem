@@ -27,26 +27,34 @@ return(
 
       
         <div className="navigation_item">
-          <Link to="/ViewUser">view user</Link>
+          <Link to="/ViewUser">View User</Link>
         </div> 
        
 
         <div className="navigation_item">
-          <Link to="/approveUser">view report</Link>
+          <Link to="/viewRides">View Rides</Link>
         </div> 
-        <div className="App">
+        {/* <div className="App"> */}
+
+        <div className="navigation_item">
+          <Link to="/payment">Payments</Link>
+        </div> 
+        <div className="navigation_item">
+          <Link to="/PassengersReviews">Reviews</Link>
+        </div> 
+        {/* <div className="App"> */}
  
     <div className="navigation" >
     <div className="navigation_item">
           <Link to="/logout">Logout</Link>
         </div> 
         </div>
-        </div>
+        {/* </div> */}
                          
 
 </div>
 </div>
-<div> <h3>Welcome Admin</h3></div> 
+<div> <h3>Welcome {data&&data.fname}</h3></div> 
 
       </div>
 

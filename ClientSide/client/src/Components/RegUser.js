@@ -1,7 +1,7 @@
 import { Form, Select } from "antd";
 import Input from "antd/es/input/Input";
 import { useReducer, useState } from "react";
-import Banner_Img from "../Assests/Banner_Logo.svg";
+import Banner_Img from "../Assests/6.svg";
 import "./modules.css";
 import { useNavigate } from "react-router-dom";
 import { Button } from "antd/es/radio";
@@ -514,7 +514,7 @@ let RegUser = () => {
                   className="message"
                    style={{ display: msg !== null ? "block" : "none" }}
                 >
-                  <b style={{ color: 'green' }}>{msg}</b>
+                  <b style={{ color:msg==="Register Successfully"?'green':'red' }}>{msg}</b>
                   <Button type="button" onClick={()=>{navigate("/")}}>SIGN IN</Button>
                 </div>
               </div>
