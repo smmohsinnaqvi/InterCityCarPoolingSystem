@@ -7,6 +7,7 @@ import { useEffect, useReducer, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import CarUserNav from "./CarUserNav";
+import Icon, { CloseCircleFilled } from '@ant-design/icons';
 
 const initialState = {
   startCity: null,
@@ -38,8 +39,11 @@ export default function LandingPage(props) {
 
   //No. of seats
   const [seats, setSeats] = useState();
+  //flag for no rides
+  const[search,setSearch]=useState(false);
 
   const [msg, setMsg] = useState(null)
+  const[selectedValue,setSelectedValue]=useState("");
   useEffect(() => {
 
     const loginid = JSON.parse(localStorage.getItem("loggedUser")).id;
@@ -66,7 +70,16 @@ export default function LandingPage(props) {
     
       fetch(`http://localhost:8080/getAllRidesFromOneCityToAnotherCityByDate?start_location=${travel.startCity}&end_location=${travel.endCity}&date_of_journey=${travel.date}`)
       .then((res) => res.json())
-      .then((rides) => setRides(rides))
+      .then((rides) => {
+                        setRides(rides);
+                        if(rides.length===0) 
+                        {
+                          setSearch(true);
+                        } 
+                        else
+                        setSearch(false);
+                      
+                      })
   }
   // useEffect(() => {
   // console.log(rides)
@@ -136,8 +149,8 @@ export default function LandingPage(props) {
             <p className="car_caption">Save yourself from city hassles.</p>
           </div>
         </Carousel>
-      <div className="lp">
-        <h2>Welcome {user && user.fname}</h2>
+        <h2 style={{color:'#4682a9', margin:'5px'}}>Welcome {user && user.fname}</h2>
+      <div className="lp form-container">
         <form className="mb-3 frm">
           <div className="row">
             <div className="col">
@@ -152,12 +165,13 @@ export default function LandingPage(props) {
                     fld: "startCity",
                     value: e,
                   });
+                  setSelectedValue(e);
                 }}
               >
-                <Select.Option value="0">--Source City --</Select.Option>
+                <Select.Option value="0" >--Source City --</Select.Option>
                 {cities.map((v) => {
                   return (
-                    <Select.Option key={v.id} value={v.id}>
+                    <Select.Option key={v.id} value={v.id} disabled={selectedValue===v.id}>
                       {v.city}
                     </Select.Option>
                   );
@@ -176,12 +190,13 @@ export default function LandingPage(props) {
                     fld: "endCity",
                     value: e,
                   });
+                  setSelectedValue(e);
                 }}
               >
                 <Select.Option value="0">--Destination City --</Select.Option>
                 {cities.map((v) => {
                   return (
-                    <Select.Option key={v.id} value={v.id}>
+                    <Select.Option key={v.id} value={v.id} disabled={selectedValue===v.id}>
                       {v.city}
                     </Select.Option>
                   );
@@ -206,10 +221,17 @@ export default function LandingPage(props) {
           </Button>
         </form>
 
-        <p>{JSON.stringify(travel)}</p>
-        {/* <div className="message" style={{display:rides.length?"none":"block"}}>
-                <h4></h4>
-            </div> */}
+        {/* <p>{JSON.stringify(travel)}</p> */}
+        {
+        
+            search &&
+          <div className="message">
+            <div style={{textAlign:"center"}}>
+<CloseCircleFilled  style={{color:"#4682a9", fontSize:"large"}}/>
+</div>
+                <h4 style={{color:'#4682a9'}}>Ooops No Ride</h4>
+            </div>
+        }
 
         {
 

@@ -62,9 +62,21 @@
   object-fit: contain;
 }
 .RegForm {
-  width: 50%;
+  width: 55%;
+  margin: 20px;
   padding: 50px 70px;
+  box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
+  box-sizing: border-box;
 }
 .Reg_Img {
-  width: 50%;
+  width: 40%;
+}
+
+.form-container{
+  width: 60%;
+  margin-inline: auto;
+  padding: 20px;
+  border-radius: 5px ;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  margin-top: 10px;
 }
