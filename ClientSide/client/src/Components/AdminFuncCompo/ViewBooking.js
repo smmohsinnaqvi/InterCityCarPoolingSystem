@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import AdminNav from "../AdminNav";
 
 export default function ViewAllBooking(){
 
@@ -22,6 +23,7 @@ export default function ViewAllBooking(){
 
  return(
     <div>
+        <AdminNav/>
         <h1>All Booking Details</h1>
         <table className="table table-striped" >
                 <thead>

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 // import StatusUpdate from "AdminFuncCompo/StatusUpdate";
 import StatusUpdate from './StatusUpdate';
 import { useNavigate } from "react-router-dom";
+import AdminNav from "../AdminNav";
 export default function ViewUser() {
     const [users, setUsers] = useState([]);
 
@@ -49,8 +50,8 @@ export default function ViewUser() {
 
     return (
 
-
         <div>
+            <AdminNav/>
             <h1>User Information</h1>
             <table border="1" className="table table-striped">
                 <thead>

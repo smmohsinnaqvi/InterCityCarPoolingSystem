@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 // import StatusUpdate from "AdminFuncCompo/StatusUpdate";
 import { Container } from "bootstrap";
 import {link,useNavigate} from "react-router-dom"
+import AdminNav from "../AdminNav";
 
 export default function ViewPayment() {
 
@@ -53,7 +54,7 @@ export default function ViewPayment() {
 
 
         <div>
-           
+           <AdminNav/>
             <h1>All Payment Information</h1>
 
             <table border="1" className="table table-striped">

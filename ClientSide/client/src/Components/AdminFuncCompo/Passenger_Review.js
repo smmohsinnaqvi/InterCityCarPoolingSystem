@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import AdminNav from "../AdminNav";
 
 export default function PassengerReview(){
 
@@ -21,6 +22,7 @@ export default function PassengerReview(){
 
  return(
     <div>
+        <AdminNav/>
         <h1>All Passenger review</h1>
         <table className="table table-striped" >
                 <thead>

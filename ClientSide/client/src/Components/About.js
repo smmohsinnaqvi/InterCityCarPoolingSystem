@@ -1,12 +1,16 @@
 import CarOwnerNav from "./CarOwnerNav";
 import CarUserNav from "./CarUserNav";
 import aboutI from "../Assests/6.svg"
+import AdminNav from "./AdminNav";
 
 export default function About() {
     const type = JSON.parse(localStorage.getItem("loggedUser")).roll_id.id;
     return (
         <>
-            
+            {
+                type == 1 &&
+                <AdminNav />
+            }
             {
                 type === 2 &&
                 <CarOwnerNav />
