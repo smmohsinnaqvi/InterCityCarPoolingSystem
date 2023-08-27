@@ -18,9 +18,9 @@ public class RoleController
 	@Autowired
 	RoleService rservice;
 	
-	@GetMapping("/getallroles")
-	public List<Role> getAllRoles()
-	{
-		return rservice.getRoles();
-	}
+//	@GetMapping("/getallroles")
+//	public List<Role> getAllRoles()
+//	{
+//		return rservice.getRoles();
+//	}
 }

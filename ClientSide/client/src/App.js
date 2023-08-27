@@ -18,6 +18,7 @@ import RegUser from "./Components/RegUser";
 import ViewPayment from "./Components/AdminFuncCompo/ViewPayment";
 import PassengerReview from "./Components/AdminFuncCompo/Passenger_Review";
 import ViewAllBooking from "./Components/AdminFuncCompo/ViewBooking";
+import ViewCarOwnerRides from "./Components/ViewCarOwnerRides";
 
 
 function App() {
@@ -68,6 +69,8 @@ function App() {
           <Route path="/ViewPayment" element={<ViewPayment/>}></Route>
           <Route path="/PassengersReviews" element={<PassengerReview/>}></Route>
           <Route path="/ViewAllBooking" element={<ViewAllBooking/>}></Route>
+
+          <Route path="/C_rides" element={<ViewCarOwnerRides/>}></Route>
 
           
 

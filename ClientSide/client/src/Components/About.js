@@ -4,7 +4,7 @@ import aboutI from "../Assests/6.svg"
 import AdminNav from "./AdminNav";
 
 export default function About() {
-    const type = JSON.parse(localStorage.getItem("loggedUser")).roll_id.id;
+    const type = (JSON.parse(localStorage.getItem("loggedUser")).roll_id.id);
     return (
         <>
             {

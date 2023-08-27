@@ -1,5 +1,6 @@
 package com.example.carpooling.services;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.example.carpooling.models.City;
 import com.example.carpooling.models.Ride;
 import com.example.carpooling.models.Role;
+import com.example.carpooling.models.User;
 import com.example.carpooling.repositories.RideRepository;
 
 @Service
@@ -50,5 +52,33 @@ public class RideService
 	public List<Ride> getRidesBetweenCitiesRange(City start_location,City end_location)
 	{
 		return rrepo.getAllRidesFromOneCityToAnotherCity(start_location, end_location);
+	}
+	
+	public List<Ride> getAllRidesFromOneCityToAnotherCityByDate(City start_location,City end_location,Date date_of_journey)
+	{
+		return rrepo.getAllRidesFromOneCityToAnotherCityByDate(start_location, end_location, date_of_journey);
+	}
+	
+	public List<Ride> getAllRidesByDate(Date date_of_journey)
+	{
+		return rrepo.getAllRidesByDate(date_of_journey);
+	}
+	
+	public List<Ride> getAllRidesByStatus(String status)
+	{
+		return rrepo.getAllRidesByStatus(status);
+	}
+	
+	
+	//ADDED BY ME (Mohsin Naqvi)
+	public List<Ride> getAllRidesById(User carowner_id)
+	{
+		return rrepo.getAllRidesById(carowner_id);
+	}
+	
+	//ADDED BY ME (Mohsin Naqvi)
+	public int changeRideStatusById(int rid)
+	{
+		return rrepo.changeRideStatusById(rid);
 	}
 }

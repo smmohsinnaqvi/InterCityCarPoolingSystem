@@ -1,6 +1,7 @@
 package com.example.carpooling.models;
 
 import java.sql.Date;
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
@@ -26,15 +27,27 @@ public class Ride
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	int id;
 	
-	@JsonSerialize(using = LocalDateTimeSerializer.class)
-	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-	@Column
-	LocalDateTime time_and_date_of_departure;
+//	@JsonSerialize(using = LocalDateTimeSerializer.class)
+//	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+//	@Column
+//	LocalDateTime time_and_date_of_departure;
+//	
+//	@JsonSerialize(using = LocalDateTimeSerializer.class)
+//	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+//	@Column
+//	LocalDateTime time_of_arival;
 	
-	@JsonSerialize(using = LocalDateTimeSerializer.class)
-	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	@Column
-	LocalDateTime time_of_arival;
+	Date date_of_journey;
+	
+	@JsonFormat(pattern = "HH:mm:ss")
+	@Column
+	Time time_of_departure;
+	
+	@JsonFormat(pattern = "HH:mm:ss")
+	@Column
+	Time time_of_arival;
 	
 	@Column 
 	int price_per_seat;
@@ -68,10 +81,11 @@ public class Ride
 		// TODO Auto-generated constructor stub
 	}
 
-	public Ride(LocalDateTime time_and_date_of_departure, LocalDateTime time_of_arival, int price_per_seat, int available_seats,
-			String status, User users, City start_location, City end_location, Vehicle vehicles) {
+	public Ride(Date date_of_journey, Time time_of_departure, Time time_of_arival, int price_per_seat,
+			int available_seats, String status, User users, City start_location, City end_location, Vehicle vehicles) {
 		super();
-		this.time_and_date_of_departure = time_and_date_of_departure;
+		this.date_of_journey = date_of_journey;
+		this.time_of_departure = time_of_departure;
 		this.time_of_arival = time_of_arival;
 		this.price_per_seat = price_per_seat;
 		Available_seats = available_seats;
@@ -82,11 +96,12 @@ public class Ride
 		this.vehicles = vehicles;
 	}
 
-	public Ride(int id, LocalDateTime time_and_date_of_departure, LocalDateTime time_of_arival, int price_per_seat, int available_seats,
-			String status, User users, City start_location, City end_location, Vehicle vehicles) {
+	public Ride(int id, Date date_of_journey, Time time_of_departure, Time time_of_arival, int price_per_seat,
+			int available_seats, String status, User users, City start_location, City end_location, Vehicle vehicles) {
 		super();
 		this.id = id;
-		this.time_and_date_of_departure = time_and_date_of_departure;
+		this.date_of_journey = date_of_journey;
+		this.time_of_departure = time_of_departure;
 		this.time_of_arival = time_of_arival;
 		this.price_per_seat = price_per_seat;
 		Available_seats = available_seats;
@@ -105,19 +120,27 @@ public class Ride
 		this.id = id;
 	}
 
-	public LocalDateTime getTime_and_date_of_departure() {
-		return time_and_date_of_departure;
+	public Date getDate_of_journey() {
+		return date_of_journey;
 	}
 
-	public void setTime_and_date_of_departure(LocalDateTime time_and_date_of_departure) {
-		this.time_and_date_of_departure = time_and_date_of_departure;
+	public void setDate_of_journey(Date date_of_journey) {
+		this.date_of_journey = date_of_journey;
 	}
 
-	public LocalDateTime getTime_of_arival() {
+	public Time getTime_of_departure() {
+		return time_of_departure;
+	}
+
+	public void setTime_of_departure(Time time_of_departure) {
+		this.time_of_departure = time_of_departure;
+	}
+
+	public Time getTime_of_arival() {
 		return time_of_arival;
 	}
 
-	public void setTime_of_arrival(LocalDateTime time_of_arival) {
+	public void setTime_of_arival(Time time_of_arival) {
 		this.time_of_arival = time_of_arival;
 	}
 
@@ -153,7 +176,6 @@ public class Ride
 		this.users = users;
 	}
 
-	
 	public City getStart_location() {
 		return start_location;
 	}
@@ -170,10 +192,6 @@ public class Ride
 		this.end_location = end_location;
 	}
 
-	public void setTime_of_arival(LocalDateTime time_of_arival) {
-		this.time_of_arival = time_of_arival;
-	}
-
 	public Vehicle getVehicles() {
 		return vehicles;
 	}
@@ -181,7 +199,10 @@ public class Ride
 	public void setVehicles(Vehicle vehicles) {
 		this.vehicles = vehicles;
 	}
+
 	
+	
+
 	
 	
 	

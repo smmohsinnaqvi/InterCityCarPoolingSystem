@@ -84,8 +84,8 @@ export default function AddRide() {
     return (
         <div className="rideForm">
             <CarOwnerNav />
-            <div className="message" style={{display:vehicles.length?"none":"block"}}>
-                <h4>Please Enter Vehicle Information First</h4>
+            <div className="message" style={{display:vehicles.length?"none":"block", marginTop:'300px'}}>
+                <h4 style={{margin:'20px'}}>Please Enter Vehicle Information First</h4>
                 <Button type="button" className="bg-warning" onClick={()=>{navigate("/addVehicle")}}><b>Add Vehicles Information</b></Button>
             </div>
             {

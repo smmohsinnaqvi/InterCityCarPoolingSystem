@@ -94,6 +94,7 @@ export default function AddVehicle() {
                         }
                     </Select>
                 </Form.Item>
+                {/* name="carCompany" -> formData.resetFields(["carCompany"] value */}
                 <Form.Item  name="carCompany" label="Car Model" labelCol={{ span: 24 }} style={{}}>
                     <Select name="car_mod" placeholder="--Select Car Model --" className="" onChange={(e) => { dispatchv({ type: 'update', fld: 'car_mod', value: e }) }}>
                         {

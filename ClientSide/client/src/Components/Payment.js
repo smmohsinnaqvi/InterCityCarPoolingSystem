@@ -1,6 +1,7 @@
 import { Button, Card, Col, Form, Input, Row, Select } from "antd";
 import { useEffect, useReducer, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import CarUserNav from "./CarUserNav";
 const initialState = {
     fname: "",
     lname: "",
@@ -76,8 +77,10 @@ export default function Payment() {
     return tempArray;
     }
     return (
-
+        <>
+        <CarUserNav/>
         <div className="payment">
+
             <h1>Payment</h1>
 
             {/* <Form>
@@ -163,5 +166,6 @@ export default function Payment() {
 
 
         </div>
+        </>
     )
 }

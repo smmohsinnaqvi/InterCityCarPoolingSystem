@@ -52,12 +52,12 @@ public class Booking
 	@JoinColumn(name = "passenger_id")
 	User users;
 	
-	@ManyToMany(cascade = {CascadeType.MERGE,CascadeType.PERSIST})
-	@JoinTable(name = "payments_bookings",
-				joinColumns = @JoinColumn(name="booking_id") ,
-				inverseJoinColumns = @JoinColumn(name="payment_id")	
-			)
-	Set<Payment> payments;
+//	@ManyToMany(cascade = {CascadeType.MERGE,CascadeType.PERSIST})
+//	@JoinTable(name = "payments_bookings",
+//				joinColumns = @JoinColumn(name="booking_id") ,
+//				inverseJoinColumns = @JoinColumn(name="payment_id")	
+//			)
+//	Set<Payment> payments;
 
 	public Booking() {
 		super();
@@ -65,16 +65,16 @@ public class Booking
 	}
 	
 
-	public Booking(LocalDateTime time, int no_of_seats, int total_price, String status, Ride rides,
-			Set<Payment> payments) {
-		super();
-		this.time = time;
-		this.no_of_seats = no_of_seats;
-		this.total_price = total_price;
-		this.status = status;
-		this.rides = rides;
-		this.payments = payments;
-	}
+//	public Booking(LocalDateTime time, int no_of_seats, int total_price, String status, Ride rides,
+//			Set<Payment> payments) {
+//		super();
+//		this.time = time;
+//		this.no_of_seats = no_of_seats;
+//		this.total_price = total_price;
+//		this.status = status;
+//		this.rides = rides;
+//		this.payments = payments;
+//	}
 	
 	public Booking(int id) {
 		super();
