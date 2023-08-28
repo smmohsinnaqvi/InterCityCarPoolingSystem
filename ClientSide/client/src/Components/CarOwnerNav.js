@@ -20,7 +20,7 @@ export default function CarOwnerNav() {
           <Link to="/about">About</Link>
         </div>
         <div className="navigation_item">
-          <Link to="">Contact</Link>
+          <Link to="/">Contact</Link>
         </div>
         <div
           className="navigation_item"

@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+<<<<<<< HEAD
+=======
+import AdminNav from "../AdminNav";
+>>>>>>> 3f12eff12bf57b672db6b7240a60a0335a89ffc2
 
 export default function ViewAllBooking(){
 
@@ -14,6 +18,10 @@ export default function ViewAllBooking(){
             .catch((e) => {
                 console.log(e);
             })
+<<<<<<< HEAD
+=======
+            
+>>>>>>> 3f12eff12bf57b672db6b7240a60a0335a89ffc2
 }, []);
 
 
@@ -21,6 +29,10 @@ export default function ViewAllBooking(){
 
  return(
     <div>
+<<<<<<< HEAD
+=======
+        <AdminNav/>
+>>>>>>> 3f12eff12bf57b672db6b7240a60a0335a89ffc2
         <h1>All Booking Details</h1>
         <table className="table table-striped" >
                 <thead>

@@ -25,7 +25,7 @@ public interface BookingRepository extends JpaRepository<Booking, Integer>
 	@Modifying
 	@Query(value = "UPDATE booking b "+
 					"JOIN payment p ON p.booking_id = b.id "+
-					"SET b.status= 'success' where p.booking_id= ?1",nativeQuery = true)
+					"SET b.status= 'success' where b.id= ?1",nativeQuery = true)
 	public int changeStatusAfterPayment(int bid);
 	
 }
