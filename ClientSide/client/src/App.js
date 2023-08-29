@@ -15,8 +15,13 @@ import About from "./Components/About";
 import ViewRides from "./Components/AdminFuncCompo/ViewRides";
 import Payment from "./Components/Payment";
 import RegUser from "./Components/RegUser";
+import ViewPayment from "./Components/AdminFuncCompo/ViewPayment";
+import PassengerReview from "./Components/AdminFuncCompo/Passenger_Review";
+import ViewAllBooking from "./Components/AdminFuncCompo/ViewBooking";
+import ViewCarOwnerRides from "./Components/ViewCarOwnerRides";
 
-import PassengersReview from "./Components/AdminFuncCompo/Passenger_Review";
+
+
 function App() {
 
 //intitial state of logged
@@ -60,9 +65,14 @@ function App() {
 
           <Route path="/about" element={<About/>}></Route>
           <Route path="/payment" element={<Payment/>}></Route>
-          <Route path="/PassengersReviews" element={<PassengersReview/>}></Route>
-          {/* <Route path="/payment" element={<Payment/>}></Route> */}
+
           
+          <Route path="/ViewPayment" element={<ViewPayment/>}></Route>
+          <Route path="/PassengersReviews" element={<PassengerReview/>}></Route>
+          <Route path="/ViewAllBooking" element={<ViewAllBooking/>}></Route>
+
+          <Route path="/C_rides" element={<ViewCarOwnerRides/>}></Route>
+
           
 
 

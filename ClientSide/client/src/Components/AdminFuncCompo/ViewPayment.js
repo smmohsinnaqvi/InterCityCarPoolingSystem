@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 // import StatusUpdate from "AdminFuncCompo/StatusUpdate";
 import { Container } from "bootstrap";
 import {link,useNavigate} from "react-router-dom"
+import AdminNav from "../AdminNav";
 
 export default function ViewPayment() {
 
@@ -19,6 +20,50 @@ export default function ViewPayment() {
                     console.log(e);
                 })
     }, []);
+
+    const pendingPayment=(a)=>
+{
+    if(payment.length>0)
+    {
+
+        fetch(`https://localhost:7026/byStatus?status=pending&id=${a}`)
+        .then(res => res.json())
+                .then((payment) => {
+                    setPayment(payment);
+                })
+                .catch((e) => {
+                    console.log(e);
+                })
+    }} 
+const successfullPayment=(a)=>
+    {
+        if(payment.length>0)
+        {
+
+            fetch(`https://localhost:7026/byStatus?status=success&id=${a}`)
+            .then(res => res.json())
+                .then((payment) => {
+                    setPayment(payment);
+                })
+                .catch((e) => {
+                    console.log(e);
+                })
+    } 
+    }
+    const canceledPayment=(a)=>
+    {
+        if(payment.length>0)
+        {
+
+            fetch(`https://localhost:7026/byStatus?status=cancelled&id=${a}`)
+            .then(res => res.json())
+            .then((payment) => {
+                setPayment(payment);
+            })
+            .catch((e) => {
+                console.log(e);
+            })
+}} 
 
     const navigate=useNavigate();
 {/*
@@ -53,6 +98,13 @@ export default function ViewPayment() {
 
 
         <div>
+           <AdminNav/>
+
+                                    
+                                    <button type="button" onClick={()=>{pendingPayment()}}>Pending Payment</button>
+                                    <button type="button" onClick={()=>{successfullPayment()}}>Successfull Payment</button>
+                                    
+                                    <button type="button" onClick={()=>{canceledPayment()}}>Cancelled Payment</button>
            
             <h1>All Payment Information</h1>
 
@@ -108,4 +160,3 @@ export default function ViewPayment() {
     "passenger": null
   }
 ] */}
-

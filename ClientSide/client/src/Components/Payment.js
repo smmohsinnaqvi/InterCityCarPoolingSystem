@@ -1,6 +1,7 @@
 import { Button, Card, Col, Form, Input, Row, Select } from "antd";
 import { useEffect, useReducer, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import CarUserNav from "./CarUserNav";
 const initialState = {
     fname: "",
     lname: "",
@@ -46,11 +47,25 @@ export default function Payment() {
             .then((data) => {
                 if (data.length > 2) {
                     setMsg("Payment Successfull");
+
+                    fetch("http://localhost:8080/changeStatusAfterPayment?bid="+ book.id)
+                    .then(res=>res.text())
+                    .then((res)=>{
+                        if(res===1)
+                        console.log(true);
+                        else
+                        console.log(false);
+                    })
+                    .catch((e) => {
+                        setMsg("Failed to Pay")
+                    })
+
                 } else setMsg("Payment Failed");
             })
             .catch((e) => {
                 setMsg("Failed to Pay")
             })
+        
     }
     const getDummyArray = (length) => {
         const tempArray = [];
@@ -62,8 +77,10 @@ export default function Payment() {
     return tempArray;
     }
     return (
-
+        <>
+        <CarUserNav/>
         <div className="payment">
+
             <h1>Payment</h1>
 
             {/* <Form>
@@ -149,5 +166,6 @@ export default function Payment() {
 
 
         </div>
+        </>
     )
 }

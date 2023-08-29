@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Button, Card, Carousel, Col, Row, Select } from "antd";
 // import StatusUpdate from './StatusUpdate';
 import { useNavigate } from "react-router-dom";
+import AdminNav from "../AdminNav";
 export default function ViewRides() {
     const [rides, setRides] = useState([]);
 
@@ -16,26 +17,26 @@ export default function ViewRides() {
                     console.log(e);
                 })
     }, []);
-    const navigate=useNavigate();
-    const pendingRides=(a)=>
+
+const navigate=useNavigate();
+const pendingRides=(a)=>
+{
+    if(rides.length>0)
     {
-        if(rides.length>0)
-        {
 
-            fetch(`http://localhost:8080/getAllRidesByStatus?status=pending&id=${a}`)
-            .then(res => res.json())
-                .then((rides) => {
-                    setRides(rides);
-                })
-                .catch((e) => {
-                    console.log(e);
-                })
-            navigate("/ViewRides");
+        fetch(`http://localhost:8080/getAllRidesByStatus?status=pending&id=${a}`)
+        .then(res => res.json())
+            .then((rides) => {
+                setRides(rides);
+            })
+            .catch((e) => {
+                console.log(e);
+            })
+        navigate("/ViewRides");
 
-        }
     }
-
-    const activeRides=(a)=>
+}
+const activeRides=(a)=>
     {
         if(rides.length>0)
         {
@@ -53,23 +54,18 @@ export default function ViewRides() {
         }
     }
 
-
-
-
     useEffect(()=>{
       console.log(rides);
     },[rides])
 
     return (
       <div>
-        
-
-        <button type="button" onClick={()=>{pendingRides()}}>Pending Rides</button>
+        <AdminNav/>
+        {/* <AdminNav/> */}
+         <button type="button" onClick={()=>{pendingRides()}}>Pending Rides</button>
                                     
-         <button type="button" onClick={()=>{activeRides()}}>Activr Rides</button>
-
- 
-                                  
+                                    <button type="button" onClick={()=>{activeRides()}}>Active Rides</button>
+                           
       <h1>Rides Information</h1>
       <table border="1" className="table table-striped">
           <thead>

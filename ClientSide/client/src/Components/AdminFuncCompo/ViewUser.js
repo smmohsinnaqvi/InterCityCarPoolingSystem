@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 // import StatusUpdate from "AdminFuncCompo/StatusUpdate";
 import StatusUpdate from './StatusUpdate';
 import { useNavigate } from "react-router-dom";
+import AdminNav from "../AdminNav";
 export default function ViewUser() {
     const [users, setUsers] = useState([]);
 
@@ -49,10 +50,10 @@ export default function ViewUser() {
 
     return (
 
-
         <div>
+            <AdminNav/>
             <h1>User Information</h1>
-            <table border="1"  className="table table-striped">
+            <table border="1" className="table table-striped">
                 <thead>
                     <tr>
                         <th className="text-center">ID</th>
@@ -64,9 +65,9 @@ export default function ViewUser() {
                         <th className="text-center">licence</th>
                         <th className="text-center">Primary_email</th>
                         <th className="text-center">Secondary_Email</th>
-                        {/* <th className="text-center">status</th> */}
+                        <th className="text-center">status</th>
                         <th className="text-center">Approve</th>
-                        <th className="text-center">Approve</th>
+                        <th className="text-center">Disable</th>
 
                     </tr>
                 </thead>
@@ -86,10 +87,10 @@ export default function ViewUser() {
                                     <td className="text-center">{v.licence}</td>
                                     <td className="text-center">{v.primary_email}</td>
                                     <td className="text-center">{v.secondary_email}</td>
-                                    {/* <td className="text-center">{v.status}</td> */}
+                                    <td className="text-center">{v.status}</td>
                                     <td className="text-center"><button type="button" onClick={()=>{updateStatusTrue(v.user_id.id)}}>Allow Access</button></td>
                                     
-                                    <td className="text-center"><button type="button" onClick={()=>{updateStatusFalse(v.user_id.id)}}>Stop Access</button></td>
+                                    <td className="text-center" ><button type="button" onClick={()=>{updateStatusFalse(v.user_id.id)}}>Stop Access</button></td>
                                     
                                 </tr>
                             )

@@ -17,6 +17,9 @@ export default function CarOwnerNav() {
           <Link to="/addRide">Add Ride</Link>
         </div>
         <div className="navigation_item">
+          <Link to="/C_rides">View Rides</Link>
+        </div>
+        <div className="navigation_item">
           <Link to="/about">About</Link>
         </div>
         <div className="navigation_item">
