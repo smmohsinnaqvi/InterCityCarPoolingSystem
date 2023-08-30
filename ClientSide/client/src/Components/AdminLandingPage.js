@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useEffect, useState } from "react";
-import AdminNav from './AdminNav';
+import AdminNav from './AdminFuncCompo/AdminNav';
 export default function AdminLandingPage() {
 
   const [data, setData] = useState([]);

@@ -83,3 +83,50 @@
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
   margin-top: 10px;
 }
+
+
+/* ADD RIDE */
+
+.rideForm{
+  width: 100%
+}
+
+.rideForms{
+
+  margin: 20px 40px 20px 40px;
+  padding: 30px;
+  width: 50%;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  background-color: rgb(130, 163, 234);
+  /* background-color: #4e77ad; */
+
+}
+
+.payment{
+  align-items: center;
+  display: flex;
+}
+.co-passenger{
+  width: 60%;
+}
+.pay{
+  width: 40%;
+}
+
+
+.contact{
+  margin: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.info {
+  width: 100%;
+  margin: 20px;
+  padding: 30px;
+  background-color: antiquewhite;
+}
+
+
+
+

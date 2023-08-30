@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Button, Card, Carousel, Col, Row, Select } from "antd";
 // import StatusUpdate from './StatusUpdate';
 import { useNavigate } from "react-router-dom";
-import AdminNav from "../AdminNav";
+import AdminNav from "./AdminNav";
 export default function ViewRides() {
     const [rides, setRides] = useState([]);
 
