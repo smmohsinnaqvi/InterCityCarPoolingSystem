@@ -79,4 +79,14 @@ public class BookingController
 	}
 	
 	
+	//ADDED BY ME(MOHSIN NAQVI)
+	@GetMapping("/getAllBookingForUser")
+	public List<Booking> getAllBookingForUser(@RequestParam("pid") User pid )
+	{
+		return bservice.getAllBookingForUser(pid);
+	}
+	
+	
+	
+	
 }

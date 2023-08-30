@@ -1,10 +1,11 @@
-import CarOwnerNav from "./CarOwnerNav";
-import CarUserNav from "./CarUserNav";
+import CarOwnerNav from "./CarOwnerComponents/CarOwnerNav";
+import CarUserNav from "./CarUserComponents/CarUserNav";
 import aboutI from "../Assests/6.svg"
-import AdminNav from "./AdminNav";
+import AdminNav from "./AdminFuncCompo/AdminNav";
 
 export default function About() {
-    const type = (JSON.parse(localStorage.getItem("loggedUser")).roll_id.id);
+        const type = (JSON.parse(localStorage.getItem("loggedUser")).roll_id.id);
+
     return (
         <>
             {

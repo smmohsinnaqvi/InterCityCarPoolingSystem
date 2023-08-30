@@ -4,7 +4,7 @@ import Image2 from "../Assests/4.jpg";
 import Image3 from "../Assests/3.jpg";
 import { useEffect, useState } from "react";
 //import { useSelector } from "react-redux";
-import CarOwnerNav from "./CarOwnerNav";
+import CarOwnerNav from "./CarOwnerComponents/CarOwnerNav";
 
 
 
