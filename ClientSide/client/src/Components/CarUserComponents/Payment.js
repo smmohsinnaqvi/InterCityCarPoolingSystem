@@ -1,5 +1,5 @@
-import { Button, Card, Col, Form, Input, Row, Select } from "antd";
-import { useEffect, useReducer, useState } from "react";
+import { Button, Form, Input, Row, Select } from "antd";
+import { useReducer, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CarUserNav from "./CarUserNav";
 const initialState = {
@@ -130,7 +130,7 @@ export default function Payment() {
                     
                 }
             </div>
-            <Form className="pay rideForms">
+            <Form className="pay rideForms" >
                 <Form.Item label="Mode Of Payment" labelCol={{ span: 24 }} style={{fontWeight:'bold'}}>
                     <Select name="payment_method" placeholder="--choose method --" onChange={(e) => { setPm(e) }} >
                         <Select.Option value="Credit Card">Credit Card</Select.Option>

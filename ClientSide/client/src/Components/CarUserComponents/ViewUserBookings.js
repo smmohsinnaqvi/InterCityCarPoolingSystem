@@ -1,4 +1,4 @@
-import { Button } from "antd";
+import { Button, Card, Col } from "antd";
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom";
 import CarUserNav from "./CarUserNav";
@@ -75,6 +75,28 @@ export default function ViewUserRides() {
                                 </tbody>
                                 
                             </table>
+                            {/* <div className="upcoming">
+                                    <Col span={16}>
+                                        {
+
+                                            bookings.map((b)=>{
+                                                const date1=new Date();
+                                                const date2=new Date(b.time);
+                                                if(date1<=date2)
+                                                {
+                                                    return(
+                                                        <Card key={b.id} title={`${b.}`}>
+
+                                                        </Card>
+                                                    )
+                                                }
+                                                
+                                            })
+                                        }
+                                        </Col>
+                                
+                            </div> */}
+
                             <p>Start A New Journey</p>
                             <Button type="button" className="btn btn-warning" onClick={() => { navigate("/Main") }}>Search Ride</Button>
 
