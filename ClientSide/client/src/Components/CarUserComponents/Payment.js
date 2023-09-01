@@ -130,7 +130,7 @@ export default function Payment() {
                     
                 }
             </div>
-            <Form className="pay rideForms">
+            <Form className="pay rideForms" >
                 <Form.Item label="Mode Of Payment" labelCol={{ span: 24 }} style={{fontWeight:'bold'}}>
                     <Select name="payment_method" placeholder="--choose method --" onChange={(e) => { setPm(e) }} >
                         <Select.Option value="Credit Card">Credit Card</Select.Option>

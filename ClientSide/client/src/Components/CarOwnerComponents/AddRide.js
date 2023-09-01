@@ -2,7 +2,7 @@ import { Button, Form, Input, Select } from "antd";
 import { useEffect, useReducer, useState } from "react";
 import CarOwnerNav from "./CarOwnerNav";
 import { useNavigate } from "react-router-dom";
-//import addRideImage from '../../Assests/AddRide.jpg'
+import addRideImage from '../../Assests/AddRide.jpg'
 
 const initialStateRide = {
 
@@ -31,6 +31,10 @@ export default function AddRide() {
 
     const [vehicles, setVehicles] = useState([]);
 
+    const[rides,setRides]=useState([]);
+
+    const [disabled,setDisabled]=useState(true);
+
     const [msg, setMsg] = useState(null);
 
     const carOwner = JSON.parse(localStorage.getItem("loggedCarOwner"));
@@ -44,9 +48,15 @@ export default function AddRide() {
 
         //getting vehicles for current car owner from car list
 
-        fetch("http://localhost:8080/getVehiclesFromUserid?uid=" + carOwner.id)
+        fetch("http://localhost:8080/getVehiclesFromUserid?uid="+carOwner.id)
             .then((res) => res.json())
             .then((vehicles) => setVehicles(vehicles));
+
+
+        //No two rides on same day
+        fetch("http://localhost:8080/getAllRidesById?carowner_id=" + carOwner.id)
+            .then((res) => res.json())
+            .then((rides) => setRides(rides));
 
 
     }, [])
@@ -96,7 +106,7 @@ export default function AddRide() {
                     <>
 
                         <form className="rideForms">
-                            <Form.Item label="Start City" labelCol={{ span: 24 }} style={{fontWeight:'bold'}}>
+                            <Form.Item label="Start City" labelCol={{ span: 24 }} style={{ fontWeight: 'bold' }}>
                                 <Select name="s_city" placeholder="--Select City --" className="" onChange={(e) => { dispatchr({ type: 'update', fld: 's_city', value: e }) }}>
                                     {
                                         cities.map((v) => {
@@ -107,7 +117,7 @@ export default function AddRide() {
                                     }
                                 </Select>
                             </Form.Item>
-                            <Form.Item label="End City" labelCol={{ span: 24 }} style={{fontWeight:'bold'}}>
+                            <Form.Item label="End City" labelCol={{ span: 24 }} style={{ fontWeight: 'bold' }}>
                                 <Select name="e_city" placeholder="--Select City--" className="" onChange={(e) => { dispatchr({ type: 'update', fld: 'e_city', value: e }) }} >
                                     {
                                         cities.map((v) => {
@@ -119,16 +129,41 @@ export default function AddRide() {
 
                                 </Select>
                             </Form.Item>
-                            <Form.Item style={{ width: '50%',fontWeight:'bold' }} label="Date Of Journey" labelCol={{ span: 24 }}>
-                                <Input type="date" name="doj" onChange={(e) => { dispatchr({ type: 'update', fld: 'doj', value: e.target.value }) }}></Input>
+                            <Form.Item style={{ width: '50%', fontWeight: 'bold' }} label="Date Of Journey" labelCol={{ span: 24 }}>
+                                <Input type="date" name="doj" onChange={(e) => { 
+                                    //Validating 
+                                    const date1=new Date();
+                                    const date2=new Date(e.target.value);
+                                    if(date1<=date2)
+                                    {
+                                        setDisabled(false);
+                                            rides.map((r)=>{
+                                                        if(r.date_of_journey===date2)
+                                                         setDisabled(true);
+                                                    
+                                            })
+                                            dispatchr({ type: 'update', fld: 'doj', value: e.target.value })   
+                                    }
+                                    else if(date1>date2){
+                                        e.preventDefault();
+                                        setDisabled(true);
+                                    }
+                                    
+                                    }
+
+                                    
+                                    
+                                    }></Input>
+
+
                             </Form.Item>
-                            <Form.Item label="Time of Departure" labelCol={{ span: 24 }} style={{fontWeight:'bold'}}>
+                            <Form.Item label="Time of Departure" labelCol={{ span: 24 }} style={{ fontWeight: 'bold' }}>
                                 <input type="time" step="1" name="d_time" onChange={(e) => { dispatchr({ type: 'update', fld: 'd_time', value: e.target.value }) }}></input>
                                 {/* <Space wrap>
                         <TimePicker name="d_time" defaultValue={dayjs('12:08:23', 'HH:mm:ss')} size="large" onChange={(e) => { dispatchr({ type: 'update', fld: 'd_time', value: e }) }} />
                     </Space> */}
                             </Form.Item>
-                            <Form.Item label="Time of Reaching" labelCol={{ span: 24 }} style={{fontWeight:'bold'}}>
+                            <Form.Item label="Time of Reaching" labelCol={{ span: 24 }} style={{ fontWeight: 'bold' }}>
                                 <input type="time" step="1" name="r_time" onChange={(e) => { dispatchr({ type: 'update', fld: 'r_time', value: e.target.value }) }}></input>
 
                                 {/* <Space wrap>
@@ -136,7 +171,7 @@ export default function AddRide() {
                     </Space> */}
                             </Form.Item>
 
-                            <Form.Item label="Select Car" labelCol={{ span: 24 }} style={{fontWeight:'bold'}}>
+                            <Form.Item label="Select Car" labelCol={{ span: 24 }} style={{ fontWeight: 'bold' }}>
                                 <Select name="vehicle" placeholder="--Select Vehicle--" className="" onChange={(e) => { dispatchr({ type: 'update', fld: "vehicle", value: e }) }}>
                                     {
                                         vehicles.map((v) => {
@@ -148,12 +183,12 @@ export default function AddRide() {
                                 </Select>
                             </Form.Item>
 
-                            <Form.Item label="Price per seat" labelCol={{ span: 24 }} style={{fontWeight:'bold'}} >
+                            <Form.Item label="Price per seat" labelCol={{ span: 24 }} style={{ fontWeight: 'bold' }} >
                                 <Input type="number" name="price" onChange={(e) => { dispatchr({ type: 'update', fld: "price", value: e.target.value }) }} max="1000"></Input>
 
                             </Form.Item>
 
-                            <Form.Item label="Number Of Seats" labelCol={{ span: 24  }} style={{fontWeight:'bold'}}>
+                            <Form.Item label="Number Of Seats" labelCol={{ span: 24 }} style={{ fontWeight: 'bold' }}>
                                 <Select name="seats" placeholder="--Select Seats --" className="" onChange={(e) => { dispatchr({ type: 'update', fld: 'seats', value: e }) }}>
 
                                     <Select.Option value="1">1</Select.Option>
@@ -163,7 +198,7 @@ export default function AddRide() {
                                     <Select.Option value="5">5</Select.Option>
                                 </Select>
                             </Form.Item>
-                            <button type="button" className="btn btn-light btn-lg btn-block" onClick={(e) => { addRide(e) }}>ADD RIDE</button>
+                            <button type="button" disabled={disabled} className="btn btn-light btn-lg btn-block" onClick={(e) => { addRide(e) }}>ADD RIDE</button>
                             <div className="message" style={{ display: msg !== null ? "block" : "none" }}>
                                 <p style={{ color: 'green' }}>{msg}</p>
                             </div>

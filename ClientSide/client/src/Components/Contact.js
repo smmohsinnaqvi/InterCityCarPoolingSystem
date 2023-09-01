@@ -7,7 +7,7 @@ export default function Contact()
             <div className="info">
 
             <Row gutter={16}>
-                <Col span={8} style={{backgroundColor:'red'}} >
+                <Col span={8} >
                     <Card title="S M Mohsin Naqvi" style={{margin:'20px'}}>
                         <p><b>Email : </b>mohsinnaqvi.mn02@gmail.com</p>
                         <p><b>Phone : </b>+91 8858224400</p>
