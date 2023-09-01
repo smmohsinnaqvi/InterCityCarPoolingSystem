@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -107,5 +108,19 @@ public class RideController
 	public List<Ride> getAllRidesByStatus(@RequestParam("status") String status)
 	{
 		return rservice.getAllRidesByStatus(status);
+	}
+	
+	//ADDED BY ME (Mohsin Naqvi)
+	@GetMapping("/getAllRidesById")
+	public List<Ride> getAllRidesById(@RequestParam("carowner_id") User carowner_id)
+	{
+		return rservice.getAllRidesById(carowner_id);
+	}
+	
+	//ADDED BY ME (Mohsin Naqvi)
+	@PutMapping("/changeRideStatusById")
+	public int changeRideStatusById(@RequestParam("rid") int rid)
+	{
+		return rservice.changeRideStatusById(rid);
 	}
 }

@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.example.carpooling.models.Booking;
+import com.example.carpooling.models.User;
 
 import jakarta.transaction.Transactional;
 @Transactional
@@ -27,5 +28,11 @@ public interface BookingRepository extends JpaRepository<Booking, Integer>
 					"JOIN payment p ON p.booking_id = b.id "+
 					"SET b.status= 'success' where b.id= ?1",nativeQuery = true)
 	public int changeStatusAfterPayment(int bid);
+	
+	
+	
+	//ADDED BY ME ( MOHSIN NAQVI)
+	@Query("select b from Booking b where b.users=:pid")
+	public List<Booking> getAllBookingForUser(User pid);
 	
 }

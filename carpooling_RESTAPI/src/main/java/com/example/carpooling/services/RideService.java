@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.example.carpooling.models.City;
 import com.example.carpooling.models.Ride;
 import com.example.carpooling.models.Role;
+import com.example.carpooling.models.User;
 import com.example.carpooling.repositories.RideRepository;
 
 @Service
@@ -66,5 +67,18 @@ public class RideService
 	public List<Ride> getAllRidesByStatus(String status)
 	{
 		return rrepo.getAllRidesByStatus(status);
+	}
+	
+	
+	//ADDED BY ME (Mohsin Naqvi)
+	public List<Ride> getAllRidesById(User carowner_id)
+	{
+		return rrepo.getAllRidesById(carowner_id);
+	}
+	
+	//ADDED BY ME (Mohsin Naqvi)
+	public int changeRideStatusById(int rid)
+	{
+		return rrepo.changeRideStatusById(rid);
 	}
 }

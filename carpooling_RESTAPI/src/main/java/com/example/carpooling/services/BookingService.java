@@ -6,8 +6,10 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.carpooling.models.Booking;
+import com.example.carpooling.models.User;
 import com.example.carpooling.repositories.BookingRepository;
 
 @Service
@@ -57,6 +59,14 @@ public class BookingService
 	{
 		return brepo.changeStatusAfterPayment(bid);
 	}
+	
+	
+	//ADDED BY ME( MOHSIN NAQVI )
+	public List<Booking> getAllBookingForUser(User pid)
+	{
+		return brepo.getAllBookingForUser(pid);
+	}
+	
 	
 	
 }

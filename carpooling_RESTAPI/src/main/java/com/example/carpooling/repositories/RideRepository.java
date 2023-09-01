@@ -4,13 +4,19 @@ import java.sql.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.carpooling.models.City;
 import com.example.carpooling.models.Ride;
+import com.example.carpooling.models.User;
+
+import jakarta.transaction.Transactional;
 
 @Repository
+@Transactional
 public interface RideRepository extends JpaRepository<Ride, Integer> 
 {
 
@@ -25,4 +31,14 @@ public interface RideRepository extends JpaRepository<Ride, Integer>
 	
 	@Query("select r from Ride r where r.status=:status")
 	public List<Ride> getAllRidesByStatus(String status);
+	
+	//ADDED BY ME ( MOHSIN NAQVI )
+	@Query("select r from Ride r where r.users=:carowner_id")
+	public List<Ride> getAllRidesById(@RequestParam("carowner_id") User carowner_id);
+	
+	
+	//ADDED BY ME ( MOHSIN NAQVI )
+	@Query("update Ride r set r.status='cancelled' where r.id=:rid")
+	@Modifying
+	public int changeRideStatusById(int rid);
 }

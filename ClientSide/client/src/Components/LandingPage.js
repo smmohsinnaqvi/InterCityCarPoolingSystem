@@ -5,8 +5,8 @@ import Image3 from "../Assests/3.jpg";
 import "./modules.css";
 import { useEffect, useReducer, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import CarUserNav from "./CarUserNav";
+//import { useSelector } from "react-redux";
+import CarUserNav from "./CarUserComponents/CarUserNav";
 import Icon, { CloseCircleFilled } from '@ant-design/icons';
 
 const initialState = {
@@ -37,13 +37,15 @@ export default function LandingPage(props) {
   const [user, setUser] = useState();
 
 
+  //For date Validation
+  const [disabled, setDisabled] = useState(false);
   //No. of seats
   const [seats, setSeats] = useState();
   //flag for no rides
-  const[search,setSearch]=useState(false);
+  const [search, setSearch] = useState(false);
 
   const [msg, setMsg] = useState(null)
-  const[selectedValue,setSelectedValue]=useState("");
+  const [selectedValue, setSelectedValue] = useState("");
   useEffect(() => {
 
     const loginid = JSON.parse(localStorage.getItem("loggedUser")).id;
@@ -67,19 +69,18 @@ export default function LandingPage(props) {
     // fetch(`http://localhost:8080/getRidesBetweenTwoCities?start_location=${travel.startCity}&end_location=${travel.endCity}`)
     //   .then((res) => res.json())
     //   .then((rides) => setRides(rides))
-    
-      fetch(`http://localhost:8080/getAllRidesFromOneCityToAnotherCityByDate?start_location=${travel.startCity}&end_location=${travel.endCity}&date_of_journey=${travel.date}`)
+
+    fetch(`http://localhost:8080/getAllRidesFromOneCityToAnotherCityByDate?start_location=${travel.startCity}&end_location=${travel.endCity}&date_of_journey=${travel.date}`)
       .then((res) => res.json())
       .then((rides) => {
-                        setRides(rides);
-                        if(rides.length===0) 
-                        {
-                          setSearch(true);
-                        } 
-                        else
-                        setSearch(false);
-                      
-                      })
+        setRides(rides);
+        if (rides.length === 0) {
+          setSearch(true);
+        }
+        else
+          setSearch(false);
+
+      })
   }
   // useEffect(() => {
   // console.log(rides)
@@ -112,10 +113,10 @@ export default function LandingPage(props) {
       })
   }
 
-  const mystate = useSelector((state) => state.logged);
+ // const mystate = useSelector((state) => state.logged);
   return (
     <>
-      <CarUserNav/>
+      <CarUserNav />
       {/* <div style={{ display: mystate.loggedIn ? "block" : "none" }}>
 
         <div className="navigation" style={{ position: "relative" }}>
@@ -135,102 +136,133 @@ export default function LandingPage(props) {
         <div>
       </div>
         </div> */}
-        <Carousel autoplay>
-          <div className="car_Image">
-            <img src={Image1} alt="1" />
-            <p className="car_caption">Look for a nearby ride.</p>
-          </div>
-          <div className="car_Image">
-            <img src={Image2} alt="2" />
-            <p className="car_caption">Offer rides.</p>
-          </div>
-          <div className="car_Image">
-            <img src={Image3} alt="3" />
-            <p className="car_caption">Save yourself from city hassles.</p>
-          </div>
-        </Carousel>
-        <h2 style={{color:'#4682a9', margin:'5px'}}>Welcome {user && user.fname}</h2>
+      <Carousel autoplay>
+        <div className="car_Image">
+          <img src={Image1} alt="1" />
+          <p className="car_caption">Look for a nearby ride.</p>
+        </div>
+        <div className="car_Image">
+          <img src={Image2} alt="2" />
+          <p className="car_caption">Offer rides.</p>
+        </div>
+        <div className="car_Image">
+          <img src={Image3} alt="3" />
+          <p className="car_caption">Save yourself from city hassles.</p>
+        </div>
+      </Carousel>
+      <h2 style={{ color: '#4682a9', margin: '5px' }}>Welcome {user && user.fname}</h2>
       <div className="lp form-container">
         <form className="mb-3 frm">
           <div className="row">
             <div className="col">
-              <Select
-                name="startCity"
-                type="text"
-                className="form-control si"
-                defaultValue="0"
-                onChange={(e) => {
-                  dispatch({
-                    type: "update",
-                    fld: "startCity",
-                    value: e,
-                  });
-                  setSelectedValue(e);
-                }}
-              >
-                <Select.Option value="0" >--Source City --</Select.Option>
-                {cities.map((v) => {
-                  return (
-                    <Select.Option key={v.id} value={v.id} disabled={selectedValue===v.id}>
-                      {v.city}
-                    </Select.Option>
-                  );
-                })}
-              </Select>
+              <Form.Item rules={[
+        {
+          required: true,
+          message: 'Please Select Source City',
+        },
+      ]}>
+
+                <Select
+                  name="startCity"
+                  type="text"
+                  className="form-control si"
+                  defaultValue="0"
+                  onChange={(e) => {
+                    dispatch({
+                      type: "update",
+                      fld: "startCity",
+                      value: e,
+                    });
+                    setSelectedValue(e);
+                  }}
+                >
+                  <Select.Option value="0" >--Source City --</Select.Option>
+                  {cities.map((v) => {
+                    return (
+                      <Select.Option key={v.id} value={v.id} disabled={selectedValue === v.id}>
+                        {v.city}
+                      </Select.Option>
+                    );
+                  })}
+                </Select>
+              </Form.Item>
             </div>
             <div class="col">
-              <Select
-                name="endCity"
-                type="text"
-                className="form-control si"
-                defaultValue="0"
-                onChange={(e) => {
-                  dispatch({
-                    type: "update",
-                    fld: "endCity",
-                    value: e,
-                  });
-                  setSelectedValue(e);
-                }}
-              >
-                <Select.Option value="0">--Destination City --</Select.Option>
-                {cities.map((v) => {
-                  return (
-                    <Select.Option key={v.id} value={v.id} disabled={selectedValue===v.id}>
-                      {v.city}
-                    </Select.Option>
-                  );
-                })}
-              </Select>
+              <Form.Item rules={[
+        {
+          required: true,
+          message: 'Please Select Destination City',
+        },
+      ]}>
+
+                <Select
+                  name="endCity"
+                  type="text"
+                  className="form-control si"
+                  defaultValue="0"
+                  onChange={(e) => {
+                    dispatch({
+                      type: "update",
+                      fld: "endCity",
+                      value: e,
+                    });
+                    setSelectedValue(e);
+                  }}
+                >
+                  <Select.Option value="0">--Destination City --</Select.Option>
+                  {cities.map((v) => {
+                    return (
+                      <Select.Option key={v.id} value={v.id} disabled={selectedValue === v.id}>
+                        {v.city}
+                      </Select.Option>
+                    );
+                  })}
+                </Select>
+              </Form.Item>
             </div>
           </div>
           <div className="row">
             <Form.Item label="Date of Journey" labelCol={{ span: 24 }} >
               <Input type="date" name="date" style={{ width: '30%' }} onChange={(e) => {
-                dispatch({
-                  type: "update",
-                  fld: "date",
-                  value: e.target.value,
-                });
+                console.log(e);
+                const date1 = new Date();
+                const date2 = new Date(e.target.value);
+                console.log(date1);
+                console.log(date2);
+
+                if (date1 <= date2) {
+                  setDisabled(false);
+                  dispatch({
+                    type: "update",
+                    fld: "date",
+                    value: e.target.value,
+                  });
+                } else if (date1 > date2) {
+                  e.preventDefault();
+                  setDisabled(true);
+                } else {
+                  console.log("date1 and date2 are the same");
+                }
+
               }}></Input>
             </Form.Item>
           </div>
 
-          <Button type="button" className="btn btn-secondary" onClick={(e) => { showRide(e) }}>
+          <Button type="button" disabled={disabled} className="btn btn-secondary" onClick={(e) => { showRide(e) }}>
             Search Ride
           </Button>
         </form>
 
         {/* <p>{JSON.stringify(travel)}</p> */}
         {
-        
-            search &&
+
+          search &&
           <div className="message">
-            <div style={{textAlign:"center"}}>
-<CloseCircleFilled  style={{color:"#4682a9", fontSize:"large"}}/>
-</div>
-                <h4 style={{color:'#4682a9'}}>Ooops No Ride</h4>
+            <div style={{ textAlign: "center" }}>
+              <CloseCircleFilled style={{ color: "#4682a9", fontSize: "large" }} />
             </div>
+            <h4 style={{ color: '#4682a9' }}>Ooops No Ride</h4>
+          </div>
         }
 
         {
