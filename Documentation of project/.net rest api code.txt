@@ -1,0 +1,14 @@
+ builder.Services.AddEndpointsApiExplorer();
+ builder.Services.AddSwaggerGen();
+ builder.Services.AddDbContext<CarpoolprojectContext>();
+ builder.Services.AddControllers().AddJsonOptions(options =>
+ {
+     options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+     options.JsonSerializerOptions.WriteIndented = true;
+ });
+ builder.Services.AddCors(policybuilder => policybuilder.AddDefaultPolicy(policy =>
+ policy.WithOrigins("*").AllowAnyHeader().AllowAnyHeader())) ;
+
+ var app = builder.Build();
+ app.UseCors();
+           
